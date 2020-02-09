@@ -2,7 +2,7 @@
 
 namespace JML.Domain.Core.Contracts
 {
-    public interface IAuditableEntity<TKey> : IAppEntity<TKey>
+    public interface IAuditableEntity
     {
         DateTime CreatedAt { get; }
         DateTime ModifiedAt { get; }
