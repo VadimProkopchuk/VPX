@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using JML.Domain.Base;
-using JML.Domain.Templates;
+using JML.Domain.Core.Contracts;
 
 namespace JML.Domain
 {
-    public class Tag : BaseAuditableEntity<Guid>
+    public class Tag : IAppEntity<Guid>, IAuditableEntity
     {
-        protected Tag() { }
-
-        public Tag(string name) : this()
-        {
-            Name = name;
-        }
+        public Guid Id { get; protected set; }
 
         public string Name { get; set; }
-        public virtual ICollection<Lecture> Lectures { get; set; }
-        public virtual ICollection<TestTemplate> Tests { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
+
+        public virtual ICollection<LectureTag> LectureTags { get; set; }
+        public virtual ICollection<TestTemplateTag> TestTemplateTags { get; set; }
     }
 }

@@ -1,27 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using JML.Domain.Base;
+using JML.Domain.Core.Contracts;
 
 namespace JML.Domain.Templates
 {
-    public class TestTemplate : BaseAuditableEntity<Guid>
+    public class TestTemplate : IAppEntity<Guid>, IAuditableEntity
     {
-        protected TestTemplate() { }
-
-        public TestTemplate(string name, string description, int different) : this()
-        {
-            Name = name;
-            Description = description;
-            Different = different;
-        }
+        public Guid Id { get; protected set; }
 
         public string Name { get; set; }
         public string Description { get; set; }
-        public int Different { get; set; }
-        public int GeneratedCount { get; set; }
+        public int CountOfQuestions { get; set; }
         public TimeSpan ExecuteTime { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
 
-        public virtual ICollection<Tag> Tags { get; set; }
+        public virtual ICollection<TestTemplateTag> TestTemplateTags { get; set; }
         public virtual ICollection<QuestionTemplate> Questions { get; set; }
     }
 }

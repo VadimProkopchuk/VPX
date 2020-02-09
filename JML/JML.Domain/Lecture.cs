@@ -1,27 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using JML.Domain.Base;
+using JML.Domain.Core.Contracts;
 
 namespace JML.Domain
 {
-    public class Lecture : BaseAuditableEntity<Guid>
+    public class Lecture : IAppEntity<Guid>, IAuditableEntity
     {
-        protected Lecture() { }
-
-        public Lecture(string name, string url, string file, TimeSpan timeToRead) 
-            : this()
-        {
-            Name = name;
-            Url = url;
-            File = file;
-            TimeToRead = timeToRead;
-        }
+        public Guid Id { get; protected set; }
 
         public string Name { get; set; }
         public string Url { get; set; }
-        public string File { get; set; }
+        public string Content { get; set; }
         public TimeSpan TimeToRead { get; set; }
 
-        public virtual ICollection<Tag> Tags { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
+
+        public virtual ICollection<LectureTag> LectureTags { get; set; }
     }
 }

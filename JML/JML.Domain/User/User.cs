@@ -1,13 +1,13 @@
 ﻿using System;
-using JML.Domain.Base;
+using JML.Domain.Core.Contracts;
 
 namespace JML.Domain.User
 {
-    public class User : BaseAuditableEntity<Guid>
+    public class User : IAppEntity<Guid>, IAuditableEntity
     {
-        public User()
-        {
-            
-        }
+        public Guid Id { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
     }
 }

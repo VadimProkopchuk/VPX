@@ -1,20 +1,17 @@
 ﻿using System;
-using JML.Domain.Base;
+using JML.Domain.Core.Contracts;
 
 namespace JML.Domain.Templates
 {
-    public class AnswerTemplate : BaseAuditableEntity<Guid>
+    public class AnswerTemplate : IAppEntity<Guid>, IAuditableEntity
     {
-        protected AnswerTemplate() { }
-
-        public AnswerTemplate(string answer, bool isCorrect)
-        {
-            Answer = answer;
-            IsCorrect = isCorrect;
-        }
+        public Guid Id { get; protected set; }
+        public Guid QuestionTemplateId { get; set; }
 
         public string Answer { get; set; }
         public bool IsCorrect { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
 
         public virtual QuestionTemplate Question { get; set; }
     }
