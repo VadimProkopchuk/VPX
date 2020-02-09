@@ -2,7 +2,7 @@
 using JML.Domain.Enums;
 using System;
 
-namespace JML.Domain.User
+namespace JML.Domain
 {
     public class UserRole : IAppEntity<Guid>, IAuditableEntity
     {
