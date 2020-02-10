@@ -1,43 +1,24 @@
 ﻿using JML.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using System;
-using System.IO;
-using Microsoft.EntityFrameworkCore.SqlServer;
 using JML.Domain;
+using System.Threading.Tasks;
 
 namespace JML.Presentation.ConsolePresentation
 {
     class Program
     {
-        private static IConfigurationRoot configurationRoot;
-
-        static IConfigurationRoot GetConfiguration()
+        static async Task Main(string[] args)
         {
-            if (configurationRoot == null)
-            {
-                var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-             
-                configurationRoot = builder.Build();
-            }
-
-            return configurationRoot;
-        }
-
-        static void Main(string[] args)
-        {
-            var config = GetConfiguration();
             var connectionOptions = new DbContextOptionsBuilder<AppDbContext>()
-                .UseSqlServer(config.GetConnectionString("JML.Database"))
+                .UseSqlServer("Server=.;Database=JML.Storage.Dev;Trusted_Connection=True;")
                 .Options;
-//            using var appDbContext = new AppDbContext(connectionOptions);
+            var appDbContext = new AppDbContext(connectionOptions);
+            var dataContext = new DataContext(appDbContext);
 
-            //var usersSet = appDbContext.Set<User>();
+            appDbContext.Set<Tag>().Add(new Tag() { Name = "Test" });
 
-            
-
+            await dataContext.SaveChangesAsync();
 
 
 

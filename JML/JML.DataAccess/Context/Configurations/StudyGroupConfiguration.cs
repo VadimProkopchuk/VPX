@@ -9,7 +9,7 @@ namespace JML.DataAccess.Context.Configurations
     {
         public void Configure(EntityTypeBuilder<StudyGroup> builder)
         {
-            builder.ConfigurePrimaryKey().ConfigureAccessAt();
+            builder.ConfigurePrimaryKey();
             builder.Property(x => x.Name).IsRequired();
 
             builder.ToTable("StudyGroups");

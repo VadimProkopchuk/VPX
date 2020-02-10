@@ -16,20 +16,5 @@ namespace JML.DataAccess.Context.Extensions
 
             return modelBuilder;
         }
-
-        public static EntityTypeBuilder<T> ConfigureAccessAt<T>(this EntityTypeBuilder<T> modelBuilder)
-            where T : class, IAuditableEntity
-        {
-            modelBuilder
-                .Property(x => x.CreatedAt)
-                .IsRequired()
-                .ValueGeneratedOnAdd();
-            modelBuilder
-                .Property(x => x.ModifiedAt)
-                .IsRequired()
-                .ValueGeneratedOnAddOrUpdate();
-
-            return modelBuilder;
-        }
     }
 }

@@ -9,8 +9,9 @@ namespace JML.DataAccess.Context.Configurations
     {
         public void Configure(EntityTypeBuilder<Tag> builder)
         {
-            builder.ConfigurePrimaryKey().ConfigureAccessAt();
+            builder.ConfigurePrimaryKey();
             builder.Property(x => x.Name).IsRequired();
+            builder.HasIndex(x => x.Name).IsUnique();
 
             builder.ToTable("Tags");
         }

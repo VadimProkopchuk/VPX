@@ -9,7 +9,7 @@ namespace JML.DataAccess.Context.Configurations
     {
         public void Configure(EntityTypeBuilder<LectureTag> builder)
         {
-            builder.ConfigurePrimaryKey().ConfigureAccessAt();
+            builder.ConfigurePrimaryKey();
             builder.HasOne(x => x.Tag)
                 .WithMany(x => x.LectureTags)
                 .HasForeignKey(x => x.TagId)

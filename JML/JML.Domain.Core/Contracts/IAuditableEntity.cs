@@ -4,7 +4,7 @@ namespace JML.Domain.Core.Contracts
 {
     public interface IAuditableEntity
     {
-        DateTime CreatedAt { get; }
-        DateTime ModifiedAt { get; }
+        DateTime CreatedAt { get; set; }
+        DateTime ModifiedAt { get; set; }
     }
 }

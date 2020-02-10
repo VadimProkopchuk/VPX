@@ -9,7 +9,7 @@ namespace JML.DataAccess.Context.Configurations
     {
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
-            builder.ConfigurePrimaryKey().ConfigureAccessAt();
+            builder.ConfigurePrimaryKey();
             builder.HasOne(x => x.User)
                 .WithMany(x => x.UserRoles)
                 .HasForeignKey(x => x.UserId)

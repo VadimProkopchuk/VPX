@@ -80,6 +80,7 @@ namespace JML.DataAccess.Context.Migrations
                     Password = table.Column<string>(nullable: false),
                     CountOfInvalidAttempts = table.Column<int>(nullable: false),
                     IsLocked = table.Column<bool>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
                     LoginAt = table.Column<DateTime>(nullable: true),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     ModifiedAt = table.Column<DateTime>(nullable: false)
@@ -295,6 +296,12 @@ namespace JML.DataAccess.Context.Migrations
                 column: "TestTemplateId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Lectures_Url",
+                table: "Lectures",
+                column: "Url",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LectureTags_LectureId",
                 table: "LectureTags",
                 column: "LectureId");
@@ -310,6 +317,12 @@ namespace JML.DataAccess.Context.Migrations
                 column: "TestTemplateId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Tags_Name",
+                table: "Tags",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TestTemplateTags_TagId",
                 table: "TestTemplateTags",
                 column: "TagId");
@@ -323,6 +336,12 @@ namespace JML.DataAccess.Context.Migrations
                 name: "IX_UserRoles_UserId",
                 table: "UserRoles",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_GroupId",

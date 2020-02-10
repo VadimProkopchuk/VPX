@@ -9,7 +9,7 @@ namespace JML.DataAccess.Context.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ConfigurePrimaryKey().ConfigureAccessAt();
+            builder.ConfigurePrimaryKey();
             builder.HasOne(x => x.Group)
                 .WithMany(x => x.Users)
                 .HasForeignKey(x => x.GroupId)
@@ -19,6 +19,8 @@ namespace JML.DataAccess.Context.Configurations
             builder.Property(x => x.Password).IsRequired();
             builder.Property(x => x.CountOfInvalidAttempts).IsRequired();
             builder.Property(x => x.IsLocked).IsRequired();
+            builder.Property(x => x.Email).IsRequired();
+            builder.HasIndex(x => x.Email).IsUnique();
 
             builder.ToTable("Users");
         }

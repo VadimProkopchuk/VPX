@@ -9,7 +9,7 @@ namespace JML.DataAccess.Context.Configurations
     {
         public void Configure(EntityTypeBuilder<KnowledgeTestQuestion> builder)
         {
-            builder.ConfigurePrimaryKey().ConfigureAccessAt();
+            builder.ConfigurePrimaryKey();
             builder.HasOne(x => x.KnowledgeTest)
                 .WithMany(x => x.Questions)
                 .HasForeignKey(x => x.KnowledgeTestId)
