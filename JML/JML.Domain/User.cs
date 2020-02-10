@@ -19,7 +19,7 @@ namespace JML.Domain
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
 
-        public virtual Group Group { get; set; }
+        public virtual StudyGroup Group { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }
