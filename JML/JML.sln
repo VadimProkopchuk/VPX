@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JML.Domain.Core", "JML.Domain.Core\JML.Domain.Core.csproj", "{446786F1-0EA1-4BBE-9A6E-A00F06731D0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JML.Domain.Core", "JML.Domain.Core\JML.Domain.Core.csproj", "{446786F1-0EA1-4BBE-9A6E-A00F06731D0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JML.Domain", "JML.Domain\JML.Domain.csproj", "{9CD14A9C-BDAB-4087-979C-936A500C595D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JML.Domain", "JML.Domain\JML.Domain.csproj", "{9CD14A9C-BDAB-4087-979C-936A500C595D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JML.DataAccess.Core", "JML.DataAccess.Core\JML.DataAccess.Core.csproj", "{F67DA610-56D3-4236-8D79-24433CBCC9F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JML.DataAccess", "JML.DataAccess\JML.DataAccess.csproj", "{F1562E96-1CCD-4255-8384-DD322F7ADB5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +45,30 @@ Global
 		{9CD14A9C-BDAB-4087-979C-936A500C595D}.Release|x64.Build.0 = Release|Any CPU
 		{9CD14A9C-BDAB-4087-979C-936A500C595D}.Release|x86.ActiveCfg = Release|Any CPU
 		{9CD14A9C-BDAB-4087-979C-936A500C595D}.Release|x86.Build.0 = Release|Any CPU
+		{F67DA610-56D3-4236-8D79-24433CBCC9F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F67DA610-56D3-4236-8D79-24433CBCC9F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F67DA610-56D3-4236-8D79-24433CBCC9F8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F67DA610-56D3-4236-8D79-24433CBCC9F8}.Debug|x64.Build.0 = Debug|Any CPU
+		{F67DA610-56D3-4236-8D79-24433CBCC9F8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F67DA610-56D3-4236-8D79-24433CBCC9F8}.Debug|x86.Build.0 = Debug|Any CPU
+		{F67DA610-56D3-4236-8D79-24433CBCC9F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F67DA610-56D3-4236-8D79-24433CBCC9F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F67DA610-56D3-4236-8D79-24433CBCC9F8}.Release|x64.ActiveCfg = Release|Any CPU
+		{F67DA610-56D3-4236-8D79-24433CBCC9F8}.Release|x64.Build.0 = Release|Any CPU
+		{F67DA610-56D3-4236-8D79-24433CBCC9F8}.Release|x86.ActiveCfg = Release|Any CPU
+		{F67DA610-56D3-4236-8D79-24433CBCC9F8}.Release|x86.Build.0 = Release|Any CPU
+		{F1562E96-1CCD-4255-8384-DD322F7ADB5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1562E96-1CCD-4255-8384-DD322F7ADB5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1562E96-1CCD-4255-8384-DD322F7ADB5C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F1562E96-1CCD-4255-8384-DD322F7ADB5C}.Debug|x64.Build.0 = Debug|Any CPU
+		{F1562E96-1CCD-4255-8384-DD322F7ADB5C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F1562E96-1CCD-4255-8384-DD322F7ADB5C}.Debug|x86.Build.0 = Debug|Any CPU
+		{F1562E96-1CCD-4255-8384-DD322F7ADB5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1562E96-1CCD-4255-8384-DD322F7ADB5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1562E96-1CCD-4255-8384-DD322F7ADB5C}.Release|x64.ActiveCfg = Release|Any CPU
+		{F1562E96-1CCD-4255-8384-DD322F7ADB5C}.Release|x64.Build.0 = Release|Any CPU
+		{F1562E96-1CCD-4255-8384-DD322F7ADB5C}.Release|x86.ActiveCfg = Release|Any CPU
+		{F1562E96-1CCD-4255-8384-DD322F7ADB5C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

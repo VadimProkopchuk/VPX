@@ -16,5 +16,6 @@ namespace JML.Domain
 
         public virtual KnowledgeTest KnowledgeTest { get; set; }
         public virtual QuestionTemplate QuestionTemplate { get; set; }
+        public virtual AnswerTemplate SelectedAnswer { get; set; }
     }
 }
