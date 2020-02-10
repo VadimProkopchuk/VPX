@@ -5,12 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace JML.DataAccess.Context.Configurations
 {
-    public class GroupConfiguration : IEntityTypeConfiguration<Group>
+    public class StudyGroupConfiguration : IEntityTypeConfiguration<StudyGroup>
     {
-        public void Configure(EntityTypeBuilder<Group> builder)
+        public void Configure(EntityTypeBuilder<StudyGroup> builder)
         {
             builder.ConfigurePrimaryKey().ConfigureAccessAt();
             builder.Property(x => x.Name).IsRequired();
+
+            builder.ToTable("StudyGroups");
         }
     }
 }

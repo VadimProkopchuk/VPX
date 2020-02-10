@@ -10,9 +10,14 @@ namespace JML.DataAccess.Context.Configurations
         public void Configure(EntityTypeBuilder<AnswerTemplate> builder)
         {
             builder.ConfigurePrimaryKey().ConfigureAccessAt();
-            builder.HasOne(x => x.Question).WithMany(x => x.Answers).HasForeignKey(x => x.QuestionTemplateId);
+            builder.HasOne(x => x.Question)
+                .WithMany(x => x.Answers)
+                .HasForeignKey(x => x.QuestionTemplateId)
+                .OnDelete(DeleteBehavior.Restrict);
             builder.Property(x => x.Answer).IsRequired();
             builder.Property(x => x.IsCorrect).IsRequired();
+
+            builder.ToTable("AnswerTemplates");
         }
     }
 }

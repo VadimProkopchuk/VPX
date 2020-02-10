@@ -14,6 +14,8 @@ namespace JML.DataAccess.Context.Configurations
             builder.Property(x => x.Url).IsRequired();
             builder.Property(x => x.Content).IsRequired();
             builder.Property(x => x.TimeToRead).IsRequired();
+
+            builder.ToTable("Lectures");
         }
     }
 }

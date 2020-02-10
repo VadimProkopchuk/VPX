@@ -14,6 +14,8 @@ namespace JML.DataAccess.Context.Configurations
             builder.Property(x => x.Description).IsRequired();
             builder.Property(x => x.CountOfQuestions).IsRequired();
             builder.Property(x => x.ExecuteTime).IsRequired();
+
+            builder.ToTable("TestTemplates");
         }
     }
 }

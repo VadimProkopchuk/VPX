@@ -11,6 +11,8 @@ namespace JML.DataAccess.Context.Configurations
         {
             builder.ConfigurePrimaryKey().ConfigureAccessAt();
             builder.Property(x => x.Name).IsRequired();
+
+            builder.ToTable("Tags");
         }
     }
 }
