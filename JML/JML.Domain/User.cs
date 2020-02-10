@@ -15,7 +15,7 @@ namespace JML.Domain
         public int CountOfInvalidAttempts { get; set; }
         public bool IsLocked { get; set; }
 
-        public DateTime LoginAt { get; set; }
+        public DateTime? LoginAt { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
 
