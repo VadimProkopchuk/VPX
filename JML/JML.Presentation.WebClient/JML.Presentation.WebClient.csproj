@@ -18,9 +18,24 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\.idea\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\.idea\**" />
+    <EmbeddedResource Remove="ClientApp\.idea\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\.idea\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\.idea\ClientApp.iml" />
+    <None Remove="ClientApp\.idea\codeStyles\codeStyleConfig.xml" />
+    <None Remove="ClientApp\.idea\codeStyles\Project.xml" />
+    <None Remove="ClientApp\.idea\inspectionProfiles\Project_Default.xml" />
+    <None Remove="ClientApp\.idea\misc.xml" />
+    <None Remove="ClientApp\.idea\modules.xml" />
+    <None Remove="ClientApp\.idea\vcs.xml" />
+    <None Remove="ClientApp\.idea\workspace.xml" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
