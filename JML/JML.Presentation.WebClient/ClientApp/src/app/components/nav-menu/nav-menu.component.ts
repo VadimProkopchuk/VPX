@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {PageNameService} from '../../shared/services/page-name.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -6,13 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
-  isExpanded = false;
-
-  collapse() {
-    this.isExpanded = false;
-  }
-
-  toggle() {
-    this.isExpanded = !this.isExpanded;
+  constructor(private pageNameService: PageNameService) {
   }
 }
