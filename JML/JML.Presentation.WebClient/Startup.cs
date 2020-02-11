@@ -1,3 +1,4 @@
+using JML.Presentation.WebClient.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -18,7 +19,13 @@ namespace JML.Presentation.WebClient
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            var appSettings = services.ConfigureAppSettings(Configuration);
+
+            services.AddControllers();
+            services.ConfigureBearerAuth(appSettings);
+            services.ConfigureDataContext(Configuration);
+            services.ConfigureDependencies();
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -45,6 +52,9 @@ namespace JML.Presentation.WebClient
             }
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

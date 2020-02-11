@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\JML.Domain\JML.Domain.csproj" />
+    <ProjectReference Include="..\JML.Models\JML.Models.csproj" />
+  </ItemGroup>
+
 </Project>
