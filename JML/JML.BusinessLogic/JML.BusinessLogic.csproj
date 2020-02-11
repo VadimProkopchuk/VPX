@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JML.BusinessLogic.Core\JML.BusinessLogic.Core.csproj" />
+    <ProjectReference Include="..\JML.DataAccess.Core\JML.DataAccess.Core.csproj" />
+    <ProjectReference Include="..\JML.Domain\JML.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
