@@ -9,11 +9,14 @@ namespace JML.DataAccess.Context.Configurations
     {
         public void Configure(EntityTypeBuilder<Lecture> builder)
         {
-            builder.ConfigurePrimaryKey().ConfigureAccessAt();
+            builder.ConfigurePrimaryKey();
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Url).IsRequired();
+            builder.HasIndex(x => x.Url).IsUnique();
             builder.Property(x => x.Content).IsRequired();
             builder.Property(x => x.TimeToRead).IsRequired();
+
+            builder.ToTable("Lectures");
         }
     }
 }

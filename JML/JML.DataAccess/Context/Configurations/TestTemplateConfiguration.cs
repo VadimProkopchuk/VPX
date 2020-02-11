@@ -9,11 +9,13 @@ namespace JML.DataAccess.Context.Configurations
     {
         public void Configure(EntityTypeBuilder<TestTemplate> builder)
         {
-            builder.ConfigurePrimaryKey().ConfigureAccessAt();
+            builder.ConfigurePrimaryKey();
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Description).IsRequired();
             builder.Property(x => x.CountOfQuestions).IsRequired();
             builder.Property(x => x.ExecuteTime).IsRequired();
+
+            builder.ToTable("TestTemplates");
         }
     }
 }

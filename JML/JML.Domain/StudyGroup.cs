@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace JML.Domain
 {
-    public class Group : IAppEntity<Guid>, IAuditableEntity
+    public class StudyGroup : IAppEntity<Guid>, IAuditableEntity
     {
         public Guid Id { get; set; }
 

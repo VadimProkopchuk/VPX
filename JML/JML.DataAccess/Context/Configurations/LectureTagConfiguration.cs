@@ -9,9 +9,17 @@ namespace JML.DataAccess.Context.Configurations
     {
         public void Configure(EntityTypeBuilder<LectureTag> builder)
         {
-            builder.ConfigurePrimaryKey().ConfigureAccessAt();
-            builder.HasOne(x => x.Tag).WithMany(x => x.LectureTags).HasForeignKey(x => x.TagId);
-            builder.HasOne(x => x.Lecture).WithMany(x => x.LectureTags).HasForeignKey(x => x.LectureId);
+            builder.ConfigurePrimaryKey();
+            builder.HasOne(x => x.Tag)
+                .WithMany(x => x.LectureTags)
+                .HasForeignKey(x => x.TagId)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(x => x.Lecture)
+                .WithMany(x => x.LectureTags)
+                .HasForeignKey(x => x.LectureId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.ToTable("LectureTags");
         }
     }
 }

@@ -14,12 +14,13 @@ namespace JML.Domain
         public string Password { get; set; }
         public int CountOfInvalidAttempts { get; set; }
         public bool IsLocked { get; set; }
+        public string Email { get; set; }
 
         public DateTime? LoginAt { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
 
-        public virtual Group Group { get; set; }
+        public virtual StudyGroup Group { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }
