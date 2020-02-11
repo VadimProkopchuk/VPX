@@ -12,6 +12,7 @@ namespace JML.Presentation.ConsolePresentation
         {
             var connectionOptions = new DbContextOptionsBuilder<AppDbContext>()
                 .UseSqlServer("Server=.;Database=JML.Storage.Dev;Trusted_Connection=True;")
+                .UseLazyLoadingProxies()
                 .Options;
             using var appDbContext = new AppDbContext(connectionOptions);
             var dataContext = new DataContext(appDbContext);
