@@ -1,24 +1,26 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
-import {HomeComponent} from './home/home.component';
-/* import {MainLayoutComponent} from './shared/components/main-layout/main-layout.component';
-import {HomePageComponent} from './home-page/home-page.component';
-import {PostPageComponent} from './post-page/post-page.component';*/
-
+import {LayoutComponent} from '../components/layout/layout.component';
+import {HomeComponent} from '../components/home/home.component';
+import {CounterComponent} from '../components/counter/counter.component';
+import {FetchDataComponent} from '../components/fetch-data/fetch-data.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent, pathMatch: 'full'},
+  {
+    path: '', component: LayoutComponent, children: [
+      {path: '', redirectTo: '/', pathMatch: 'full'},
+      {path: '', component: HomeComponent},
+      {path: 'counter', component: CounterComponent},
+      {path: 'fetch-data', component: FetchDataComponent}
+    ]
+  },
   /*{
     /*th: '', component: MainLayoutComponent, children: [
       {path: '', redirectTo: '/', pathMatch: 'full'},
       {path: '', component: HomePageComponent},
       {path: 'post/:id', component: PostPageComponent}
     ]
-
-    },
-    {
-      path: 'admin', loadChildren: './admin/admin.module#AdminModule'
-    }*/
+*/
 ];
 
 @NgModule({
