@@ -12,5 +12,10 @@ namespace JML.DataAccess.Context
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+        }
     }
 }

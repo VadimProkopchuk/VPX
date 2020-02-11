@@ -13,16 +13,19 @@ namespace JML.Presentation.ConsolePresentation
             var connectionOptions = new DbContextOptionsBuilder<AppDbContext>()
                 .UseSqlServer("Server=.;Database=JML.Storage.Dev;Trusted_Connection=True;")
                 .Options;
-            var appDbContext = new AppDbContext(connectionOptions);
+            using var appDbContext = new AppDbContext(connectionOptions);
             var dataContext = new DataContext(appDbContext);
 
-            appDbContext.Set<Tag>().Add(new Tag() { Name = "Test" });
+            var groups = await appDbContext.Set<StudyGroup>().ToListAsync();
+            var tags = await appDbContext.Set<Tag>().ToListAsync();
+
+            foreach (var tag in tags)
+            {
+                Console.WriteLine(tag.TestTemplateTags.Count);
+            }
 
             await dataContext.SaveChangesAsync();
 
-
-
-            Console.WriteLine("Hello World!");
         }
 
 
