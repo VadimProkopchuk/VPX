@@ -7,9 +7,9 @@ namespace JML.DataAccess.Core.Contracts
     public interface IAppEntityRepository<T> where T : IAppEntity<Guid>
     {
         IQueryable<T> GetQuery();
-        T Add(T entity);
-        T Update(T entity);
-        T Remove(T entity);
-        T Remove(Guid id);
+        void Add(T entity);
+        void Update(T entity);
+        void Remove(T entity);
+        void Remove(Guid id);
     }
 }

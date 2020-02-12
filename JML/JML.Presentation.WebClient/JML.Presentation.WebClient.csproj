@@ -13,7 +13,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +41,14 @@
     <None Remove="ClientApp\.idea\modules.xml" />
     <None Remove="ClientApp\.idea\vcs.xml" />
     <None Remove="ClientApp\.idea\workspace.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JML.BusinessLogic.Core\JML.BusinessLogic.Core.csproj" />
+    <ProjectReference Include="..\JML.BusinessLogic\JML.BusinessLogic.csproj" />
+    <ProjectReference Include="..\JML.DataAccess.Core\JML.DataAccess.Core.csproj" />
+    <ProjectReference Include="..\JML.DataAccess\JML.DataAccess.csproj" />
+    <ProjectReference Include="..\JML.Models\JML.Models.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

@@ -23,6 +23,10 @@ namespace JML.DataAccess.Context
             return appDbContext.SaveChangesAsync();
         }
 
+        public DbSet<T> Set<T>() where T : class, IAppEntity<Guid>
+        {
+            return appDbContext.Set<T>();
+        }
         private void Timestamps()
         {
             var auditableEntries = appDbContext.ChangeTracker
