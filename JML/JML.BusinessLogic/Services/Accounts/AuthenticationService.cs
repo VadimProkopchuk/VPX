@@ -1,12 +1,12 @@
-﻿using JML.BusinessLogic.Core.Contracts.Accounts;
+﻿using System;
+using System.Threading.Tasks;
+using JML.BusinessLogic.Core.Contracts.Accounts;
 using JML.BusinessLogic.Core.Contracts.Systems;
 using JML.BusinessLogic.Core.Contracts.Users;
 using JML.DataAccess.Core.Contracts;
 using JML.Models;
-using System;
-using System.Threading.Tasks;
 
-namespace JML.BusinessLogic.Services.Account
+namespace JML.BusinessLogic.Services.Accounts
 {
     public class AuthenticationService : IAuthenticationService
     {
@@ -39,13 +39,14 @@ namespace JML.BusinessLogic.Services.Account
             if (!user.IsLocked && user.Password == passwordEncrypter.Encrypt(password))
             {
                 jwt = jwtService.GetToken(user);
+                user.CountOfInvalidAttempts = 0;
             } 
             else
             {
                 user.CountOfInvalidAttempts++;
-                user.IsLocked = user.CountOfInvalidAttempts > 4;
             }
 
+            user.IsLocked = user.CountOfInvalidAttempts > 4;
             await dataContext.SaveChangesAsync();
 
             if (user.IsLocked)

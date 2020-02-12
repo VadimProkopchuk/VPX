@@ -1,7 +1,7 @@
 ﻿using JML.BusinessLogic.Core.Contracts.Accounts;
 using JML.BusinessLogic.Core.Contracts.Systems;
 using JML.BusinessLogic.Core.Contracts.Users;
-using JML.BusinessLogic.Services.Account;
+using JML.BusinessLogic.Services.Accounts;
 using JML.BusinessLogic.Services.Systems;
 using JML.BusinessLogic.Services.Users;
 using JML.DataAccess.Context;
