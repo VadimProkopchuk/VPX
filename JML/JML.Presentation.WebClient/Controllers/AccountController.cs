@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
+using JML.ApiModels;
 using JML.BusinessLogic.Core.Contracts.Accounts;
-using JML.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JML.Presentation.WebClient.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
         private readonly IAuthenticationService authenticationService;
@@ -16,10 +16,18 @@ namespace JML.Presentation.WebClient.Controllers
             this.authenticationService = authenticationService;
         }
 
-        [HttpGet]
-        public async Task<JwtModel> Get()
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login(LoginModel loginModel)
         {
-            return await authenticationService.AuthAsync("asda@asd.as", "123");
+            var jwt = await authenticationService.AuthAsync(loginModel.Email, loginModel.Password);
+            var tokenPair = new TokenPair
+            {
+                Token = jwt.Token,
+                ExpiredAt = jwt.ExpiredAt
+            };
+
+            return Ok(tokenPair);
         }
     }
 }
