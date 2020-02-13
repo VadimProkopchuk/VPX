@@ -8,13 +8,13 @@ namespace JML.Presentation.ConsolePresentation
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static async Task Main()
         {
             var connectionOptions = new DbContextOptionsBuilder<AppDbContext>()
                 .UseSqlServer("Server=.;Database=JML.Storage.Dev;Trusted_Connection=True;")
                 .UseLazyLoadingProxies()
                 .Options;
-            using var appDbContext = new AppDbContext(connectionOptions);
+            await using var appDbContext = new AppDbContext(connectionOptions);
             var dataContext = new DataContext(appDbContext);
 
             var groups = await appDbContext.Set<StudyGroup>().ToListAsync();
@@ -28,7 +28,5 @@ namespace JML.Presentation.ConsolePresentation
             await dataContext.SaveChangesAsync();
 
         }
-
-
     }
 }
