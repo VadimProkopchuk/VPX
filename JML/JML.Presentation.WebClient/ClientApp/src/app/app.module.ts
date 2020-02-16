@@ -9,10 +9,9 @@ import {AppComponent} from './app.component';
 import {NavMenuComponent} from './components/nav-menu/nav-menu.component';
 import {HomeComponent} from './components/home/home.component';
 import {LayoutComponent} from './components/layout/layout.component';
-import {CounterComponent} from './components/counter/counter.component';
 import {FetchDataComponent} from './components/fetch-data/fetch-data.component';
 import {AuthInterceptor} from './shared/interceptors/auth.interceptor';
-import {AuthComponentComponent} from './components/auth-components/auth-component/auth-component.component';
+import {AuthComponent} from './components/auth-components/auth/auth.component';
 import {AlertComponent} from './components/alert/alert.component';
 
 const AUTH_INTERCEPTOR = {
@@ -27,9 +26,8 @@ const AUTH_INTERCEPTOR = {
     NavMenuComponent,
     HomeComponent,
     LayoutComponent,
-    CounterComponent,
     FetchDataComponent,
-    AuthComponentComponent,
+    AuthComponent,
     AlertComponent
   ],
   imports: [
