@@ -1,0 +1,16 @@
+<div class="alert-wrap" *ngIf="text">
+  <div class="alert alert-dismissible fade show" role="alert"
+       [ngClass]="{
+        'alert-success': type === 'success',
+        'alert-warning': type === 'warning',
+        'alert-danger': type === 'danger'
+      }">
+    <p>{{ text }}</p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+      (click)="text =''">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+
+

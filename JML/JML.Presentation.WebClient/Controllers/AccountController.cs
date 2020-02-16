@@ -18,9 +18,9 @@ namespace JML.Presentation.WebClient.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login(LoginModel loginModel)
+        public async Task<IActionResult> Login(LoginModel model)
         {
-            var jwt = await authenticationService.AuthAsync(loginModel.Email, loginModel.Password);
+            var jwt = await authenticationService.AuthAsync(model.Email, model.Password);
             var tokenPair = new TokenPair
             {
                 Token = jwt.Token,

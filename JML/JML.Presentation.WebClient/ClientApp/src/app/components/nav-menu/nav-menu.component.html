@@ -1,7 +1,10 @@
 <header>
   <nav  class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">JML | {{pageNameService.pageName}}</a>
+      <a class="navbar-brand" [routerLink]="['/']">
+        <strong class="app-color">JML | </strong>
+        <i class="app-color">{{pageNameService.pageName}}</i>
+      </a>
       <ul class="navbar-nav flex-grow">
         <li class="nav-item"
           [routerLinkActive]="['link-active']"

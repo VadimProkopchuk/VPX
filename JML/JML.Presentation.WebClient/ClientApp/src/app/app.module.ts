@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import {AppRoutingModule} from './shared/app-routing.module';
@@ -12,6 +12,8 @@ import {LayoutComponent} from './components/layout/layout.component';
 import {CounterComponent} from './components/counter/counter.component';
 import {FetchDataComponent} from './components/fetch-data/fetch-data.component';
 import {AuthInterceptor} from './shared/interceptors/auth.interceptor';
+import {AuthComponentComponent} from './components/auth-components/auth-component/auth-component.component';
+import {AlertComponent} from './components/alert/alert.component';
 
 const AUTH_INTERCEPTOR = {
   provide: HTTP_INTERCEPTORS,
@@ -26,13 +28,16 @@ const AUTH_INTERCEPTOR = {
     HomeComponent,
     LayoutComponent,
     CounterComponent,
-    FetchDataComponent
+    FetchDataComponent,
+    AuthComponentComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
+    ReactiveFormsModule,
   ],
   providers: [
     AUTH_INTERCEPTOR,
