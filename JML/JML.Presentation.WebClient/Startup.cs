@@ -23,6 +23,7 @@ namespace JML.Presentation.WebClient
             var appSettings = services.ConfigureAppSettings(Configuration);
 
             services.AddControllers(options => options.Filters.Add(new HttpResponseExceptionFilter()));
+            services.AddHttpContextAccessor();
             services.ConfigureBearerAuth(appSettings);
             services.ConfigureDataContext(Configuration);
             services.ConfigureDependencies();

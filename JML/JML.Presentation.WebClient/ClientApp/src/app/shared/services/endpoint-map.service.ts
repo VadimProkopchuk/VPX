@@ -6,4 +6,8 @@ export class EndpointMapService {
   get LoginEndpoint() {
     return environment.apiEndpoint + 'account/login';
   }
+
+  get CurrentUserInfoEndpoint() {
+    return environment.apiEndpoint + 'account/current-user';
+  }
 }

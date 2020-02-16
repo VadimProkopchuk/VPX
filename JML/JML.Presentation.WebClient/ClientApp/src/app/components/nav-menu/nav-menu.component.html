@@ -5,7 +5,7 @@
         <strong class="app-color">JML | </strong>
         <i class="app-color">{{pageNameService.pageName}}</i>
       </a>
-      <ul class="navbar-nav flex-grow">
+      <ul class="navbar-nav flex-grow" *ngIf="authService.isAuthenticated()">
         <li class="nav-item"
           [routerLinkActive]="['link-active']"
           [routerLinkActiveOptions]="{ exact: true }">
@@ -13,6 +13,16 @@
         </li>
         <li class="nav-item" [routerLinkActive]="['link-active']">
           <a class="nav-link text-dark" [routerLink]="['/fetch-data']">Fetch data</a>
+        </li>
+
+        <li class="nav-item" *ngIf="userService.currentUser != null">
+          <a class="nav-link app-color" href="#">
+            <i class="fas fa-user"></i>
+            {{userService.currentUser.firstName}} {{userService.currentUser.lastName}}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-danger" href="#" (click)="logout()">Выйти</a>
         </li>
       </ul>
     </div>

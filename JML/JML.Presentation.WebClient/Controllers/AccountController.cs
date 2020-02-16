@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using JML.ApiModels;
 using JML.BusinessLogic.Core.Contracts.Accounts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JML.Presentation.WebClient.Controllers
@@ -10,10 +11,13 @@ namespace JML.Presentation.WebClient.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAuthenticationService authenticationService;
+        private readonly ICurrentUser currentUser;
 
-        public AccountController(IAuthenticationService authenticationService)
+        public AccountController(IAuthenticationService authenticationService,
+            ICurrentUser currentUser)
         {
             this.authenticationService = authenticationService;
+            this.currentUser = currentUser;
         }
 
         [HttpPost]
@@ -28,6 +32,23 @@ namespace JML.Presentation.WebClient.Controllers
             };
 
             return Ok(tokenPair);
+        }
+
+        [HttpGet]
+        [Route("current-user")]
+        [Authorize]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            var user = await currentUser.GetCurrentUserAync();
+            var userModel = new UserModel
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                GroupName = user.Group?.Name
+            };
+
+            return Ok(userModel);
         }
     }
 }

@@ -7,6 +7,7 @@ using JML.BusinessLogic.Services.Users;
 using JML.DataAccess.Context;
 using JML.DataAccess.Core.Contracts;
 using JML.DataAccess.Repository;
+using JML.Presentation.WebClient.Infrastructure.Context;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace JML.Presentation.WebClient.Configurations
@@ -23,8 +24,8 @@ namespace JML.Presentation.WebClient.Configurations
             services.AddScoped<IPasswordEncrypter, PasswordEncrypter>();
             services.AddScoped<ISystemTimeService, SystemTimeService>();
             services.AddScoped<IUsersService, UsersService>();
-
-
+            services.AddScoped<IContextService, HttpContextService>();
+            services.AddScoped<ICurrentUser, CurrentUserService>();
         }
     }
 }

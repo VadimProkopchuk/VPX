@@ -2,21 +2,16 @@
   Hello! Authorized user!
 </div>
 <ng-template #authForm>
-  Unauthorized
   <div class="row">
     <div class="col-6 offset-3 card">
       <div class="row card-body text-center">
-        <div class="col-6"
-          [class.active-section]="!registerSelected">
-          <button class="btn btn-link app-color"
-                  (click)="changeRegisterSelected(false)">
+        <div class="col-6" [class.active-section]="!registerSelected">
+          <button class="btn btn-link app-color" (click)="changeRegisterSelected(false)">
             Вход
           </button>
         </div>
-        <div class="col-6"
-             [class.active-section]="registerSelected">
-          <button class="btn btn-link app-color"
-                  (click)="changeRegisterSelected(true)">
+        <div class="col-6" [class.active-section]="registerSelected">
+          <button class="btn btn-link app-color" (click)="changeRegisterSelected(true)">
             Регистрация
           </button>
         </div>

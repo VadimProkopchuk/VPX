@@ -22,5 +22,5 @@
       </small>
     </div>
   </div>
-  <button class="btn btn-success" type="submit" [disabled]="!isValid()">Войти</button>
+  <button class="btn btn-success" type="submit" [disabled]="form.invalid || submitted">Войти</button>
 </form>
