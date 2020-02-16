@@ -1,4 +1,5 @@
 using JML.Presentation.WebClient.Configurations;
+using JML.Presentation.WebClient.Infrastructure.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -21,7 +22,7 @@ namespace JML.Presentation.WebClient
         {
             var appSettings = services.ConfigureAppSettings(Configuration);
 
-            services.AddControllers();
+            services.AddControllers(options => options.Filters.Add(new HttpResponseExceptionFilter()));
             services.ConfigureBearerAuth(appSettings);
             services.ConfigureDataContext(Configuration);
             services.ConfigureDependencies();
