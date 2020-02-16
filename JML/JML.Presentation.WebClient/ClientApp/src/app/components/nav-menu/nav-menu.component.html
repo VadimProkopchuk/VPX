@@ -15,10 +15,10 @@
           <a class="nav-link text-dark" [routerLink]="['/fetch-data']">Fetch data</a>
         </li>
 
-        <li class="nav-item" *ngIf="userService.currentUser != null">
+        <li class="nav-item" *ngIf="userService.user != null">
           <a class="nav-link app-color" href="#">
             <i class="fas fa-user"></i>
-            {{userService.currentUser.firstName}} {{userService.currentUser.lastName}}
+            {{userService.user.firstName}} {{userService.user.lastName}}
           </a>
         </li>
         <li class="nav-item">

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../../../shared/services/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {LoginModel} from '../../../shared/services/interfaces';
 import {Router} from '@angular/router';
 import {UserService} from '../../../shared/services/user.service';
 
@@ -15,8 +13,7 @@ export class AuthComponent implements OnInit {
   submitted = false;
   message: string;
 
-  constructor(private authService: AuthService,
-              private userService: UserService,
+  constructor(private userService: UserService,
               private router: Router) {
   }
 
@@ -28,21 +25,14 @@ export class AuthComponent implements OnInit {
   }
 
   onSubmit(formData) {
-    console.log(formData);
-
     this.submitted = true;
-    const loginModel: LoginModel = {
-      Email: formData.Email,
-      Password: formData.Password
-    };
-
-    this.authService.login(loginModel).subscribe(() => {
-      this.form.reset();
-      this.userService.loadCurrentUserInfo();
-      // this.router.navigate(['/admin', 'dashboard']);
-      this.submitted = false;
-    }, () => {
-      this.submitted = false;
-    });
+    this.userService.login(formData.Email, formData.Password)
+      .subscribe(() => {
+        this.form.reset();
+        // this.router.navigate(['/admin', 'dashboard']);
+        this.submitted = false;
+      }, () => {
+        this.submitted = false;
+      });
   }
 }
