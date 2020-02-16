@@ -1,1 +1,15 @@
-<p>user-info works!</p>
+<div class="user-profile" *ngIf="open && user">
+  <div class="card">
+    <div class="card-header" *ngIf="user.roles && user.roles.length">
+      <span *ngFor="let role of user.roles">{{role}}</span>
+    </div>
+    <div class="card-body" >
+      <p class="card-title" *ngIf="user.groupName">{{user.groupName}}</p>
+      <div class="text-right">
+        <a class="btn btn-link app-color" href="#" (click)="logout()">
+          Выйти
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

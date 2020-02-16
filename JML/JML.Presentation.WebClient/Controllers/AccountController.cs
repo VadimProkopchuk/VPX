@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using JML.ApiModels;
 using JML.BusinessLogic.Core.Contracts.Accounts;
 using Microsoft.AspNetCore.Authorization;
@@ -45,7 +46,8 @@ namespace JML.Presentation.WebClient.Controllers
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                GroupName = user.Group?.Name
+                GroupName = user.Group?.Name,
+                Roles = user.UserRoles?.Select(x => x.Role.ToString()).ToArray() ?? new string[0], 
             };
 
             return Ok(userModel);

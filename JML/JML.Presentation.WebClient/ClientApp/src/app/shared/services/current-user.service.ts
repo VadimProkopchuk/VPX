@@ -6,7 +6,7 @@ import {AuthService} from './auth.service';
 import {tap} from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
-export class UserService {
+export class CurrentUserService {
   public user: User = null;
 
   constructor(private endpointMapService: EndpointMapService,
@@ -17,7 +17,6 @@ export class UserService {
   public loadCurrentUserInfo(): void {
     this.httpClient.get<User>(this.endpointMapService.CurrentUserInfoEndpoint)
       .subscribe((user: User) => {
-        console.log(user);
         this.user = user;
       }, () => { });
   }

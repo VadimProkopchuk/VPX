@@ -4,6 +4,7 @@ using JML.BusinessLogic.Core.Contracts.Accounts;
 using JML.BusinessLogic.Core.Contracts.Systems;
 using JML.BusinessLogic.Core.Contracts.Users;
 using JML.DataAccess.Core.Contracts;
+using JML.Domain;
 using JML.Models;
 
 namespace JML.BusinessLogic.Services.Accounts
@@ -35,26 +36,29 @@ namespace JML.BusinessLogic.Services.Accounts
                 throw new ArgumentOutOfRangeException(nameof(email), "Can't find user");
             }
 
-            JwtModel jwt = null;
-            if (!user.IsLocked && user.Password == passwordEncrypter.Encrypt(password))
-            {
-                jwt = jwtService.GetToken(user);
-                user.CountOfInvalidAttempts = 0;
-            } 
-            else
-            {
-                user.CountOfInvalidAttempts++;
-            }
-
-            user.IsLocked = user.CountOfInvalidAttempts > 4;
-            await dataContext.SaveChangesAsync();
-
             if (user.IsLocked)
             {
                 throw new ApplicationException("User is locked.");
             }
 
-            return jwt;
+            if (user.Password == passwordEncrypter.Encrypt(password))
+            {
+                await UpdateUserAttempts(user, attempts: 0);
+                return jwtService.GetToken(user);
+            } 
+            else
+            {
+                await UpdateUserAttempts(user, user.CountOfInvalidAttempts + 1);
+                throw new ApplicationException("Invalid user password");
+            }
+        }
+
+        private async Task UpdateUserAttempts(User user, int attempts)
+        {
+            user.CountOfInvalidAttempts = attempts;
+            user.IsLocked = user.CountOfInvalidAttempts > 4;
+
+            await dataContext.SaveChangesAsync();
         }
     }
 }

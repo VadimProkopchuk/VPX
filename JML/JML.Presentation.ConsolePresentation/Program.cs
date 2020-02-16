@@ -17,12 +17,14 @@ namespace JML.Presentation.ConsolePresentation
             await using var appDbContext = new AppDbContext(connectionOptions);
             var dataContext = new DataContext(appDbContext);
 
-            var groups = await appDbContext.Set<StudyGroup>().ToListAsync();
-            var tags = await appDbContext.Set<Tag>().ToListAsync();
+            var users = await appDbContext.Set<User>().ToListAsync();
 
-            foreach (var tag in tags)
+            foreach (var user in users)
             {
-                Console.WriteLine(tag.TestTemplateTags.Count);
+                user.UserRoles.Add(new UserRole()
+                {
+                    Role = Domain.Enums.Role.Admin
+                });
             }
 
             await dataContext.SaveChangesAsync();

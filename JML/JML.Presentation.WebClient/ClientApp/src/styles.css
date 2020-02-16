@@ -23,3 +23,6 @@ code {
 .app-color {
   color: #9412ff !important;
 }
+.card {
+  border-color: #9412ff
+}

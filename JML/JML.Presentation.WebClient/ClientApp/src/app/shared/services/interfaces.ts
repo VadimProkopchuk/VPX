@@ -19,4 +19,5 @@ export interface User {
   firstName: string;
   lastName: string;
   groupName: string;
+  roles: Array<string>
 }

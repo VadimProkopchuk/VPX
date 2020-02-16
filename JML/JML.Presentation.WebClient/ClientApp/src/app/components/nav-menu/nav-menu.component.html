@@ -15,14 +15,12 @@
           <a class="nav-link text-dark" [routerLink]="['/fetch-data']">Fetch data</a>
         </li>
 
-        <li class="nav-item" *ngIf="userService.user != null">
-          <a class="nav-link app-color" href="#">
+        <li class="nav-item user-profile-wrapper" *ngIf="currentUserService.user != null">
+          <a class="nav-link app-color" href="#" (click)="toggleUserInfo()">
             <i class="fas fa-user"></i>
-            {{userService.user.firstName}} {{userService.user.lastName}}
+            {{currentUserService.user.firstName}} {{currentUserService.user.lastName}}
           </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-danger" href="#" (click)="logout()">Выйти</a>
+          <app-user-info [user]="currentUserService.user" [open]="openUserInfo"></app-user-info>
         </li>
       </ul>
     </div>

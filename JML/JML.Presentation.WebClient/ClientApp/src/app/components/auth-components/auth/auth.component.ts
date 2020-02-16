@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {UserService} from '../../../shared/services/user.service';
+import {CurrentUserService} from '../../../shared/services/current-user.service';
 
 @Component({
   selector: 'app-auth',
@@ -13,7 +13,7 @@ export class AuthComponent implements OnInit {
   submitted = false;
   message: string;
 
-  constructor(private userService: UserService,
+  constructor(private currentUserService: CurrentUserService,
               private router: Router) {
   }
 
@@ -26,7 +26,7 @@ export class AuthComponent implements OnInit {
 
   onSubmit(formData) {
     this.submitted = true;
-    this.userService.login(formData.Email, formData.Password)
+    this.currentUserService.login(formData.Email, formData.Password)
       .subscribe(() => {
         this.form.reset();
         // this.router.navigate(['/admin', 'dashboard']);

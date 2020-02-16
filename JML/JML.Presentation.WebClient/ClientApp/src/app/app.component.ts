@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from './shared/services/user.service';
+import {CurrentUserService} from './shared/services/current-user.service';
 import {AuthService} from './shared/services/auth.service';
 
 @Component({
@@ -8,12 +8,12 @@ import {AuthService} from './shared/services/auth.service';
 })
 export class AppComponent implements OnInit {
   constructor(private authService: AuthService,
-    private userService: UserService) {
+    private currentUserService: CurrentUserService) {
   }
 
   ngOnInit(): void {
     if (this.authService.token) {
-      this.userService.loadCurrentUserInfo();
+      this.currentUserService.loadCurrentUserInfo();
     }
   }
 }
