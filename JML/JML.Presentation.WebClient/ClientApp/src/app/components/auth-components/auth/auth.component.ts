@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../../../shared/services/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {LoginModel} from '../../../shared/services/interfaces';
 import {Router} from '@angular/router';
+import {CurrentUserService} from '../../../shared/services/current-user.service';
 
 @Component({
   selector: 'app-auth',
@@ -14,7 +13,7 @@ export class AuthComponent implements OnInit {
   submitted = false;
   message: string;
 
-  constructor(private authService: AuthService,
+  constructor(private currentUserService: CurrentUserService,
               private router: Router) {
   }
 
@@ -25,26 +24,15 @@ export class AuthComponent implements OnInit {
     });
   }
 
-  isValid() {
-    const formData = this.form.value;
-    return formData.Password && formData.Email;
-  }
-
   onSubmit(formData) {
-    console.log(formData);
-
     this.submitted = true;
-    const loginModel: LoginModel = {
-      Email: formData.Email,
-      Password: formData.Password
-    };
-
-    this.authService.login(loginModel).subscribe(() => {
-      this.form.reset();
-      // this.router.navigate(['/admin', 'dashboard']);
-      this.submitted = false;
-    }, () => {
-      this.submitted = false;
-    });
+    this.currentUserService.login(formData.Email, formData.Password)
+      .subscribe(() => {
+        this.form.reset();
+        // this.router.navigate(['/admin', 'dashboard']);
+        this.submitted = false;
+      }, () => {
+        this.submitted = false;
+      });
   }
 }

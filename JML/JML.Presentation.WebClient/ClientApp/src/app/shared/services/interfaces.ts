@@ -13,3 +13,11 @@ export interface Alert {
   type: AlertType;
   text: string;
 }
+
+export interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  groupName: string;
+  roles: Array<string>
+}

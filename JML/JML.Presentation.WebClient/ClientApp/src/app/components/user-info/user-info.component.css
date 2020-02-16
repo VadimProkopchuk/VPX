@@ -1,0 +1,19 @@
+.user-profile {
+  position: absolute;
+  width: 340px;
+  top: 40px;
+  right: 0;
+}
+
+.user-profile::after {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  top: -8px;
+  right: 15px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+
+  border-bottom: 8px solid #9412ff;
+}
