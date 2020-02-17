@@ -17,3 +17,8 @@ Simple project for reading information and pass tests using:
   - Set `JML.DataAccess.Context` as default project
   - run `Update-Database`
  
+ ## Contributing
+ * [Contributing Information](CONTRIBUTING.md)
+
+ ## Code of Conduct
+ * [Code of Conduct Information](CODE_OF_CONDUCT.md)
