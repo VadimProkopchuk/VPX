@@ -14,6 +14,7 @@ import {AuthInterceptor} from './shared/interceptors/auth.interceptor';
 import {AuthComponent} from './components/auth-components/auth/auth.component';
 import {AlertComponent} from './components/alert/alert.component';
 import {UserInfoComponent} from './components/user-info/user-info.component';
+import {LecturesPageComponent} from './components/lectures-page/lectures-page.component';
 
 const AUTH_INTERCEPTOR = {
   provide: HTTP_INTERCEPTORS,
@@ -30,7 +31,8 @@ const AUTH_INTERCEPTOR = {
     FetchDataComponent,
     AuthComponent,
     AlertComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    LecturesPageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),

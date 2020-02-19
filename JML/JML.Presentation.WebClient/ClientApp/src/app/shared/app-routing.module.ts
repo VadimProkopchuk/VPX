@@ -2,6 +2,8 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
 import {LayoutComponent} from '../components/layout/layout.component';
 import {HomeComponent} from '../components/home/home.component';
+import {LecturesPageComponent} from '../components/lectures-page/lectures-page.component';
+
 import {FetchDataComponent} from '../components/fetch-data/fetch-data.component';
 
 const routes: Routes = [
@@ -9,6 +11,7 @@ const routes: Routes = [
     path: '', component: LayoutComponent, children: [
       {path: '', redirectTo: '/', pathMatch: 'full'},
       {path: '', component: HomeComponent},
+      {path: 'lectures', component: LecturesPageComponent},
       {path: 'fetch-data', component: FetchDataComponent}
     ]
   },
