@@ -12,7 +12,7 @@ export class HomeComponent {
 
   constructor(private pageNameService: PageNameService,
               private authService: AuthService) {
-    pageNameService.pageName  = 'Home';
+    pageNameService.pageName  = 'Главная';
   }
 
   changeRegisterSelected(isSelected: boolean) {

@@ -9,10 +9,10 @@
         <li class="nav-item"
           [routerLinkActive]="['link-active']"
           [routerLinkActiveOptions]="{ exact: true }">
-          <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+          <a class="nav-link text-dark" [routerLink]="['/']">Главная</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link text-dark" [routerLink]="['/fetch-data']">Fetch data</a>
+          <a class="nav-link text-dark" [routerLink]="['/fetch-data']">[Fetch data]</a>
         </li>
 
         <li class="nav-item user-profile-wrapper" *ngIf="currentUserService.user != null">

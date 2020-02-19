@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using JML.ApiModels;
 using JML.BusinessLogic.Core.Contracts.Accounts;
+using JML.Presentation.WebClient.Infrastructure.Presenters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,13 +42,14 @@ namespace JML.Presentation.WebClient.Controllers
         public async Task<IActionResult> GetCurrentUser()
         {
             var user = await currentUser.GetCurrentUserAync();
+            var roles = user.UserRoles?.Select(x => x.Role.Present()).ToArray() ?? new string[0];
             var userModel = new UserModel
             {
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 GroupName = user.Group?.Name,
-                Roles = user.UserRoles?.Select(x => x.Role.ToString()).ToArray() ?? new string[0], 
+                Roles = roles,
             };
 
             return Ok(userModel);
