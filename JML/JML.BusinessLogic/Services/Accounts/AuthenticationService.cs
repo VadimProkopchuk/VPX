@@ -33,12 +33,12 @@ namespace JML.BusinessLogic.Services.Accounts
 
             if (user == null)
             {
-                throw new ArgumentOutOfRangeException(nameof(email), "Can't find user");
+                throw new ApplicationException("Пользователь не найден.");
             }
 
             if (user.IsLocked)
             {
-                throw new ApplicationException("User is locked.");
+                throw new ApplicationException("Пользователь заблокирован.");
             }
 
             if (user.Password == passwordEncrypter.Encrypt(password))
@@ -49,7 +49,7 @@ namespace JML.BusinessLogic.Services.Accounts
             else
             {
                 await UpdateUserAttempts(user, user.CountOfInvalidAttempts + 1);
-                throw new ApplicationException("Invalid user password");
+                throw new ApplicationException("Неверный пароль.");
             }
         }
 
