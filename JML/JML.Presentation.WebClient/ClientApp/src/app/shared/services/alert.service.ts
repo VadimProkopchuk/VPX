@@ -1,20 +1,27 @@
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
-import {Alert} from './interfaces';
+import {NotifierService} from 'angular-notifier';
 
 @Injectable({providedIn: 'root'})
 export class AlertService {
-  public alert$ = new Subject<Alert>();
+  private readonly notifierService: NotifierService;
+
+  constructor(notifierService: NotifierService) {
+    this.notifierService = notifierService;
+  }
 
   success(text: string) {
-    this.alert$.next({type: 'success', text});
+    this.notifierService.notify('success', text);
   }
 
   warning(text: string) {
-    this.alert$.next({type: 'warning', text});
+    this.notifierService.notify('warning', text);
   }
 
   danger(text: string) {
-    this.alert$.next({type: 'danger', text});
+    this.notifierService.notify('error', text);
+  }
+
+  info(text: string) {
+    this.notifierService.notify('info', text);
   }
 }

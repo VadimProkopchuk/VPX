@@ -8,16 +8,10 @@ export interface LoginModel {
   Password: string;
 }
 
-export type AlertType = 'success' | 'warning' | 'danger';
-export interface Alert {
-  type: AlertType;
-  text: string;
-}
-
 export interface User {
   id: string;
   firstName: string;
   lastName: string;
   groupName: string;
-  roles: Array<string>
+  roles: Array<string>;
 }
