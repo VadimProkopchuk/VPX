@@ -12,9 +12,9 @@ import {LayoutComponent} from './components/layout/layout.component';
 import {FetchDataComponent} from './components/fetch-data/fetch-data.component';
 import {AuthInterceptor} from './shared/interceptors/auth.interceptor';
 import {AuthComponent} from './components/auth-components/auth/auth.component';
-import {AlertComponent} from './components/alert/alert.component';
 import {UserInfoComponent} from './components/user-info/user-info.component';
 import {LecturesPageComponent} from './components/lectures-page/lectures-page.component';
+import {AppNotificationsModule} from './shared/app-notifications.module';
 
 const AUTH_INTERCEPTOR = {
   provide: HTTP_INTERCEPTORS,
@@ -32,7 +32,8 @@ const AUTH_INTERCEPTOR = {
     AuthComponent,
     AlertComponent,
     UserInfoComponent,
-    LecturesPageComponent
+    LecturesPageComponent,
+    UserInfoComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -40,6 +41,7 @@ const AUTH_INTERCEPTOR = {
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    AppNotificationsModule,
   ],
   providers: [
     AUTH_INTERCEPTOR,
