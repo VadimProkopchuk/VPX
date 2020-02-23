@@ -30,7 +30,6 @@ const AUTH_INTERCEPTOR = {
     LayoutComponent,
     FetchDataComponent,
     AuthComponent,
-    AlertComponent,
     UserInfoComponent,
     LecturesPageComponent,
     UserInfoComponent,
