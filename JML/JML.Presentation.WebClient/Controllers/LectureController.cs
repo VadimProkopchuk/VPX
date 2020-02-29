@@ -28,16 +28,23 @@ namespace JML.Presentation.WebClient.Controllers
 
         [HttpGet]
         [Route("{url}")]
-        public async Task<IActionResult> GetByUrl(string url)
+        public async Task<ActionResult<LectureModel>> GetByUrl(string url)
         {
             var lecture = await lectureService.GetAsync(url);
             return Ok(lecture);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(LectureModel model)
+        public async Task<ActionResult<LectureModel>> Post(LectureModel model)
         {
             var lecture = await lectureService.CreateAsync(model);
+            return Ok(lecture);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<LectureModel>> Update(LectureModel model)
+        {
+            var lecture = await lectureService.UpdateAsync(model);
             return Ok(lecture);
         }
     }

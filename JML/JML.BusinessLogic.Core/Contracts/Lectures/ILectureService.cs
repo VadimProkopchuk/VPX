@@ -9,5 +9,6 @@ namespace JML.BusinessLogic.Core.Contracts.Lectures
         Task<LectureModel> GetAsync(string url);
         Task<List<LectureModel>> GetAsync();
         Task<LectureModel> CreateAsync(LectureModel model);
+        Task<LectureModel> UpdateAsync(LectureModel model);
     }
 }

@@ -6,7 +6,7 @@
           <a class="app-color" [routerLink]="['/lecture', lecture.url]">{{lecture.name}}</a>
         </div>
         <div class="text-muted">
-          <small>{{ lecture.createdAt | date:'dd.MM.yyyy HH:mm' }}</small>
+          <small>{{ lecture.modifiedAt | date:'dd.MM.yyyy HH:mm' }}</small>
         </div>
         <div *ngIf="lecture.tags">
           <span *ngFor="let tag of lecture.tags" class="badge badge-primary mr-1">

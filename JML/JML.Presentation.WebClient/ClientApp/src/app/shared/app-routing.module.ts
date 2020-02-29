@@ -6,6 +6,7 @@ import {CreateLectureComponent} from '../components/lecture-components/create-le
 import {LecturesPageComponent} from '../components/lecture-components/lectures-page/lectures-page.component';
 import {LecturesComponent} from '../components/lecture-components/lectures/lectures.component';
 import {LectureComponent} from '../components/lecture-components/lecture/lecture.component';
+import {EditLectureComponent} from '../components/lecture-components/edit-lecture/edit-lecture.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
         children: [
           { path: 'all', component: LecturesComponent },
           { path: 'create', component: CreateLectureComponent },
+          { path: 'edit/:url', component: EditLectureComponent }
         ]
       }
     ]

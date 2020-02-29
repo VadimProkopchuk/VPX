@@ -9,6 +9,7 @@
     <ProjectReference Include="..\JML.BusinessLogic.Core\JML.BusinessLogic.Core.csproj" />
     <ProjectReference Include="..\JML.DataAccess.Core\JML.DataAccess.Core.csproj" />
     <ProjectReference Include="..\JML.Domain\JML.Domain.csproj" />
+    <ProjectReference Include="..\JML.Utility\JML.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>

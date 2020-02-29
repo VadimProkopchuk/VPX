@@ -21,6 +21,7 @@ import {CreateLectureComponent} from './components/lecture-components/create-lec
 import {LecturesPageComponent} from './components/lecture-components/lectures-page/lectures-page.component';
 import {LecturesComponent} from './components/lecture-components/lectures/lectures.component';
 import {LectureComponent} from './components/lecture-components/lecture/lecture.component';
+import {EditLectureComponent} from './components/lecture-components/edit-lecture/edit-lecture.component';
 
 const AUTH_INTERCEPTOR = {
   provide: HTTP_INTERCEPTORS,
@@ -41,6 +42,7 @@ const AUTH_INTERCEPTOR = {
     CreateLectureComponent,
     LecturesComponent,
     LectureComponent,
+    EditLectureComponent,
   ],
   imports: [
     TagInputModule,

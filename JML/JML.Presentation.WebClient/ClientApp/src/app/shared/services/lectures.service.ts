@@ -21,4 +21,8 @@ export class LecturesService {
   create(lectureModel: Lecture): Observable<Lecture> {
     return this.http.post<Lecture>(this.endpointMapService.Lectures, lectureModel);
   }
+
+  update(lectureModel: Lecture): Observable<Lecture> {
+    return this.http.put<Lecture>(this.endpointMapService.Lectures, lectureModel);
+  }
 }

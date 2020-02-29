@@ -3,7 +3,9 @@ using JML.BusinessLogic.Core.Contracts.Lectures;
 using JML.BusinessLogic.Mappings.Lectures;
 using JML.DataAccess.Core.Contracts;
 using JML.Domain;
+using JML.Utility.CollectionExtensions;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,6 +61,27 @@ namespace JML.BusinessLogic.Services.Lectures
             return LectureMap.Map(lecture);
         }
 
+        public async Task<LectureModel> UpdateAsync(LectureModel model)
+        {
+            var lecture = await lectureRepository.GetQuery().FirstOrDefaultAsync(x => x.Id == model.Id);
+
+            if (lecture == null)
+            {
+                throw new ApplicationException("Объект не найден.");
+            }
+
+            lecture.Name = model.Name;
+            lecture.Preview = model.Preview;
+            lecture.Url = model.Url;
+            lecture.Content = model.Content;
+
+            await dataContext.SaveChangesAsync();
+
+            lecture = await BindTags(lecture, await GetTags(model.Tags));
+
+            return LectureMap.Map(lecture);
+        }
+
         // todo: refactor
         private async Task<List<Tag>> GetTags(List<TagModel> tagList)
         {
@@ -93,19 +116,22 @@ namespace JML.BusinessLogic.Services.Lectures
 
             foreach (var tag in tags)
             {
-                var lectureTag = new LectureTag
+                if (!lecture.LectureTags.Any(x => x.TagId == tag.Id))
                 {
-                    LectureId = lecture.Id,
-                    TagId = tag.Id
-                };
+                    var lectureTag = new LectureTag
+                    {
+                        LectureId = lecture.Id,
+                        TagId = tag.Id
+                    };
 
-                lecture.LectureTags.Add(lectureTag);
-                lectureTagRepository.Add(lectureTag);
+                    lecture.LectureTags.Add(lectureTag);
+                    lectureTagRepository.Add(lectureTag);
+                }
             }
 
             await dataContext.SaveChangesAsync();
 
             return lecture;
-        } 
+        }
     }
 }

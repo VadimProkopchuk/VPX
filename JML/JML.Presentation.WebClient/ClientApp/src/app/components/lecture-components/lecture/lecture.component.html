@@ -2,11 +2,11 @@
   <div *ngIf="lecture; else notFound">
     <div class="form-group">
       <button class="btn btn-danger mr-3">Удалить</button>
-      <button class="btn btn-warning">Редактировать</button>
+      <button class="btn btn-warning" [routerLink]="['/lectures', 'edit', lecture.url]">Редактировать</button>
     </div>
     <h3>{{lecture.name}}</h3>
     <div class="text-muted">
-      <small>{{ lecture.createdAt | date:'dd.MM.yyyy HH:mm' }}</small>
+      <small>{{ lecture.modifiedAt | date:'dd.MM.yyyy HH:mm' }}</small>
     </div>
     <div *ngIf="lecture.tags">
           <span *ngFor="let tag of lecture.tags" class="badge badge-primary mr-1">
