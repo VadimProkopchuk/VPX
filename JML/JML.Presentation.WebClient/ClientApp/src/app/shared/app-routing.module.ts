@@ -1,24 +1,30 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
 import {LayoutComponent} from '../components/layout/layout.component';
-import {HomeComponent} from '../components/home/home.component';
-import {FetchDataComponent} from '../components/fetch-data/fetch-data.component';
+import {HomePageComponent} from '../components/home-page/home-page.component';
+import {CreateLectureComponent} from '../components/lecture-components/create-lecture/create-lecture.component';
+import {LecturesPageComponent} from '../components/lecture-components/lectures-page/lectures-page.component';
+import {LecturesComponent} from '../components/lecture-components/lectures/lectures.component';
+import {LectureComponent} from '../components/lecture-components/lecture/lecture.component';
+import {EditLectureComponent} from '../components/lecture-components/edit-lecture/edit-lecture.component';
 
 const routes: Routes = [
   {
     path: '', component: LayoutComponent, children: [
       {path: '', redirectTo: '/', pathMatch: 'full'},
-      {path: '', component: HomeComponent},
-      {path: 'fetch-data', component: FetchDataComponent}
+      {path: '', component: HomePageComponent},
+      { path: 'lecture/:url', component: LectureComponent },
+      {
+        path: 'lectures',
+        component: LecturesPageComponent,
+        children: [
+          { path: 'all', component: LecturesComponent },
+          { path: 'create', component: CreateLectureComponent },
+          { path: 'edit/:url', component: EditLectureComponent }
+        ]
+      }
     ]
   },
-  /*{
-    /*th: '', component: MainLayoutComponent, children: [
-      {path: '', redirectTo: '/', pathMatch: 'full'},
-      {path: '', component: HomePageComponent},
-      {path: 'post/:id', component: PostPageComponent}
-    ]
-*/
 ];
 
 @NgModule({

@@ -1,0 +1,29 @@
+<div *ngIf="lecture$ | async as lecture; else loading">
+  <div *ngIf="lecture; else notFound">
+    <div class="form-group">
+      <button class="btn btn-danger mr-3" (click)="remove(lecture.id)">Удалить</button>
+      <button class="btn btn-warning" [routerLink]="['/lectures', 'edit', lecture.url]">Редактировать</button>
+    </div>
+    <h3>{{lecture.name}}</h3>
+    <div class="text-muted">
+      <small>{{ lecture.modifiedAt | date:'dd.MM.yyyy HH:mm' }}</small>
+    </div>
+    <div *ngIf="lecture.tags">
+          <span *ngFor="let tag of lecture.tags" class="badge badge-primary mr-1">
+            <i class="fas fa-tag"></i>
+            {{tag.display}}
+          </span>
+    </div>
+    <div>
+      <quill-view [content]="lecture.content"></quill-view>
+    </div>
+  </div>
+
+  <ng-template #notFound>
+    <p class="text-danger">Материал не найден.</p>
+  </ng-template>
+</div>
+
+<ng-template #loading>
+  <p class="text-center">Загрузка...</p>
+</ng-template>

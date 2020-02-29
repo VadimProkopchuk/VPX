@@ -1,9 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Provide sufficient contrast against white background */
+:root {
+  --app-color: #9412ff;
+}
 
 a {
   color: #0366d6;
+}
+
+a.app-color:hover {
+  cursor: pointer !important;
+  text-decoration: underline !important;
 }
 
 code {
@@ -21,8 +29,8 @@ code {
 }
 
 .app-color {
-  color: #9412ff !important;
+  color: var(--app-color) !important;
 }
 .card {
-  border-color: #9412ff
+  border-color: var(--app-color);
 }

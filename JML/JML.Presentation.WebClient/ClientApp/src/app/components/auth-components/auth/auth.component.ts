@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
 import {CurrentUserService} from '../../../shared/services/current-user.service';
 
 @Component({
@@ -11,10 +10,8 @@ import {CurrentUserService} from '../../../shared/services/current-user.service'
 export class AuthComponent implements OnInit {
   form: FormGroup;
   submitted = false;
-  message: string;
 
-  constructor(private currentUserService: CurrentUserService,
-              private router: Router) {
+  constructor(private currentUserService: CurrentUserService) {
   }
 
   ngOnInit() {
@@ -29,7 +26,6 @@ export class AuthComponent implements OnInit {
     this.currentUserService.login(formData.Email, formData.Password)
       .subscribe(() => {
         this.form.reset();
-        // this.router.navigate(['/admin', 'dashboard']);
         this.submitted = false;
       }, () => {
         this.submitted = false;

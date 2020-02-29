@@ -3,6 +3,7 @@
   width: 340px;
   top: 40px;
   right: 0;
+  z-index: 1000;
 }
 
 .user-profile::after {
@@ -15,5 +16,5 @@
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
 
-  border-bottom: 8px solid #9412ff;
+  border-bottom: 8px solid var(--app-color);
 }

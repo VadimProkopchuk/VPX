@@ -1,0 +1,3 @@
+.active-section {
+  border-bottom: 2px solid var(--app-color);
+}

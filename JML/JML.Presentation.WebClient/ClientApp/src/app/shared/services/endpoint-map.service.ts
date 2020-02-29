@@ -10,4 +10,12 @@ export class EndpointMapService {
   get CurrentUserInfoEndpoint() {
     return environment.apiEndpoint + 'account/current-user';
   }
+
+  get Lectures() {
+    return environment.apiEndpoint + 'lecture';
+  }
+
+  get Tags() {
+    return environment.apiEndpoint + 'tag';
+  }
 }

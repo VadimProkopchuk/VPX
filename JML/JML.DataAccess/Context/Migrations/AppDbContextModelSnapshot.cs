@@ -96,6 +96,9 @@ namespace JML.DataAccess.Context.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Preview")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<TimeSpan>("TimeToRead")
                         .HasColumnType("time");
 

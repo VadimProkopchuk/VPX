@@ -8,8 +8,6 @@ import {EndpointMapService} from './endpoint-map.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  public error$: Subject<string> = new Subject<string>();
-
   constructor(private http: HttpClient,
               private alertService: AlertService,
               private endpointMapService: EndpointMapService) {}

@@ -6,6 +6,13 @@ namespace JML.Domain
 {
     public class Tag : IAppEntity<Guid>, IAuditableEntity
     {
+        public Tag() { }
+
+        public Tag(Guid id)
+        {
+            Id = id;
+        }
+
         public Guid Id { get; protected set; }
 
         public string Name { get; set; }

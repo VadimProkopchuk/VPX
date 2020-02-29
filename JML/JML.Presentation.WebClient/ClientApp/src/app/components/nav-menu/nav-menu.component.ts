@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import {PageNameService} from '../../shared/services/page-name.service';
 import {AuthService} from '../../shared/services/auth.service';
 import { CurrentUserService} from '../../shared/services/current-user.service';
-import {Router} from '@angular/router';
+import {PageService} from '../../shared/services/page.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -10,11 +9,12 @@ import {Router} from '@angular/router';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
-  private openUserInfo = false;
+  private openUserInfo;
 
-  constructor(private pageNameService: PageNameService,
+  constructor(private pageService: PageService,
               private authService: AuthService,
               private currentUserService: CurrentUserService) {
+    this.openUserInfo = false;
   }
 
   toggleUserInfo() {

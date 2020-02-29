@@ -43,7 +43,7 @@ export class CurrentUserService {
 
   private checkAndLoadInfo() {
     if (this.authService.isAuthenticated()) {
-      this.alertService.info('Авторизация завершена успешно.');
+      this.alertService.info('Авторизация успешно завершена.');
       this.loadCurrentUserInfo();
     }
   }
