@@ -1,26 +1,15 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+<form (ngSubmit)="submit()" [formGroup]="formGroup">
   <div class="form-group">
-    <label for="email">Email</label>
-    <input class="form-control full-width" formControlName="Email" id="email" type="email"
-           [ngClass]="{invalid: form.get('Email').touched && form.get('Email').invalid}">
-    <div *ngIf="form.get('Email').touched && form.get('Email').invalid" class="validation">
-      <small *ngIf="form.get('Email').errors.required">
-        Введите поле email
-      </small>
-      <small *ngIf="form.get('Email').errors.email">
-        Поле email должно быть email
-      </small>
-    </div>
+    <mat-form-field class="full-width">
+      <input type="email" matInput placeholder="Email" formControlName="email">
+      <mat-error *ngIf="hasError('email', 'required')">Введите поле email</mat-error>
+      <mat-error *ngIf="hasError('email', 'email')">Поле email должен быть email</mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input type="password" matInput placeholder="Пароль" formControlName="password">
+      <mat-error *ngIf="hasError('password', 'required')">Введите поле пароль</mat-error>
+    </mat-form-field>
   </div>
-  <div class="form-group">
-    <label for="password">Пароль</label>
-    <input class="form-control full-width" formControlName="Password" id="password" type="password"
-           [ngClass]="{invalid: form.get('Password').touched && form.get('Password').invalid}">
-    <div *ngIf="form.get('Password').touched && form.get('Password').invalid" class="validation">
-      <small *ngIf="form.get('Password').errors.required">
-        Введите пароль
-      </small>
-    </div>
-  </div>
-  <button class="btn btn-success" type="submit" [disabled]="form.invalid || submitted">Войти</button>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="!isValid() || submitted">Войти</button>
 </form>

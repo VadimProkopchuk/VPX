@@ -8,14 +8,8 @@ import {AuthService} from '../../shared/services/auth.service';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent {
-  registerSelected = false;
-
   constructor(pageService: PageService,
     private authService: AuthService) {
     pageService.changeHeader('Главная');
-  }
-
-  changeRegisterSelected(isSelected: boolean) {
-    this.registerSelected = isSelected;
   }
 }

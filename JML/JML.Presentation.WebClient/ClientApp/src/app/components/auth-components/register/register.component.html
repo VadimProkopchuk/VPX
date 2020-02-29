@@ -1,0 +1,43 @@
+<mat-horizontal-stepper [linear]="true" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Личные данные</ng-template>
+      <mat-form-field>
+        <mat-label>Имя</mat-label>
+        <input matInput placeholder="Имя" formControlName="firstCtrl" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Фамилия</mat-label>
+        <input matInput placeholder="Фамилия" formControlName="firstCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Дальше</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Почта</ng-template>
+      <mat-form-field>
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+               required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Назад</button>
+        <button mat-button matStepperNext>Дальше</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Завершение</ng-template>
+    <p>You are now done.</p>
+
+    1. onclick submit
+    2. loader
+    <div>
+      <button mat-button matStepperPrevious>Назад</button>
+      <button mat-button (click)="stepper.reset()">Отмена</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
