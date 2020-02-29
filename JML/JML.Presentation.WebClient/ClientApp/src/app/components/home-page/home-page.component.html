@@ -1,12 +1,7 @@
 <div class="" *ngIf="authService.isAuthenticated(); else authForm">
   Привет, пользователь!
-
-
-
-
 </div>
 <ng-template #authForm>
-
   <div class="row">
     <div class="col-8 offset-2">
       <mat-card>
@@ -20,14 +15,10 @@
           <mat-tab label="Восстановить доступ">
             <div class="p-3">
               <h1>todo </h1>
-
             </div>
           </mat-tab>
         </mat-tab-group>
       </mat-card>
-
-
     </div>
   </div>
-
 </ng-template>
