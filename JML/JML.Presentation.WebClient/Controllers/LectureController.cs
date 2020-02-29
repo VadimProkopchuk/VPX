@@ -2,6 +2,7 @@
 using JML.BusinessLogic.Core.Contracts.Lectures;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -35,7 +36,7 @@ namespace JML.Presentation.WebClient.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<LectureModel>> Post(LectureModel model)
+        public async Task<ActionResult<LectureModel>> Create(LectureModel model)
         {
             var lecture = await lectureService.CreateAsync(model);
             return Ok(lecture);
@@ -45,6 +46,14 @@ namespace JML.Presentation.WebClient.Controllers
         public async Task<ActionResult<LectureModel>> Update(LectureModel model)
         {
             var lecture = await lectureService.UpdateAsync(model);
+            return Ok(lecture);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<ActionResult<LectureModel>> Delete(Guid id)
+        {
+            var lecture = await lectureService.RemoveAsync(id);
             return Ok(lecture);
         }
     }

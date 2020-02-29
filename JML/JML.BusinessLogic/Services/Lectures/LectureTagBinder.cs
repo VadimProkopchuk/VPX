@@ -3,10 +3,8 @@ using JML.BusinessLogic.Core.Contracts.Lectures;
 using JML.BusinessLogic.Mappings.Lectures;
 using JML.DataAccess.Core.Contracts;
 using JML.Domain;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JML.BusinessLogic.Services.Lectures
@@ -30,6 +28,24 @@ namespace JML.BusinessLogic.Services.Lectures
         {
             var entityTags = await CreateTagsAsync(tags);
             return await BindTags(lecture, entityTags);
+        }
+
+        public Lecture ResetTags(Lecture lecture)
+        {
+            if (lecture.LectureTags == null)
+            {
+                lecture.LectureTags = new List<LectureTag>();
+            }
+            else
+            {
+                foreach (var lectureTag in lecture.LectureTags)
+                {
+                    lectureTagRepository.Remove(lectureTag);
+                }
+                lecture.LectureTags.Clear();
+            }
+
+            return lecture;
         }
 
         private async Task<List<Tag>> CreateTagsAsync(List<TagModel> tagList)
@@ -70,24 +86,6 @@ namespace JML.BusinessLogic.Services.Lectures
             }
 
             await dataContext.SaveChangesAsync();
-
-            return lecture;
-        }
-
-        private Lecture ResetTags(Lecture lecture)
-        {
-            if (lecture.LectureTags == null)
-            {
-                lecture.LectureTags = new List<LectureTag>();
-            }
-            else
-            {
-                foreach (var lectureTag in lecture.LectureTags)
-                {
-                    lectureTagRepository.Remove(lectureTag);
-                }
-                lecture.LectureTags.Clear();
-            }
 
             return lecture;
         }

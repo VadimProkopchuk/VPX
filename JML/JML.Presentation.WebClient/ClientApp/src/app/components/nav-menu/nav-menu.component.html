@@ -1,22 +1,26 @@
 <header>
-  <nav  class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">
         <strong class="app-color">JML | </strong>
-        <i class="app-color">{{pageService.getHeader()}}</i>
+        <i class="app-color">{{pageService.header}}</i>
       </a>
       <ul class="navbar-nav flex-grow" *ngIf="authService.isAuthenticated()">
         <li class="nav-item"
           [routerLinkActive]="['link-active']"
           [routerLinkActiveOptions]="{ exact: true }">
-          <a class="nav-link text-dark" [routerLink]="['/']">Главная</a>
+          <a class="nav-link" [routerLink]="['/']">
+            <strong>Главная</strong>
+          </a>
         </li>
         <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link text-dark" [routerLink]="['/lectures', 'all']">Материалы</a>
+          <a class="nav-link" [routerLink]="['/lectures', 'all']">
+            <strong>Материалы</strong>
+          </a>
         </li>
 
         <li class="nav-item user-profile-wrapper" *ngIf="currentUserService.user != null">
-          <a class="nav-link app-color" href="#" (click)="toggleUserInfo()">
+          <a class="nav-link app-color" (click)="toggleUserInfo()">
             <i class="fas fa-user"></i>
             {{currentUserService.user.firstName}} {{currentUserService.user.lastName}}
           </a>

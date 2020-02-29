@@ -1,7 +1,7 @@
 <div *ngIf="lecture$ | async as lecture; else loading">
   <div *ngIf="lecture; else notFound">
     <div class="form-group">
-      <button class="btn btn-danger mr-3">Удалить</button>
+      <button class="btn btn-danger mr-3" (click)="remove(lecture.id)">Удалить</button>
       <button class="btn btn-warning" [routerLink]="['/lectures', 'edit', lecture.url]">Редактировать</button>
     </div>
     <h3>{{lecture.name}}</h3>

@@ -77,5 +77,22 @@ namespace JML.BusinessLogic.Services.Lectures
 
             return LectureMap.Map(lecture);
         }
+
+        public async Task<LectureModel> RemoveAsync(Guid id)
+        {
+            var lecture = await lectureRepository.GetQuery().FirstOrDefaultAsync(x => x.Id == id);
+
+            if (lecture == null)
+            {
+                throw new ApplicationException("Объект не найден.");
+            }
+
+            lectureTagBinder.ResetTags(lecture);
+            lectureRepository.Remove(lecture);
+
+            await dataContext.SaveChangesAsync();
+
+            return LectureMap.Map(lecture);
+        }
     }
 }

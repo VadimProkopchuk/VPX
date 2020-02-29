@@ -6,9 +6,9 @@
     <div class="card-body" >
       <p class="card-title" *ngIf="user.groupName">{{user.groupName}}</p>
       <div class="text-right">
-        <a class="btn btn-link app-color" href="#" (click)="logout()">
+        <button class="btn btn-danger" (click)="logout()">
           Выйти
-        </a>
+        </button>
       </div>
     </div>
   </div>

@@ -11,7 +11,7 @@ import {PageService} from '../../shared/services/page.service';
 export class NavMenuComponent {
   private openUserInfo;
 
-  constructor(public pageService: PageService,
+  constructor(private pageService: PageService,
               private authService: AuthService,
               private currentUserService: CurrentUserService) {
     this.openUserInfo = false;

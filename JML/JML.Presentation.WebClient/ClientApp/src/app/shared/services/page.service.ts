@@ -3,16 +3,13 @@ import {Injectable} from '@angular/core';
 
 @Injectable({providedIn: 'root'})
 export class PageService {
-  private header: string;
+  public header: string;
 
   constructor(private titleService: Title) {
   }
 
-  getHeader() {
-    return this.header;
-  }
-
   changeHeader(header: string) {
+    this.header = header;
     this.changeTitle(header);
   }
 

@@ -25,4 +25,8 @@ export class LecturesService {
   update(lectureModel: Lecture): Observable<Lecture> {
     return this.http.put<Lecture>(this.endpointMapService.Lectures, lectureModel);
   }
+
+  remove(id: string): Observable<Lecture> {
+    return this.http.delete<Lecture>(this.endpointMapService.Lectures + '/' + id);
+  }
 }
