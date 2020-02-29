@@ -3,7 +3,6 @@ using JML.BusinessLogic.Core.Contracts.Lectures;
 using JML.BusinessLogic.Mappings.Lectures;
 using JML.DataAccess.Core.Contracts;
 using JML.Domain;
-using JML.Utility.CollectionExtensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,18 +14,15 @@ namespace JML.BusinessLogic.Services.Lectures
     public class LectureService : ILectureService
     {
         private readonly IAppEntityRepository<Lecture> lectureRepository;
-        private readonly IAppEntityRepository<Tag> tagRepository;
-        private readonly IAppEntityRepository<LectureTag> lectureTagRepository;
+        private readonly ILectureTagBinder lectureTagBinder;
         private readonly IDataContext dataContext;
 
         public LectureService(IAppEntityRepository<Lecture> lectureRepository,
-            IAppEntityRepository<Tag> tagRepository,
-            IAppEntityRepository<LectureTag> lectureTagRepository,
+            ILectureTagBinder lectureTagBinder,
             IDataContext dataContext)
         {
             this.lectureRepository = lectureRepository;
-            this.tagRepository = tagRepository;
-            this.lectureTagRepository = lectureTagRepository;
+            this.lectureTagBinder = lectureTagBinder;
             this.dataContext = dataContext;
         }
 
@@ -44,7 +40,7 @@ namespace JML.BusinessLogic.Services.Lectures
 
             await dataContext.SaveChangesAsync();
 
-            lecture = await BindTags(lecture, await GetTags(model.Tags));
+            lecture = await lectureTagBinder.BindTags(lecture, model.Tags);
 
             return LectureMap.Map(lecture);
         }
@@ -77,61 +73,9 @@ namespace JML.BusinessLogic.Services.Lectures
 
             await dataContext.SaveChangesAsync();
 
-            lecture = await BindTags(lecture, await GetTags(model.Tags));
+            lecture = await lectureTagBinder.BindTags(lecture, model.Tags);
 
             return LectureMap.Map(lecture);
-        }
-
-        // todo: refactor
-        private async Task<List<Tag>> GetTags(List<TagModel> tagList)
-        {
-            tagList = tagList ?? new List<TagModel>();
-
-            var tags = (tagList ?? new List<TagModel>())
-                .Where(x => x.Value.HasValue)
-                .Select(TagMap.Map)
-                .ToList();
-
-
-            foreach (var tag in tagList.Where(x => !x.Value.HasValue))
-            {
-                var entityTag = new Tag() { Name = tag.Display };
-
-                tagRepository.Add(entityTag);
-                tags.Add(entityTag);
-            }
-
-            await dataContext.SaveChangesAsync();
-            return tags;
-        }
-
-
-        // todo: refactor
-        private async Task<Lecture> BindTags(Lecture lecture, List<Tag> tags)
-        {
-            if (lecture.LectureTags == null)
-            {
-                lecture.LectureTags = new List<LectureTag>();
-            }
-
-            foreach (var tag in tags)
-            {
-                if (!lecture.LectureTags.Any(x => x.TagId == tag.Id))
-                {
-                    var lectureTag = new LectureTag
-                    {
-                        LectureId = lecture.Id,
-                        TagId = tag.Id
-                    };
-
-                    lecture.LectureTags.Add(lectureTag);
-                    lectureTagRepository.Add(lectureTag);
-                }
-            }
-
-            await dataContext.SaveChangesAsync();
-
-            return lecture;
         }
     }
 }
