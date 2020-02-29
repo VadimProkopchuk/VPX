@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
-import {Lecture} from '../../shared/services/interfaces';
 import {ActivatedRoute, Params} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
-import {LecturesService} from '../../shared/services/lectures.service';
+import {Lecture} from '../../../shared/services/interfaces';
+import {LecturesService} from '../../../shared/services/lectures.service';
+import {PageService} from '../../../shared/services/page.service';
 
 @Component({
   selector: 'app-lecture',
@@ -11,11 +12,13 @@ import {LecturesService} from '../../shared/services/lectures.service';
   styleUrls: ['./lecture.component.css']
 })
 export class LectureComponent implements OnInit {
-
   lecture$: Observable<Lecture>;
 
   constructor(private route: ActivatedRoute,
-              private lecturesService: LecturesService) { }
+              private lecturesService: LecturesService,
+              pageService: PageService) {
+    pageService.changeHeader('Материалы');
+  }
 
   ngOnInit() {
     this.lecture$ = this.route.params

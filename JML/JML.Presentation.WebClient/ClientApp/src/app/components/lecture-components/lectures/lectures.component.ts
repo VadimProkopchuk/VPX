@@ -1,8 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {Lecture} from '../../shared/services/interfaces';
-import {AlertService} from '../../shared/services/alert.service';
-import {LecturesService} from '../../shared/services/lectures.service';
+import {PageService} from '../../../shared/services/page.service';
+import {Lecture} from '../../../shared/services/interfaces';
+import {AlertService} from '../../../shared/services/alert.service';
+import {LecturesService} from '../../../shared/services/lectures.service';
 
 @Component({
   selector: 'app-lectures',
@@ -15,7 +16,10 @@ export class LecturesComponent implements OnInit, OnDestroy {
   lectures: Lecture[];
 
   constructor(private alertService: AlertService,
-              private lecturesService: LecturesService) { }
+              private lecturesService: LecturesService,
+              pageService: PageService) {
+    pageService.changeHeader('Материалы');
+  }
 
   ngOnInit() {
     this.alertService.info('Загрузка материалов.');

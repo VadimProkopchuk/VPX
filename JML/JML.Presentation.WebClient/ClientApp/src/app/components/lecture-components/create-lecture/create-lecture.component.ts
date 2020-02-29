@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {AlertService} from '../../shared/services/alert.service';
-import {Lecture, Tag} from '../../shared/services/interfaces';
-import {LecturesService} from '../../shared/services/lectures.service';
 import {Subscription} from 'rxjs';
-import {TagsService} from '../../shared/services/tags.service';
+import {Router} from '@angular/router';
+import {Lecture, Tag} from '../../../shared/services/interfaces';
+import {TagsService} from '../../../shared/services/tags.service';
+import {AlertService} from '../../../shared/services/alert.service';
+import {LecturesService} from '../../../shared/services/lectures.service';
+import {PageService} from '../../../shared/services/page.service';
 
 @Component({
   selector: 'app-create-lecture',
@@ -21,7 +23,11 @@ export class CreateLectureComponent implements OnInit, OnDestroy {
 
   constructor(private alertService: AlertService,
               private lecturesService: LecturesService,
-              private tagService: TagsService) { }
+              private tagService: TagsService,
+              private router: Router,
+              pageService: PageService) {
+    pageService.changeHeader('Добавление материалов');
+  }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -63,7 +69,7 @@ export class CreateLectureComponent implements OnInit, OnDestroy {
         this.form.reset();
         this.tags = [];
         this.alertService.success(`Материал "${createdLecture.name}" успешно добавлен.`);
-        this.alertService.info(createdLecture.id + ' ' + createdLecture.createdAt);
+        this.router.navigate(['/lecture', createdLecture.url]);
       }, (error) => {
         this.alertService.danger(`Ошибка добавления.`);
         this.alertService.danger(error);
