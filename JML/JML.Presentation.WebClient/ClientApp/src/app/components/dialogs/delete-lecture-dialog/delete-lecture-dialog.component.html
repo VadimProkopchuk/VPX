@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Подтвердите действие</h1>
+<div mat-dialog-content>
+  <div class="form-group">
+    <p>Вы уверены, что хотите удалить "{{lecture.name}}"?</p>
+  </div>
+</div>
+
+<mat-dialog-actions align="center">
+  <div class="form-group">
+    <button mat-raised-button color="primary" mat-dialog-close>Нет</button>
+    <button mat-raised-button color="warn" mat-button [mat-dialog-close]="true">Да</button>
+  </div>
+</mat-dialog-actions>

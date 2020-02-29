@@ -1,8 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
 
-/* Provide sufficient contrast against white background */
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
 :root {
-  --app-color: #9412ff;
+  --app-color: rgb(63, 81, 181);
 }
 
 a {
@@ -18,11 +25,7 @@ code {
   color: #e01a76;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
+
 
 .full-width {
   width: 100%;
@@ -31,9 +34,4 @@ code {
 .app-color {
   color: var(--app-color) !important;
 }
-.card {
-  border-color: var(--app-color);
-}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

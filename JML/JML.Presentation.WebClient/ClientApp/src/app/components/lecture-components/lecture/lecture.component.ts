@@ -6,6 +6,8 @@ import {Lecture} from '../../../shared/services/interfaces';
 import {LecturesService} from '../../../shared/services/lectures.service';
 import {PageService} from '../../../shared/services/page.service';
 import {AlertService} from '../../../shared/services/alert.service';
+import {MatDialog} from '@angular/material';
+import {DeleteLectureDialogComponent} from '../../dialogs/delete-lecture-dialog/delete-lecture-dialog.component';
 
 @Component({
   selector: 'app-lecture',
@@ -20,6 +22,7 @@ export class LectureComponent implements OnInit, OnDestroy {
               private lecturesService: LecturesService,
               private alertService: AlertService,
               private router: Router,
+              public dialog: MatDialog,
               pageService: PageService) {
     pageService.changeHeader('Материалы');
   }
@@ -31,7 +34,22 @@ export class LectureComponent implements OnInit, OnDestroy {
       }));
   }
 
-  remove(id: string) {
+  remove(lecture: Lecture) {
+    const dialogRef = this.dialog.open(DeleteLectureDialogComponent, {
+      data: {
+        lecture: lecture
+      },
+      width: '320px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.removeLecture(lecture.id);
+      }
+    });
+  }
+
+  private removeLecture(id: string) {
     this.removeLectureSubscription = this.lecturesService
       .remove(id)
       .subscribe(lecture => {

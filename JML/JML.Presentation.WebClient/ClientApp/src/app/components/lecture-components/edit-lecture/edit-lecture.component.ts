@@ -52,6 +52,10 @@ export class EditLectureComponent implements OnInit, OnDestroy {
       .subscribe(tags => this.autoCompleteTags = tags);
   }
 
+  hasError (controlName: string, errorName: string) {
+    return this.form.controls[controlName].hasError(errorName);
+  }
+
   submit() {
     if (this.form.invalid) {
       return;

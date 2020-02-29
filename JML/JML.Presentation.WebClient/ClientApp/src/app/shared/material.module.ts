@@ -1,10 +1,11 @@
 import {NgModule} from '@angular/core';
 import {
+  MatAutocompleteModule,
   MatBadgeModule,
   MatButtonModule,
-  MatCardModule,
+  MatCardModule, MatChipsModule, MatDialogModule,
   MatIconModule,
-  MatInputModule,
+  MatInputModule, MatProgressSpinnerModule,
   MatStepperModule,
   MatTabsModule
 } from '@angular/material';
@@ -20,6 +21,10 @@ import {
     MatCardModule,
     MatStepperModule,
     MatBadgeModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
   ],
   exports: [
     MatTabsModule,
@@ -29,6 +34,10 @@ import {
     MatCardModule,
     MatStepperModule,
     MatBadgeModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
   ]
 })
 export class MaterialModule { }

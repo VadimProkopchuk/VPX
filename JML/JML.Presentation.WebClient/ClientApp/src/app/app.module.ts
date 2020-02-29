@@ -17,13 +17,15 @@ import {NavMenuComponent} from './components/nav-menu/nav-menu.component';
 import {HomePageComponent} from './components/home-page/home-page.component';
 import {LayoutComponent} from './components/layout/layout.component';
 import {AuthComponent} from './components/auth-components/auth/auth.component';
-import {UserInfoComponent} from './components/user-info/user-info.component';
 import {CreateLectureComponent} from './components/lecture-components/create-lecture/create-lecture.component';
 import {LecturesPageComponent} from './components/lecture-components/lectures-page/lectures-page.component';
 import {LecturesComponent} from './components/lecture-components/lectures/lectures.component';
 import {LectureComponent} from './components/lecture-components/lecture/lecture.component';
 import {EditLectureComponent} from './components/lecture-components/edit-lecture/edit-lecture.component';
 import {RegisterComponent} from './components/auth-components/register/register.component';
+import {LoaderComponent} from './components/loader/loader.component';
+import {UserSummaryDialogComponent} from './components/dialogs/user-summary-dialog/user-summary-dialog.component';
+import {DeleteLectureDialogComponent} from './components/dialogs/delete-lecture-dialog/delete-lecture-dialog.component';
 
 const AUTH_INTERCEPTOR = {
   provide: HTTP_INTERCEPTORS,
@@ -38,14 +40,15 @@ const AUTH_INTERCEPTOR = {
     HomePageComponent,
     LayoutComponent,
     AuthComponent,
-    UserInfoComponent,
     LecturesPageComponent,
-    UserInfoComponent,
     CreateLectureComponent,
     LecturesComponent,
     LectureComponent,
     EditLectureComponent,
     RegisterComponent,
+    LoaderComponent,
+    UserSummaryDialogComponent,
+    DeleteLectureDialogComponent,
   ],
   imports: [
     TagInputModule,
@@ -62,7 +65,11 @@ const AUTH_INTERCEPTOR = {
   providers: [
     AUTH_INTERCEPTOR,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    UserSummaryDialogComponent,
+    DeleteLectureDialogComponent,
+  ]
 })
 export class AppModule {
 }

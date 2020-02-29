@@ -1,58 +1,56 @@
-<h2 class="app-color">Редактирование материала</h2>
+<mat-card>
+  <h2 class="app-color">Редактирование материала</h2>
 
-<div *ngIf="lecture; else loading">
-  <div class="form-container">
-    <div class="form-group">
-      <label>Ключевые слова:</label>
-      <tag-input [(ngModel)]="tags"
-                 [addOnBlur]="true"
-                 [clearOnBlur]="true"
-                 [trimTags]="true"
-                 [placeholder]="'Введите слово ...'"
-                 [secondaryPlaceholder]="'Введите слово ...'">
-        <tag-input-dropdown [autocompleteItems]="autoCompleteTags"></tag-input-dropdown>
-      </tag-input>
+  <div *ngIf="lecture; else loading">
+    <div class="form-container">
+      <div class="form-group">
+        <label>Ключевые слова:</label>
+        <tag-input [(ngModel)]="tags"
+                   [addOnBlur]="true"
+                   [clearOnBlur]="true"
+                   [trimTags]="true"
+                   [placeholder]="'Введите слово ...'"
+                   [secondaryPlaceholder]="'Введите слово ...'">
+          <tag-input-dropdown [autocompleteItems]="autoCompleteTags"></tag-input-dropdown>
+        </tag-input>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <mat-form-field class="full-width">
+          <input type="text" matInput placeholder="Название" formControlName="title">
+          <mat-error *ngIf="hasError('title', 'required')">Введите название</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input type="text" matInput placeholder="URL" formControlName="url">
+          <mat-error *ngIf="hasError('url', 'required')">Введите URL</mat-error>
+        </mat-form-field>
+
+        <div class="form-group">
+          <label>Превью:</label>
+          <quill-editor formControlName="preview"></quill-editor>
+        </div>
+
+        <div class="form-group">
+          <label>Метериал:</label>
+          <quill-editor formControlName="text"></quill-editor>
+        </div>
+
+        <div class="form-group">
+          <button mat-raised-button color="warn" class="mr-3"
+                  [routerLink]="['/lecture', lecture.url]"
+                  [disabled]="submitted">
+            Отмена
+          </button>
+          <button mat-raised-button color="primary" [disabled]="form.invalid || submitted">
+            Обновить материал
+          </button>
+        </div>
+      </form>
     </div>
-
-    <form [formGroup]="form" (ngSubmit)="submit()">
-      <div class="form-group" [ngClass]="{'border-danger': form.get('title').touched && form.get('title').invalid}">
-        <label for="title">Название:</label>
-        <input id="title" type="text" class="form-control" formControlName="title">
-        <div class="text-danger" *ngIf="form.get('title').touched && form.get('title').invalid">
-          <small *ngIf="form.get('title').errors.required">
-            Введите название
-          </small>
-        </div>
-      </div>
-
-      <div class="form-group" [ngClass]="{'border-danger': form.get('url').touched && form.get('url').invalid}">
-        <label for="url">URL-адрес:</label>
-        <input id="url" type="text" class="form-control" formControlName="url">
-        <div class="text-danger" *ngIf="form.get('url').touched && form.get('url').invalid">
-          <small *ngIf="form.get('url').errors.required">
-            Введите URL
-          </small>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Превью:</label>
-        <quill-editor formControlName="preview"></quill-editor>
-      </div>
-
-      <div class="form-group">
-        <label>Метериал:</label>
-        <quill-editor formControlName="text"></quill-editor>
-      </div>
-
-      <div class="form-group">
-        <button class="btn btn-danger mr-3" [routerLink]="['/lecture', lecture.url]" [disabled]="submitted">Отмена</button>
-        <button type="submit" class="btn btn-success" [disabled]="form.invalid || submitted">Обновить материал</button>
-      </div>
-    </form>
   </div>
-</div>
-<ng-template #loading>
-  <p class="text-center">Загрузка...</p>
-</ng-template>
 
+  <ng-template #loading>
+    <app-loader></app-loader>
+  </ng-template>
+</mat-card>

@@ -20,11 +20,10 @@
         </li>
 
         <li class="nav-item user-profile-wrapper" *ngIf="currentUserService.user != null">
-          <a class="nav-link app-color" (click)="toggleUserInfo()">
+          <a class="nav-link app-color" (click)="openUserInfoDialog()">
             <i class="fas fa-user"></i>
             {{currentUserService.user.firstName}} {{currentUserService.user.lastName}}
           </a>
-          <app-user-info [user]="currentUserService.user" [open]="openUserInfo"></app-user-info>
         </li>
       </ul>
     </div>

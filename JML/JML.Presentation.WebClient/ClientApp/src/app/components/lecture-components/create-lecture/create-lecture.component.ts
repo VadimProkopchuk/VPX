@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, ElementRef, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
@@ -14,7 +14,7 @@ import {PageService} from '../../../shared/services/page.service';
   styleUrls: ['./create-lecture.component.css']
 })
 export class CreateLectureComponent implements OnInit, OnDestroy {
-
+  submitted = false;
   form: FormGroup;
   lectureSubscription: Subscription;
   tagsSubscription: Subscription;
@@ -45,6 +45,10 @@ export class CreateLectureComponent implements OnInit, OnDestroy {
       });
   }
 
+  hasError (controlName: string, errorName: string) {
+    return this.form.controls[controlName].hasError(errorName);
+  }
+
   submit() {
     if (this.form.invalid) {
       return;
@@ -64,6 +68,7 @@ export class CreateLectureComponent implements OnInit, OnDestroy {
       preview: this.form.value.preview
     };
 
+    this.submitted = true;
     this.lectureSubscription = this.lecturesService.create(lecture)
       .subscribe((createdLecture: Lecture) => {
         this.form.reset();
@@ -73,6 +78,7 @@ export class CreateLectureComponent implements OnInit, OnDestroy {
       }, (error) => {
         this.alertService.danger(`Ошибка добавления.`);
         this.alertService.danger(error);
+        this.submitted = false;
       });
   }
 
