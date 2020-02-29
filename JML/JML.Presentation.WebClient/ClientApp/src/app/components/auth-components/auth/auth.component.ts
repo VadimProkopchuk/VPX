@@ -8,24 +8,39 @@ import {CurrentUserService} from '../../../shared/services/current-user.service'
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
-  form: FormGroup;
   submitted = false;
+  formGroup: FormGroup;
 
   constructor(private currentUserService: CurrentUserService) {
   }
 
   ngOnInit() {
-    this.form = new FormGroup({
-      Email: new FormControl(null, [Validators.email, Validators.required]),
-      Password: new FormControl(null, [Validators.required])
+    this.formGroup = new FormGroup({
+      email: new FormControl('', [
+        Validators.required,
+        Validators.email
+      ]),
+      password: new FormControl('', [
+        Validators.required
+      ])
     });
   }
 
-  onSubmit(formData) {
+  isValid() {
+    return this.formGroup.status === 'VALID';
+  }
+
+  hasError (controlName: string, errorName: string) {
+    return this.formGroup.controls[controlName].hasError(errorName);
+  }
+
+  submit() {
+    const data = this.formGroup.value;
+
     this.submitted = true;
-    this.currentUserService.login(formData.Email, formData.Password)
+    this.currentUserService.login(data.email, data.password)
       .subscribe(() => {
-        this.form.reset();
+        this.formGroup.reset();
         this.submitted = false;
       }, () => {
         this.submitted = false;

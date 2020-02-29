@@ -1,29 +1,33 @@
 <div class="" *ngIf="authService.isAuthenticated(); else authForm">
   Привет, пользователь!
+
+
+
+
 </div>
 <ng-template #authForm>
+
   <div class="row">
-    <div class="col-6 offset-3 card">
-      <div class="row card-body text-center">
-        <div class="col-6" [class.active-section]="!registerSelected">
-          <button class="btn btn-link app-color" (click)="changeRegisterSelected(false)">
-            Вход
-          </button>
-        </div>
-        <div class="col-6" [class.active-section]="registerSelected">
-          <button class="btn btn-link app-color" (click)="changeRegisterSelected(true)">
-            Регистрация
-          </button>
-        </div>
-      </div>
-      <div class="row card-body">
-        <div *ngIf="registerSelected; else registerSection">
-          <h5 class="card-title">Регистрация</h5>
-        </div>
-        <ng-template #registerSection>
-          <app-auth class="full-width"></app-auth>
-        </ng-template>
-      </div>
+    <div class="col-8 offset-2">
+      <mat-card>
+        <mat-tab-group mat-align-tabs="center">
+          <mat-tab label="Вход">
+            <app-auth class="full-width"></app-auth>
+          </mat-tab>
+          <mat-tab label="Регистрация">
+            <app-register class="full-width"></app-register>
+          </mat-tab>
+          <mat-tab label="Восстановить доступ">
+            <div class="p-3">
+              <h1>todo </h1>
+
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card>
+
+
     </div>
   </div>
+
 </ng-template>

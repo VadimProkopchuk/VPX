@@ -8,6 +8,7 @@ import { TagInputModule } from 'ngx-chips';
 import {AppRoutingModule} from './shared/app-routing.module';
 import {AppNotificationsModule} from './shared/app-notifications.module';
 import {AppEditorModule} from './shared/app-editor.module';
+import {MaterialModule} from './shared/material.module';
 
 import {AuthInterceptor} from './shared/interceptors/auth.interceptor';
 
@@ -22,6 +23,7 @@ import {LecturesPageComponent} from './components/lecture-components/lectures-pa
 import {LecturesComponent} from './components/lecture-components/lectures/lectures.component';
 import {LectureComponent} from './components/lecture-components/lecture/lecture.component';
 import {EditLectureComponent} from './components/lecture-components/edit-lecture/edit-lecture.component';
+import {RegisterComponent} from './components/auth-components/register/register.component';
 
 const AUTH_INTERCEPTOR = {
   provide: HTTP_INTERCEPTORS,
@@ -43,6 +45,7 @@ const AUTH_INTERCEPTOR = {
     LecturesComponent,
     LectureComponent,
     EditLectureComponent,
+    RegisterComponent,
   ],
   imports: [
     TagInputModule,
@@ -54,6 +57,7 @@ const AUTH_INTERCEPTOR = {
     AppRoutingModule,
     AppNotificationsModule,
     AppEditorModule,
+    MaterialModule,
   ],
   providers: [
     AUTH_INTERCEPTOR,
