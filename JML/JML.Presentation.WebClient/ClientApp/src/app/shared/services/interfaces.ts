@@ -15,3 +15,19 @@ export interface User {
   groupName: string;
   roles: Array<string>;
 }
+
+export interface Lecture {
+  id?: string;
+  name: string;
+  url: string;
+  content: string;
+  preview?: string;
+  tags: Array<Tag>;
+  createdAt?: Date;
+  modifiedAt?: Date;
+}
+
+export interface Tag {
+  display: String;
+  value?: String;
+}

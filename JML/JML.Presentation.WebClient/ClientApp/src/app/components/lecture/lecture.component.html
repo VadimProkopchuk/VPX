@@ -1,0 +1,10 @@
+<p>lecture works!</p>
+
+<button routerLink="/" class="btn btn-link">На главную</button>
+
+<div class="text-danger" *ngIf="lecture$ | async as lecture">
+  <h3>{{lecture.name}}</h3>
+  <div>
+    <quill-view [content]="lecture.content"></quill-view>
+  </div>
+</div>

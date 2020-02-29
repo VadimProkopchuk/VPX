@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\JML.ApiModels\JML.ApiModels.csproj" />
     <ProjectReference Include="..\JML.Domain\JML.Domain.csproj" />
     <ProjectReference Include="..\JML.Models\JML.Models.csproj" />
   </ItemGroup>

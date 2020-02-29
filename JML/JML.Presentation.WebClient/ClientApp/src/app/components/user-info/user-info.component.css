@@ -15,5 +15,5 @@
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
 
-  border-bottom: 8px solid #9412ff;
+  border-bottom: 8px solid var(--app-color);
 }
