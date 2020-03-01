@@ -1,43 +1,88 @@
 <mat-horizontal-stepper [linear]="true" #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Личные данные</ng-template>
-      <mat-form-field>
-        <mat-label>Имя</mat-label>
-        <input matInput placeholder="Имя" formControlName="firstCtrl" required>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Фамилия</mat-label>
-        <input matInput placeholder="Фамилия" formControlName="firstCtrl" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Дальше</button>
+    <mat-step [stepControl]="personalDataForm" [editable]="isEditable">
+      <form [formGroup]="personalDataForm">
+        <ng-template matStepLabel>Личные данные</ng-template>
+        <div class="form-group">
+          <mat-form-field class="full-width">
+            <mat-label>Имя</mat-label>
+            <input matInput placeholder="Имя" formControlName="firstName">
+            <mat-error *ngIf="hasPersonalError('firstName', 'required')">Введите имя</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field class="full-width">
+            <mat-label>Фамилия</mat-label>
+            <input matInput placeholder="Фамилия" formControlName="lastName">
+            <mat-error *ngIf="hasPersonalError('lastName', 'required')">Введите фамилию</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" placeholder="Email">
+            <mat-error *ngIf="hasPersonalError('email', 'required')">Введите email</mat-error>
+            <mat-error *ngIf="hasPersonalError('email', 'email')">Введите корректный email</mat-error>
+            <mat-error *ngIf="hasPersonalError('email', 'existingEmail')">Пользователь с таким email уже существует</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group text-right">
+          <button mat-raised-button matStepperNext color="primary" [disabled]="!personalDataForm.valid">Дальше</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="accessDataForm" [editable]="isEditable">
+      <form [formGroup]="accessDataForm">
+        <ng-template matStepLabel>Доступ</ng-template>
+        <div class="form-group">
+          <mat-form-field class="full-width">
+            <mat-label>Пароль</mat-label>
+            <input type="password" matInput formControlName="password" placeholder="Пароль">
+            <mat-error *ngIf="hasAccessError('password', 'required')">Введите пароль</mat-error>
+            <mat-error *ngIf="hasAccessError('password', 'minlength')">Минимальная длина 8 символов</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field class="full-width">
+            <mat-label>Подтвердите пароль</mat-label>
+            <input type="password" matInput formControlName="confirm" placeholder="Подтвердите пароль">
+            <mat-error *ngIf="hasAccessError('confirm', 'required')">Подтвердите пароль</mat-error>
+            <mat-error *ngIf="hasAccessError('confirm', 'match')">Пароли не совпадают</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group d-flex justify-content-between">
+          <button mat-raised-button matStepperPrevious color="accent" class="text-left">Назад</button>
+          <button mat-raised-button matStepperNext color="primary" class="text-right" [disabled]="!accessDataForm.valid">Дальше</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [editable]="isEditable">
+      <ng-template matStepLabel>Подтверждение</ng-template>
+      <p>{{getUserName()}}, подтвердите регистрацию.</p>
+      <div class="form-group d-flex justify-content-between">
+        <div>
+          <button mat-raised-button matStepperPrevious color="accent">Назад</button>
+          <button mat-raised-button color="warn" class="ml-3" (click)="stepper.reset()">Отмена</button>
+        </div>
+        <button mat-raised-button color="primary" (click)="register()" matStepperNext>Зарегистрироваться</button>
       </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Почта</ng-template>
-      <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-               required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Назад</button>
-        <button mat-button matStepperNext>Дальше</button>
-      </div>
-    </form>
-  </mat-step>
+    </mat-step>
+
   <mat-step>
     <ng-template matStepLabel>Завершение</ng-template>
-    <p>You are now done.</p>
-
-    1. onclick submit
-    2. loader
-    <div>
-      <button mat-button matStepperPrevious>Назад</button>
-      <button mat-button (click)="stepper.reset()">Отмена</button>
+    <div class="d-flex justify-content-around" *ngIf="!success; else endOfRegister">
+      <mat-progress-spinner color="primary"
+                            mode="indeterminate"
+                            value="35">
+      </mat-progress-spinner>
     </div>
+
+    <ng-template #endOfRegister>
+      <h2>
+        <mat-icon class="h1 mr-3" color="primary">check_circle</mat-icon>
+        Регистрация успешно завершена
+      </h2>
+    </ng-template>
   </mat-step>
 </mat-horizontal-stepper>

@@ -31,3 +31,10 @@ export interface Tag {
   display: String;
   value?: String;
 }
+
+export interface CreateUser {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}

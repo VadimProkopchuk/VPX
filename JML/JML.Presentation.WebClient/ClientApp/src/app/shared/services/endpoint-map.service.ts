@@ -3,19 +3,11 @@ import {Injectable} from '@angular/core';
 
 @Injectable({providedIn: 'root'})
 export class EndpointMapService {
-  get LoginEndpoint() {
-    return environment.apiEndpoint + 'account/login';
-  }
-
-  get CurrentUserInfoEndpoint() {
-    return environment.apiEndpoint + 'account/current-user';
-  }
-
-  get Lectures() {
-    return environment.apiEndpoint + 'lecture';
-  }
-
-  get Tags() {
-    return environment.apiEndpoint + 'tag';
-  }
+  public LoginEndpoint = environment.apiEndpoint + 'account/login';
+  public CurrentUserInfoEndpoint = environment.apiEndpoint + 'account/current-user';
+  public Lectures = environment.apiEndpoint + 'lecture';
+  public Tags = environment.apiEndpoint + 'tag';
+  public Users = environment.apiEndpoint + 'users';
+  public HasUserByEmail = this.Users + '/hasUserByEmail/';
+  public Register = this.Users + '/register';
 }
