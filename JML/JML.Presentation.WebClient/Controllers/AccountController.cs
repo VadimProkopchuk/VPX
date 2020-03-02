@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using JML.ApiModels;
 using JML.BusinessLogic.Core.Contracts.Accounts;
+using JML.Domain.Enums;
 using JML.Presentation.WebClient.Infrastructure.Presenters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -41,8 +42,10 @@ namespace JML.Presentation.WebClient.Controllers
         [Authorize]
         public async Task<IActionResult> GetCurrentUser()
         {
+            // todo: refactor 
             var user = await currentUser.GetCurrentUserAync();
             var roles = user.UserRoles?.Select(x => x.Role.Present()).ToArray() ?? new string[0];
+            var enumRoles = user.UserRoles?.Select(x => x.Role).ToArray() ?? new Role[0];
             var userModel = new UserModel
             {
                 Id = user.Id,
@@ -50,6 +53,7 @@ namespace JML.Presentation.WebClient.Controllers
                 LastName = user.LastName,
                 GroupName = user.Group?.Name,
                 Roles = roles,
+                EnumRoles = enumRoles
             };
 
             return Ok(userModel);

@@ -41,7 +41,6 @@ export class CreateLectureComponent implements OnInit, OnDestroy {
       .getAll()
       .subscribe(tags => {
         this.autoCompleteTags.push(...tags);
-        console.log(...tags);
       });
   }
 
@@ -77,7 +76,6 @@ export class CreateLectureComponent implements OnInit, OnDestroy {
         this.router.navigate(['/lecture', createdLecture.url]);
       }, (error) => {
         this.alertService.danger(`Ошибка добавления.`);
-        this.alertService.danger(error);
         this.submitted = false;
       });
   }

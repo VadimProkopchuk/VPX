@@ -12,12 +12,16 @@ namespace JML.BusinessLogic.Services.Systems
     public class JwtService : IJwtService
     {
         private readonly string jwtSecret;
+        private readonly int jwtLifeTimeInDays;
+
         private readonly ISystemTimeService systemTimeService;
 
         public JwtService(IOptions<AppSettings> options,
             ISystemTimeService systemTimeService)
         {
             jwtSecret = options.Value.JwtSecret;
+            jwtLifeTimeInDays = options.Value.JwtLifeTimeInDays;
+
             this.systemTimeService = systemTimeService;
         }
 
@@ -25,7 +29,7 @@ namespace JML.BusinessLogic.Services.Systems
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(jwtSecret);
-            var expiresAt = systemTimeService.GetDateUtc().AddDays(1);
+            var expiresAt = systemTimeService.GetDateUtc().AddDays(jwtLifeTimeInDays);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]

@@ -1,4 +1,5 @@
 ﻿using System;
+using JML.Domain.Enums;
 
 namespace JML.ApiModels
 {
@@ -9,5 +10,6 @@ namespace JML.ApiModels
         public string LastName { get; set; }
         public string GroupName { get; set; }
         public string[] Roles { get; set; }
+        public Role[] EnumRoles { get; set; }
     }
 }

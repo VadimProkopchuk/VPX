@@ -9,6 +9,7 @@ namespace JML.DataAccess.Context
         {
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
             optionsBuilder.UseSqlServer("Server=.;Database=JML.Storage.Dev;Trusted_Connection=True;");
+            // optionsBuilder.UseSqlServer("Server=V-PROKOPCHUK\\VPROKOPCHUK;Database=JML.Storage.Dev;User Id=JML_USER;Password=!QAZ2wsx12");
 
             return new AppDbContext(optionsBuilder.Options);
         }

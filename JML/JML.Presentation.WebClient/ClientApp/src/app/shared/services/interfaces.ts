@@ -1,3 +1,5 @@
+import {Role} from '../models/role';
+
 export interface TokenPair {
   token: string;
   expiredAt: Date;
@@ -14,6 +16,7 @@ export interface User {
   lastName: string;
   groupName: string;
   roles: Array<string>;
+  enumRoles: Array<Role>;
 }
 
 export interface Lecture {

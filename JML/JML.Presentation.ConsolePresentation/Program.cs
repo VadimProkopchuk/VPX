@@ -1,7 +1,9 @@
-﻿using JML.DataAccess.Context;
+﻿using System.Collections.Generic;
+using JML.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using JML.Domain;
 using System.Threading.Tasks;
+using JML.Domain.Enums;
 
 namespace JML.Presentation.ConsolePresentation
 {
@@ -11,23 +13,34 @@ namespace JML.Presentation.ConsolePresentation
         {
             var connectionOptions = new DbContextOptionsBuilder<AppDbContext>()
                 .UseSqlServer("Server=.;Database=JML.Storage.Dev;Trusted_Connection=True;")
+                // .UseSqlServer("Server=V-PROKOPCHUK\\VPROKOPCHUK;Database=JML.Storage.Dev;User Id=JML_USER;Password=!QAZ2wsx12")
                 .UseLazyLoadingProxies()
                 .Options;
             await using var appDbContext = new AppDbContext(connectionOptions);
             var dataContext = new DataContext(appDbContext);
 
-            var users = await appDbContext.Set<User>().ToListAsync();
-
-            foreach (var user in users)
+            var user = new User
             {
-                user.UserRoles.Add(new UserRole()
+                FirstName = "Vadim",
+                LastName = "Prokopchuk",
+                Email = "vadim@admin.local",
+                Password = "123",
+                Group = new StudyGroup
                 {
-                    Role = Domain.Enums.Role.Admin
-                });
-            }
+                    Name = "ScienceSoft"
+                },
+                UserRoles = new List<UserRole>()
+                {
+                    new UserRole
+                    {
+                        Role = Role.Admin,
 
+                    }
+                }
+            };
+
+            appDbContext.Set<User>().Add(user);
             await dataContext.SaveChangesAsync();
-
         }
     }
 }
