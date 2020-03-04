@@ -26,6 +26,8 @@ import {RegisterComponent} from './components/auth-components/register/register.
 import {LoaderComponent} from './components/loader/loader.component';
 import {UserSummaryDialogComponent} from './components/dialogs/user-summary-dialog/user-summary-dialog.component';
 import {DeleteLectureDialogComponent} from './components/dialogs/delete-lecture-dialog/delete-lecture-dialog.component';
+import {AuthGuard} from './shared/guards/auth.guard';
+import {AccessDeniedPageComponent} from './components/access-denied-page/access-denied-page.component';
 
 const AUTH_INTERCEPTOR = {
   provide: HTTP_INTERCEPTORS,
@@ -49,6 +51,7 @@ const AUTH_INTERCEPTOR = {
     LoaderComponent,
     UserSummaryDialogComponent,
     DeleteLectureDialogComponent,
+    AccessDeniedPageComponent,
   ],
   imports: [
     TagInputModule,
@@ -64,6 +67,7 @@ const AUTH_INTERCEPTOR = {
   ],
   providers: [
     AUTH_INTERCEPTOR,
+    AuthGuard
   ],
   bootstrap: [AppComponent],
   entryComponents: [

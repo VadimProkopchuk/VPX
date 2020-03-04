@@ -1,4 +1,4 @@
-﻿using JML.Models;
+﻿using JML.Models.Settings;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 

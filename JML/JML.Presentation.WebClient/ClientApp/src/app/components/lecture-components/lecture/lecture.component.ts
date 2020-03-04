@@ -8,6 +8,7 @@ import {PageService} from '../../../shared/services/page.service';
 import {AlertService} from '../../../shared/services/alert.service';
 import {MatDialog} from '@angular/material';
 import {DeleteLectureDialogComponent} from '../../dialogs/delete-lecture-dialog/delete-lecture-dialog.component';
+import {CurrentUserService} from '../../../shared/services/current-user.service';
 
 @Component({
   selector: 'app-lecture',
@@ -23,6 +24,7 @@ export class LectureComponent implements OnInit, OnDestroy {
               private alertService: AlertService,
               private router: Router,
               public dialog: MatDialog,
+              public currentUserService: CurrentUserService,
               pageService: PageService) {
     pageService.changeHeader('Материалы');
   }
@@ -55,9 +57,7 @@ export class LectureComponent implements OnInit, OnDestroy {
       .subscribe(lecture => {
         this.alertService.warning('Материал "' + lecture.name + '" удален.');
         this.router.navigate(['/lectures', 'all']);
-      }, (() => {
-        this.alertService.danger('Ошибка удаления.');
-      }));
+      });
   }
 
   ngOnDestroy(): void {
