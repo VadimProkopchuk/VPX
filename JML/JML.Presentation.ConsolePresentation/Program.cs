@@ -12,8 +12,8 @@ namespace JML.Presentation.ConsolePresentation
         static async Task Main()
         {
             var connectionOptions = new DbContextOptionsBuilder<AppDbContext>()
-                .UseSqlServer("Server=.;Database=JML.Storage.Dev;Trusted_Connection=True;")
-                // .UseSqlServer("Server=V-PROKOPCHUK\\VPROKOPCHUK;Database=JML.Storage.Dev;User Id=JML_USER;Password=!QAZ2wsx12")
+                // .UseSqlServer("Server=.;Database=JML.Storage.Dev;Trusted_Connection=True;")
+                .UseSqlServer("Server=V-PROKOPCHUK\\VPROKOPCHUK;Database=JML.Storage.Dev;User Id=JML_USER;Password=!QAZ2wsx12")
                 .UseLazyLoadingProxies()
                 .Options;
             await using var appDbContext = new AppDbContext(connectionOptions);
@@ -22,18 +22,14 @@ namespace JML.Presentation.ConsolePresentation
             var user = new User
             {
                 FirstName = "Vadim",
-                LastName = "Prokopchuk",
-                Email = "vadim@admin.local",
+                LastName = "Student",
+                Email = "vadim@student.local",
                 Password = "123",
-                Group = new StudyGroup
-                {
-                    Name = "ScienceSoft"
-                },
                 UserRoles = new List<UserRole>()
                 {
                     new UserRole
                     {
-                        Role = Role.Admin,
+                        Role = Role.Student,
 
                     }
                 }

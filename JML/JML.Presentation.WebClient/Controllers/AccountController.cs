@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace JML.Presentation.WebClient.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
@@ -24,6 +25,7 @@ namespace JML.Presentation.WebClient.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("login")]
         public async Task<IActionResult> Login(LoginModel model)
         {
@@ -39,7 +41,6 @@ namespace JML.Presentation.WebClient.Controllers
 
         [HttpGet]
         [Route("current-user")]
-        [Authorize]
         public async Task<IActionResult> GetCurrentUser()
         {
             // todo: refactor 

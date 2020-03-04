@@ -5,12 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using JML.BusinessLogic.Constants;
 
 namespace JML.Presentation.WebClient.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class LectureController : ControllerBase
     {
         private readonly ILectureService lectureService;
@@ -36,6 +37,7 @@ namespace JML.Presentation.WebClient.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = AppRoles.TeacherOrAdmin)]
         public async Task<ActionResult<LectureModel>> Create(LectureModel model)
         {
             var lecture = await lectureService.CreateAsync(model);
@@ -43,6 +45,7 @@ namespace JML.Presentation.WebClient.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = AppRoles.TeacherOrAdmin)]
         public async Task<ActionResult<LectureModel>> Update(LectureModel model)
         {
             var lecture = await lectureService.UpdateAsync(model);
@@ -51,6 +54,7 @@ namespace JML.Presentation.WebClient.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Roles = AppRoles.TeacherOrAdmin)]
         public async Task<ActionResult<LectureModel>> Delete(Guid id)
         {
             var lecture = await lectureService.RemoveAsync(id);
