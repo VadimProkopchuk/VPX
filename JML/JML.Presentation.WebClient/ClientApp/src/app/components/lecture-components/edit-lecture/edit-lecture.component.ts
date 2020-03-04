@@ -87,7 +87,6 @@ export class EditLectureComponent implements OnInit, OnDestroy {
         this.router.navigate(['/lecture', updatedLecture.url]);
       }, (error) => {
         this.alertService.danger(`Ошибка обновления.`);
-        this.alertService.danger(error);
         this.submitted = false;
       });
   }

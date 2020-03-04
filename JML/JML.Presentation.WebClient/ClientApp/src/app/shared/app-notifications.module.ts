@@ -19,7 +19,7 @@ const notifierOptions: NotifierOptions = {
     onClick: false,
     onMouseover: 'pauseAutoHide',
     showDismissButton: true,
-    stacking: 4
+    stacking: 8
   },
   animations: {
     enabled: true,

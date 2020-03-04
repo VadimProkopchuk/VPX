@@ -4,6 +4,10 @@
 <ng-template #authForm>
   <div class="row">
     <div class="col-8 offset-2">
+      <div class="form-group" *ngIf="message">
+        <p class="text-danger text-center">{{message}}</p>
+      </div>
+
       <mat-card>
         <mat-tab-group mat-align-tabs="center">
           <mat-tab label="Вход">

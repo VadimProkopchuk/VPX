@@ -1,8 +1,8 @@
-﻿using JML.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using JML.Models.Settings;
 
 namespace JML.Presentation.WebClient.Configurations
 {
@@ -10,7 +10,7 @@ namespace JML.Presentation.WebClient.Configurations
     {
         public static void ConfigureBearerAuth(this IServiceCollection services, AppSettings settings)
         {
-            var key = Encoding.ASCII.GetBytes(settings.JwtSecret);
+            var key = Encoding.ASCII.GetBytes(settings.Jwt.Secret);
 
             services
                 .AddAuthentication(x =>
@@ -26,8 +26,11 @@ namespace JML.Presentation.WebClient.Configurations
                     {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(key),
-                        ValidateIssuer = false,
-                        ValidateAudience = false
+                        ValidateIssuer = true,
+                        ValidIssuer = settings.Jwt.Issuer,
+                        ValidateAudience = true,
+                        ValidAudience = settings.Jwt.Audience,
+                        ValidateLifetime = true,
                     };
                 });
         }

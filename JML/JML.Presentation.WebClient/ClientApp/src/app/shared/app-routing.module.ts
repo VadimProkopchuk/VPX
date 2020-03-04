@@ -7,24 +7,30 @@ import {LecturesPageComponent} from '../components/lecture-components/lectures-p
 import {LecturesComponent} from '../components/lecture-components/lectures/lectures.component';
 import {LectureComponent} from '../components/lecture-components/lecture/lecture.component';
 import {EditLectureComponent} from '../components/lecture-components/edit-lecture/edit-lecture.component';
+import {AuthGuard} from './guards/auth.guard';
+import {Role} from './models/role';
+import {AccessDeniedPageComponent} from '../components/access-denied-page/access-denied-page.component';
 
 const routes: Routes = [
   {
     path: '', component: LayoutComponent, children: [
-      {path: '', redirectTo: '/', pathMatch: 'full'},
-      {path: '', component: HomePageComponent},
-      { path: 'lecture/:url', component: LectureComponent },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: HomePageComponent },
+      { path: 'lecture/:url', component: LectureComponent, canActivate: [AuthGuard] },
       {
         path: 'lectures',
         component: LecturesPageComponent,
+        canActivate: [AuthGuard],
         children: [
-          { path: 'all', component: LecturesComponent },
-          { path: 'create', component: CreateLectureComponent },
-          { path: 'edit/:url', component: EditLectureComponent }
+          { path: 'all', component: LecturesComponent, canActivate: [AuthGuard] },
+          { path: 'create', component: CreateLectureComponent, canActivate: [AuthGuard], data: { roles: [Role.Teacher, Role.Admin] } },
+          { path: 'edit/:url', component: EditLectureComponent, canActivate: [AuthGuard], data: { roles: [Role.Teacher, Role.Admin] } }
         ]
-      }
+      },
+      { path: 'access-denied', component: AccessDeniedPageComponent }
     ]
   },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
