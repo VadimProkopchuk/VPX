@@ -31,7 +31,7 @@ export class AuthInterceptor implements HttpInterceptor {
               queryParams: {
                 authFailed: true
               }
-            });
+            }).then(() => {});
           } else {
             this.alertService.danger(error.error);
           }

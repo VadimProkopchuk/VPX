@@ -11,11 +11,11 @@ namespace JML.Presentation.WebClient.Controllers
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
-        private readonly IAuthenticationService authenticationService;
+        private readonly IAccountService accountService;
 
-        public AccountController(IAuthenticationService authenticationService)
+        public AccountController(IAccountService accountService)
         {
-            this.authenticationService = authenticationService;
+            this.accountService = accountService;
         }
 
         [HttpPost]
@@ -23,7 +23,7 @@ namespace JML.Presentation.WebClient.Controllers
         [Route("login")]
         public async Task<IActionResult> Login(LoginModel model)
         {
-            var jwt = await authenticationService.AuthAsync(model.Email, model.Password);
+            var jwt = await accountService.AuthAsync(model.Email, model.Password);
             var tokenPair = new TokenPair
             {
                 Token = jwt.Token,
@@ -33,14 +33,13 @@ namespace JML.Presentation.WebClient.Controllers
             return Ok(tokenPair);
         }
 
-
         [HttpPost]
         [AllowAnonymous]
         [Route("register")]
-        public async Task<ActionResult> Register(RegisterUserModel user)
+        public async Task<ActionResult<UserModel>> Register(RegisterUserModel user)
         {
-            await Task.Delay(2000);
-            return Ok();
+            var createdUser = await accountService.RegisterAsync(user);
+            return Ok(createdUser);
         }
     }
 }

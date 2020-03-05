@@ -84,7 +84,7 @@ export class EditLectureComponent implements OnInit, OnDestroy {
         this.tags = [];
         this.submitted = false;
         this.alertService.success(`Материал "${updatedLecture.name}" успешно обновлен.`);
-        this.router.navigate(['/lecture', updatedLecture.url]);
+        this.router.navigate(['/lecture', updatedLecture.url]).then(() => {});
       }, (error) => {
         this.alertService.danger(`Ошибка обновления.`);
         this.submitted = false;

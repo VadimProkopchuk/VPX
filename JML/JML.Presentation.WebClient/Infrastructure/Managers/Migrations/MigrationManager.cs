@@ -13,8 +13,9 @@ namespace JML.Presentation.WebClient.Infrastructure.Managers.Migrations
         {
             using var scope = host.Services.CreateScope();
             
-            var services = host.Services;
-            var context = services.GetRequiredService<TContext>();
+            var services = scope.ServiceProvider;
+            using var context = services.GetRequiredService<TContext>();
+            
             var logger = services.GetRequiredService<ILogger<TContext>>();
             var contextName = typeof(TContext).Name;
 
