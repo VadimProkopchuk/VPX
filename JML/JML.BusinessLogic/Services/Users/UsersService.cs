@@ -19,5 +19,10 @@ namespace JML.BusinessLogic.Services.Users
         {
             return await usersRepository.GetQuery().FirstOrDefaultAsync(x => x.Email == email);
         }
+
+        public async Task<bool> HasUserByEmailAsync(string email)
+        {
+            return await usersRepository.GetQuery().AnyAsync(x => x.Email == email);
+        }
     }
 }

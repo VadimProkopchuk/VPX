@@ -15,8 +15,12 @@ export interface User {
   firstName: string;
   lastName: string;
   groupName: string;
-  roles: Array<string>;
-  enumRoles: Array<Role>;
+  roles: Array<UserRole>;
+}
+
+export interface UserRole {
+  display: string;
+  value: Role;
 }
 
 export interface Lecture {

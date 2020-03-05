@@ -1,9 +1,6 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using JML.ApiModels;
 using JML.BusinessLogic.Core.Contracts.Accounts;
-using JML.Domain.Enums;
-using JML.Presentation.WebClient.Infrastructure.Presenters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,13 +12,10 @@ namespace JML.Presentation.WebClient.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAuthenticationService authenticationService;
-        private readonly ICurrentUser currentUser;
 
-        public AccountController(IAuthenticationService authenticationService,
-            ICurrentUser currentUser)
+        public AccountController(IAuthenticationService authenticationService)
         {
             this.authenticationService = authenticationService;
-            this.currentUser = currentUser;
         }
 
         [HttpPost]
@@ -39,25 +33,14 @@ namespace JML.Presentation.WebClient.Controllers
             return Ok(tokenPair);
         }
 
-        [HttpGet]
-        [Route("current-user")]
-        public async Task<IActionResult> GetCurrentUser()
-        {
-            // todo: refactor 
-            var user = await currentUser.GetCurrentUserAync();
-            var roles = user.UserRoles?.Select(x => x.Role.Present()).ToArray() ?? new string[0];
-            var enumRoles = user.UserRoles?.Select(x => x.Role).ToArray() ?? new Role[0];
-            var userModel = new UserModel
-            {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                GroupName = user.Group?.Name,
-                Roles = roles,
-                EnumRoles = enumRoles
-            };
 
-            return Ok(userModel);
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("register")]
+        public async Task<ActionResult> Register(RegisterUserModel user)
+        {
+            await Task.Delay(2000);
+            return Ok();
         }
     }
 }

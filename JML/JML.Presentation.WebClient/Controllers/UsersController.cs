@@ -1,35 +1,42 @@
 ﻿using System.Threading.Tasks;
 using JML.ApiModels;
+using JML.BusinessLogic.Core.Contracts.Accounts;
 using JML.BusinessLogic.Core.Contracts.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JML.Presentation.WebClient.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
+    [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
         private readonly IUsersService usersService;
+        private readonly ICurrentUser currentUser;
 
-        public UsersController(IUsersService usersService)
+        public UsersController(IUsersService usersService,
+            ICurrentUser currentUser)
         {
             this.usersService = usersService;
+            this.currentUser = currentUser;
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("HasUserByEmail/{email}")]
         public async Task<ActionResult<bool>> HasUserByEmail(string email)
         {
-            var user = await usersService.GetByEmailAsync(email);
-            return Ok(user != null);
+            var hasAny = await usersService.HasUserByEmailAsync(email);
+            return Ok(hasAny);
         }
 
-        [HttpPost]
-        [Route("register")]
-        public async Task<ActionResult> Register(RegisterUserModel user)
+        [HttpGet]
+        [Route("current")]
+        public async Task<ActionResult<UserModel>> GetCurrentUser()
         {
-            await Task.Delay(2000);
-            return Ok();
+            var user = await currentUser.GetCurrentUserAsync();
+            return Ok(user);
         }
     }
 }

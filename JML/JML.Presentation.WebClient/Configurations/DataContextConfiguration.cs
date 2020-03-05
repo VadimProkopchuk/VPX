@@ -10,8 +10,9 @@ namespace JML.Presentation.WebClient.Configurations
         public static void ConfigureDataContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"])
-                .UseLazyLoadingProxies());
+                options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"],
+                        sqlConfig => sqlConfig.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName))
+                    .UseLazyLoadingProxies());
         }
     }
 }

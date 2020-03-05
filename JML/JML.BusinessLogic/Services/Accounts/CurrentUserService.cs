@@ -4,6 +4,8 @@ using JML.DataAccess.Core.Contracts;
 using JML.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using JML.ApiModels;
+using JML.BusinessLogic.Mappings.Users;
 
 namespace JML.BusinessLogic.Services.Accounts
 {
@@ -21,21 +23,22 @@ namespace JML.BusinessLogic.Services.Accounts
             this.usersRepository = usersRepository;
         }
 
-        public async Task<User> GetCurrentUserAync()
+        public async Task<UserModel> GetCurrentUserAsync()
         {
-            if (currentUser != null)
+            if (currentUser == null)
             {
-                return currentUser;
+                var userId = contextService.GetCurrentUserId();
+                if (userId != null)
+                {
+                    currentUser = await usersRepository
+                        .GetQuery()
+                        .Include(x => x.UserRoles)
+                        .Include(x => x.Group)
+                        .FirstOrDefaultAsync(x => x.Id == userId.Value);
+                }
             }
 
-            var userId = contextService.GetCurrentUserId();
-
-            if (userId != null)
-            {
-                currentUser = await usersRepository.GetQuery().FirstOrDefaultAsync(x => x.Id == userId.Value);
-            }
-
-            return currentUser;
+            return UserMap.Map(currentUser);
         }
     }
 }

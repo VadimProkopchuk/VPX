@@ -71,10 +71,10 @@ export class CurrentUserService {
   }
 
   public isTeacher(): boolean {
-    return this.user.enumRoles.includes(Role.Teacher);
+    return this.user.roles.map(x => x.value).includes(Role.Teacher);
   }
 
   public isAdmin(): boolean {
-    return this.user.enumRoles.includes(Role.Admin);
+    return this.user.roles.map(x => x.value).includes(Role.Admin);
   }
 }

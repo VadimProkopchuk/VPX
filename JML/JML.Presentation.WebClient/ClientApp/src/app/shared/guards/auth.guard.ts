@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     Observable<boolean> | Promise<boolean> | boolean {
     if (this.authService.isAuthenticated()) {
       const routeRoles: Array<Role> = route.data.roles;
-      const userRoles: Array<Role> = this.currentUserService.user.enumRoles;
+      const userRoles: Array<Role> = this.currentUserService.user.roles.map(x => x.value);
 
       if (routeRoles) {
         if (routeRoles.some(x => userRoles.some(role => role === x))) {
