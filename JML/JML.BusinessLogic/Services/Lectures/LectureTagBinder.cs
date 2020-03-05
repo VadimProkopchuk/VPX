@@ -50,7 +50,7 @@ namespace JML.BusinessLogic.Services.Lectures
 
         private async Task<List<Tag>> CreateTagsAsync(List<TagModel> tagList)
         {
-            tagList = tagList ?? new List<TagModel>();
+            tagList ??= new List<TagModel>();
             var tags = tagList
                 .Where(x => x.Value.HasValue)
                 .Select(TagMap.Map)

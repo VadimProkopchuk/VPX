@@ -1,10 +1,10 @@
-﻿using JML.Domain;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using JML.ApiModels;
 
 namespace JML.BusinessLogic.Core.Contracts.Accounts
 {
     public interface ICurrentUser
     {
-        Task<User> GetCurrentUserAync();
+        Task<UserModel> GetCurrentUserAsync();
     }
 }

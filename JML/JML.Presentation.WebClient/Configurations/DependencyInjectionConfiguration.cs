@@ -33,6 +33,7 @@ namespace JML.Presentation.WebClient.Configurations
             services.AddScoped<ILectureService, LectureService>();
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<ILectureTagBinder, LectureTagBinder>();
+            services.AddScoped<IAccountService, AccountService>();
         }
     }
 }

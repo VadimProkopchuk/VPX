@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JML.BusinessLogic.Core.Contracts.Systems;
 using JML.Domain;
 using JML.Models;
@@ -27,22 +28,23 @@ namespace JML.BusinessLogic.Services.Systems
         public JwtModel GetToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenDescriptor = BuildSecurityTokenDescriptor(user);
+            var nowUtc = systemTimeService.GetDateUtc();
+            var expiresAt = nowUtc.AddDays(jwtSettings.LifeTimeInDays);
+            var tokenDescriptor = BuildSecurityTokenDescriptor(user, nowUtc, expiresAt);
             var securityToken = tokenHandler.CreateToken(tokenDescriptor);
             var token = tokenHandler.WriteToken(securityToken);
 
             return new JwtModel
             {
-                ExpiredAt = tokenDescriptor.Expires.Value,
+                ExpiredAt = expiresAt,
                 Token = token
             };
         }
 
-        private SecurityTokenDescriptor BuildSecurityTokenDescriptor(User user)
+        private SecurityTokenDescriptor BuildSecurityTokenDescriptor(User user, DateTime nowUtc, DateTime expires)
         {
             var key = Encoding.ASCII.GetBytes(jwtSettings.Secret);
-            var nowUtc = systemTimeService.GetDateUtc();
-            var expiresAt = nowUtc.AddDays(jwtSettings.LifeTimeInDays);
+
             var roleClaims = GetRoleClaims(user);
             var claims = roleClaims.Union(new[]
             {
@@ -54,7 +56,7 @@ namespace JML.BusinessLogic.Services.Systems
                 Audience = jwtSettings.Audience,
                 NotBefore = nowUtc,
                 Subject = new ClaimsIdentity(claims),
-                Expires = expiresAt,
+                Expires = expires,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

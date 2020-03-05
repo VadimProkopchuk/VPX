@@ -73,8 +73,8 @@ export class CreateLectureComponent implements OnInit, OnDestroy {
         this.form.reset();
         this.tags = [];
         this.alertService.success(`Материал "${createdLecture.name}" успешно добавлен.`);
-        this.router.navigate(['/lecture', createdLecture.url]);
-      }, (error) => {
+        this.router.navigate(['/lecture', createdLecture.url]).then(() => {});
+      }, () => {
         this.alertService.danger(`Ошибка добавления.`);
         this.submitted = false;
       });

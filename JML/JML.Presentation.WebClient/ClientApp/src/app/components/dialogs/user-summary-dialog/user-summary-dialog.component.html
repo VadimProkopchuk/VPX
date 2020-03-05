@@ -4,7 +4,7 @@
     <div class="form-group">
       <strong>Роли:</strong>
       <div *ngFor="let role of user.roles">
-        <span>&#10003;</span> {{role}}
+        <span>&#10003;</span> {{role.display}}
       </div>
     </div>
     <div class="form-group" *ngIf="user.groupName">

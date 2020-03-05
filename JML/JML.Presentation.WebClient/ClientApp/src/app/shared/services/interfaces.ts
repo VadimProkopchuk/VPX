@@ -15,8 +15,12 @@ export interface User {
   firstName: string;
   lastName: string;
   groupName: string;
-  roles: Array<string>;
-  enumRoles: Array<Role>;
+  roles: Array<UserRole>;
+}
+
+export interface UserRole {
+  display: string;
+  value: Role;
 }
 
 export interface Lecture {
@@ -33,4 +37,11 @@ export interface Lecture {
 export interface Tag {
   display: String;
   value?: String;
+}
+
+export interface CreateUser {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
 }

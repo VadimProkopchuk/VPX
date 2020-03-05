@@ -1,9 +1,6 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using JML.ApiModels;
 using JML.BusinessLogic.Core.Contracts.Accounts;
-using JML.Domain.Enums;
-using JML.Presentation.WebClient.Infrastructure.Presenters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,14 +11,11 @@ namespace JML.Presentation.WebClient.Controllers
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
-        private readonly IAuthenticationService authenticationService;
-        private readonly ICurrentUser currentUser;
+        private readonly IAccountService accountService;
 
-        public AccountController(IAuthenticationService authenticationService,
-            ICurrentUser currentUser)
+        public AccountController(IAccountService accountService)
         {
-            this.authenticationService = authenticationService;
-            this.currentUser = currentUser;
+            this.accountService = accountService;
         }
 
         [HttpPost]
@@ -29,7 +23,7 @@ namespace JML.Presentation.WebClient.Controllers
         [Route("login")]
         public async Task<IActionResult> Login(LoginModel model)
         {
-            var jwt = await authenticationService.AuthAsync(model.Email, model.Password);
+            var jwt = await accountService.AuthAsync(model.Email, model.Password);
             var tokenPair = new TokenPair
             {
                 Token = jwt.Token,
@@ -39,25 +33,13 @@ namespace JML.Presentation.WebClient.Controllers
             return Ok(tokenPair);
         }
 
-        [HttpGet]
-        [Route("current-user")]
-        public async Task<IActionResult> GetCurrentUser()
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("register")]
+        public async Task<ActionResult<UserModel>> Register(RegisterUserModel user)
         {
-            // todo: refactor 
-            var user = await currentUser.GetCurrentUserAync();
-            var roles = user.UserRoles?.Select(x => x.Role.Present()).ToArray() ?? new string[0];
-            var enumRoles = user.UserRoles?.Select(x => x.Role).ToArray() ?? new Role[0];
-            var userModel = new UserModel
-            {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                GroupName = user.Group?.Name,
-                Roles = roles,
-                EnumRoles = enumRoles
-            };
-
-            return Ok(userModel);
+            var createdUser = await accountService.RegisterAsync(user);
+            return Ok(createdUser);
         }
     }
 }

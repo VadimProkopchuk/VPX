@@ -56,7 +56,7 @@ export class LectureComponent implements OnInit, OnDestroy {
       .remove(id)
       .subscribe(lecture => {
         this.alertService.warning('Материал "' + lecture.name + '" удален.');
-        this.router.navigate(['/lectures', 'all']);
+        this.router.navigate(['/lectures', 'all']).then(() => {});
       });
   }
 
