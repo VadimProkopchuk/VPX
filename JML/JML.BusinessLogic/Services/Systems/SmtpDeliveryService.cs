@@ -31,96 +31,92 @@ namespace JML.BusinessLogic.Services.Systems
                 throw new ArgumentNullException($"'{nameof(sendEmailCommand.EmailTo)}' is not provided.");
             }
 
-            using (var message = new MailMessage())
+            using var message = new MailMessage();
+            foreach (var emailTo in sendEmailCommand.EmailTo.Distinct())
             {
-                foreach (var emailTo in sendEmailCommand.EmailTo.Distinct())
+                if (!IsValidEmail(emailTo))
                 {
-                    if (!IsValidEmail(emailTo))
-                    {
-                        throw new ArgumentException($"Email to address '{emailTo}' is invalid.");
-                    }
-
-                    message.To.Add(emailTo);
+                    throw new ArgumentException($"Email to address '{emailTo}' is invalid.");
                 }
 
-                message.Subject = sendEmailCommand.Subject;
-                message.IsBodyHtml = sendEmailCommand.IsBodyHtml;
-                message.Body = sendEmailCommand.Body;
-                message.From = string.IsNullOrWhiteSpace(sendEmailCommand.FromEmailTitle)
-                    ? new MailAddress(emailSettings.FromTitle)
-                    : new MailAddress(emailSettings.FromTitle, sendEmailCommand.FromEmailTitle);
+                message.To.Add(emailTo);
+            }
 
-                if (sendEmailCommand.AttachmentFiles?.Any() == true)
+            message.Subject = sendEmailCommand.Subject;
+            message.IsBodyHtml = sendEmailCommand.IsBodyHtml;
+            message.Body = sendEmailCommand.Body;
+            message.From = string.IsNullOrWhiteSpace(sendEmailCommand.FromEmailTitle)
+                ? new MailAddress(emailSettings.FromTitle)
+                : new MailAddress(emailSettings.FromTitle, sendEmailCommand.FromEmailTitle);
+
+            if (sendEmailCommand.AttachmentFiles?.Any() == true)
+            {
+                foreach (var attachment in sendEmailCommand.AttachmentFiles)
                 {
-                    foreach (var attachment in sendEmailCommand.AttachmentFiles)
-                    {
-                        message.Attachments.Add(attachment);
-                    }
+                    message.Attachments.Add(attachment);
                 }
+            }
 
-                if (!string.IsNullOrEmpty(sendEmailCommand.BccAddress))
+            if (!string.IsNullOrEmpty(sendEmailCommand.BccAddress))
+            {
+                message.Bcc.Add(sendEmailCommand.BccAddress);
+            }
+
+            using var smtpClient = new SmtpClient(emailSettings.Host, emailSettings.Port)
+            {
+                UseDefaultCredentials = emailSettings.UseDefaultCredentials
+            };
+
+            if (!smtpClient.UseDefaultCredentials)
+            {
+                smtpClient.Credentials = new NetworkCredential(emailSettings.UserName, emailSettings.Password);
+            }
+
+            smtpClient.EnableSsl = emailSettings.EnableSsl;
+
+            var isEmailSent = false;
+            var attempt = 0;
+
+            while (!isEmailSent && attempt < emailSettings.MaxSendAttempts)
+            {
+                try
                 {
-                    message.Bcc.Add(sendEmailCommand.BccAddress);
+                    attempt++;
+                    await smtpClient.SendMailAsync(message);
+                    isEmailSent = true;
                 }
-
-                using (var smtpClient = new SmtpClient())
+                catch (SmtpFailedRecipientsException ex)
                 {
-                    smtpClient.Host = emailSettings.Host;
-                    smtpClient.Port = emailSettings.Port;
-                    smtpClient.UseDefaultCredentials = emailSettings.UseDefaultCredentials;
-
-                    if (!smtpClient.UseDefaultCredentials)
+                    var statusCode = ex.StatusCode;
+                    var statuses = new[]
                     {
-                        smtpClient.Credentials = new NetworkCredential(emailSettings.UserName, emailSettings.Password);
-                    }
+                        SmtpStatusCode.MailboxBusy, SmtpStatusCode.MailboxUnavailable,
+                        SmtpStatusCode.TransactionFailed
+                    };
 
-                    smtpClient.DeliveryFormat = SmtpDeliveryFormat.SevenBit;
-                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtpClient.EnableSsl = emailSettings.EnableSsl;
-                    var isEmailSent = false;
-                    var attempt = 0;
-                    while (!isEmailSent && attempt < emailSettings.MaxSendAttempts)
+                    if (statuses.Contains(statusCode))
                     {
-                        try
-                        {
-                            attempt++;
-                            await smtpClient.SendMailAsync(message);
-                            isEmailSent = true;
-                        }
-                        catch (SmtpFailedRecipientsException ex)
-                        {
-                            var statusCode = ex.StatusCode;
-                            var statusses = new[]
-                            {
-                                SmtpStatusCode.MailboxBusy, SmtpStatusCode.MailboxUnavailable,
-                                SmtpStatusCode.TransactionFailed
-                            };
-
-                            if (statusses.Contains(statusCode))
-                            {
-                                if (attempt >= emailSettings.MaxSendAttempts)
-                                {
-                                    if (!emailSettings.IsExceptionSuppressionEnabled)
-                                    {
-                                        throw;
-                                    }
-                                }
-
-                                await Task.Delay(emailSettings.AttemptWaitMs);
-                            }
-                        }
-                        catch (Exception)
+                        if (attempt >= emailSettings.MaxSendAttempts)
                         {
                             if (!emailSettings.IsExceptionSuppressionEnabled)
                             {
                                 throw;
                             }
                         }
-                    }
 
-                    return isEmailSent;
+                        await Task.Delay(emailSettings.AttemptWaitMs);
+                    }
+                }
+                catch (Exception)
+                {
+                    if (!emailSettings.IsExceptionSuppressionEnabled)
+                    {
+                        throw;
+                    }
                 }
             }
+
+            return isEmailSent;
         }
 
         private static bool IsValidEmail(string email)

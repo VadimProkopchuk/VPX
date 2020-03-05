@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using JML.ApiModels;
 using JML.BusinessLogic.Core.Contracts.Accounts;
+using JML.BusinessLogic.Core.Contracts.Emails;
 using JML.BusinessLogic.Core.Contracts.Systems;
 using JML.BusinessLogic.Core.Contracts.Users;
 using JML.BusinessLogic.Mappings.Users;
@@ -20,18 +21,21 @@ namespace JML.BusinessLogic.Services.Accounts
         private readonly IPasswordEncrypter passwordEncrypter;
         private readonly IAppEntityRepository<User> usersRepository;
         private readonly IDataContext dataContext;
+        private readonly IEmailService emailService;
 
         public AccountService(IUsersService usersService, 
             IAuthenticationService authenticationService,
             IPasswordEncrypter passwordEncrypter,
             IAppEntityRepository<User> usersRepository,
-            IDataContext dataContext)
+            IDataContext dataContext,
+            IEmailService emailService)
         {
             this.usersService = usersService;
             this.authenticationService = authenticationService;
             this.passwordEncrypter = passwordEncrypter;
             this.usersRepository = usersRepository;
             this.dataContext = dataContext;
+            this.emailService = emailService;
         }
 
         public async Task<JwtModel> AuthAsync(string email, string password)
@@ -71,7 +75,9 @@ namespace JML.BusinessLogic.Services.Accounts
             };
 
             usersRepository.Add(user);
+            
             await dataContext.SaveChangesAsync();
+            await emailService.SendRegistrationMailAsync(user);
 
             return UserMap.Map(user);
         }

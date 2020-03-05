@@ -1,9 +1,11 @@
 ﻿using JML.BusinessLogic.Core.Contracts.Accounts;
+using JML.BusinessLogic.Core.Contracts.Emails;
 using JML.BusinessLogic.Core.Contracts.Lectures;
 using JML.BusinessLogic.Core.Contracts.Systems;
 using JML.BusinessLogic.Core.Contracts.Tags;
 using JML.BusinessLogic.Core.Contracts.Users;
 using JML.BusinessLogic.Services.Accounts;
+using JML.BusinessLogic.Services.Emails;
 using JML.BusinessLogic.Services.Lectures;
 using JML.BusinessLogic.Services.Systems;
 using JML.BusinessLogic.Services.Tags;
@@ -36,6 +38,7 @@ namespace JML.Presentation.WebClient.Configurations
             services.AddScoped<IAccountService, AccountService>();
 
             services.AddScoped<ISmtpDeliveryService, SmtpDeliveryService>();
+            services.AddScoped<IEmailService, EmailService>();
         }
     }
 }
