@@ -87,7 +87,13 @@ export class RegisterComponent implements OnInit {
       .subscribe(() => {
         this.alertService.success('Регистрация успешно завершена.');
         this.success = true;
+        this.resetForms();
       });
+  }
+
+  reset() {
+    this.isEditable = true;
+    this.resetForms();
   }
 
   private getAsyncEmailValidator(): AsyncValidatorFn {
@@ -109,5 +115,11 @@ export class RegisterComponent implements OnInit {
         ? null
         : { match: false };
     };
+  }
+
+  private resetForms() {
+    this.personalDataForm.reset();
+    this.accessDataForm.reset();
+    this.verificationDataForm.reset();
   }
 }
