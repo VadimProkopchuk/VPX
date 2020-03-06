@@ -52,21 +52,35 @@
         </div>
         <div class="form-group d-flex justify-content-between">
           <button mat-raised-button matStepperPrevious color="accent" class="text-left">Назад</button>
-          <button mat-raised-button matStepperNext color="primary" class="text-right" [disabled]="!accessDataForm.valid">Дальше</button>
+          <button mat-raised-button matStepperNext color="primary" class="text-right"
+                  (click)="verify()"
+                  [disabled]="!accessDataForm.valid">
+            Дальше
+          </button>
         </div>
       </form>
     </mat-step>
 
-    <mat-step [editable]="isEditable">
+    <mat-step  [stepControl]="verificationDataForm" [editable]="isEditable">
       <ng-template matStepLabel>Подтверждение</ng-template>
-      <p>{{getUserName()}}, подтвердите регистрацию.</p>
-      <div class="form-group d-flex justify-content-between">
-        <div>
-          <button mat-raised-button matStepperPrevious color="accent">Назад</button>
-          <button mat-raised-button color="warn" class="ml-3" (click)="stepper.reset()">Отмена</button>
+      <form [formGroup]="verificationDataForm">
+        <p>{{getUserName()}}, Вам на почту отправлен код для подтверждения регистрации.</p>
+        <div class="form-group">
+          <mat-form-field class="full-width">
+            <mat-label>Код подтверждения</mat-label>
+            <input matInput formControlName="verificationCode" placeholder="Код подтверждения">
+            <mat-error *ngIf="this.verificationDataForm.controls['verificationCode'].hasError('required')">Введите код подтверждения</mat-error>
+          </mat-form-field>
         </div>
-        <button mat-raised-button color="primary" (click)="register()" matStepperNext>Зарегистрироваться</button>
-      </div>
+        <div class="form-group d-flex justify-content-between">
+          <div>
+            <button mat-raised-button matStepperPrevious color="accent">Назад</button>
+            <button mat-raised-button color="warn" class="ml-3" (click)="stepper.reset()">Отмена</button>
+          </div>
+          <button mat-raised-button color="primary" (click)="register()" matStepperNext [disabled]="!verificationDataForm.valid">Зарегистрироваться</button>
+        </div>
+      </form>
+
     </mat-step>
 
   <mat-step>

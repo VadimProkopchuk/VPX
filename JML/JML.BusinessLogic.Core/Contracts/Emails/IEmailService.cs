@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using JML.Domain;
+using JML.ApiModels;
 
 namespace JML.BusinessLogic.Core.Contracts.Emails
 {
     public interface IEmailService
     {
-        Task SendRegistrationMailAsync(User user);
+        Task SendVerificationMailAsync(VerificationUserModel user, string verificationCode);
     }
 }

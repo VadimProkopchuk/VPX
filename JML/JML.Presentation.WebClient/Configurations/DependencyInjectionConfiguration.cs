@@ -39,6 +39,7 @@ namespace JML.Presentation.WebClient.Configurations
 
             services.AddScoped<ISmtpDeliveryService, SmtpDeliveryService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IBase64TextConverter, Base64TextConverter>();
         }
     }
 }

@@ -5,6 +5,7 @@ import {Injectable} from '@angular/core';
 export class EndpointMapService {
   public LoginEndpoint = environment.apiEndpoint + 'account/login';
   public Register = environment.apiEndpoint + 'account/register';
+  public Verify = environment.apiEndpoint + 'account/verify';
 
   public Users = environment.apiEndpoint + 'users';
   public HasUserByEmail = this.Users + '/hasUserByEmail/';

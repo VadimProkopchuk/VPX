@@ -35,6 +35,15 @@ namespace JML.Presentation.WebClient.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [Route("verify")]
+        public async Task<ActionResult> Verify(VerificationUserModel user)
+        {
+            await accountService.VerifyAsync(user);
+            return Ok();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
         [Route("register")]
         public async Task<ActionResult<UserModel>> Register(RegisterUserModel user)
         {

@@ -1,7 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text;
+using System.Threading.Tasks;
+using JML.ApiModels;
 using JML.BusinessLogic.Core.Contracts.Emails;
 using JML.BusinessLogic.Core.Contracts.Systems;
-using JML.Domain;
 using JML.Models;
 
 namespace JML.BusinessLogic.Services.Emails
@@ -15,9 +16,15 @@ namespace JML.BusinessLogic.Services.Emails
             this.smtpDeliveryService = smtpDeliveryService;
         }
 
-        public async Task SendRegistrationMailAsync(User user)
+        public async Task SendVerificationMailAsync(VerificationUserModel user, string verificationCode)
         {
-            var command = GetSendToCommand("Test message", user.Email, "TEST");
+            var messageBuilder = new StringBuilder($"Здравствуйте, ${user.FirstName} {user.LastName}!");
+
+            messageBuilder.AppendLine();
+            messageBuilder.AppendLine("Для продолжение регстрации введите код на сайте.");
+            messageBuilder.AppendLine($"Код: {verificationCode}");
+
+            var command = GetSendToCommand(messageBuilder.ToString(), user.Email, "Подтверждение регистрации");
 
             await smtpDeliveryService.SendAsync(command);
         }
@@ -35,6 +42,5 @@ namespace JML.BusinessLogic.Services.Emails
 
             return sendEmailCommand;
         }
-
     }
 }

@@ -39,9 +39,13 @@ export interface Tag {
   value?: String;
 }
 
-export interface CreateUser {
+export interface VerificationUser {
   firstName: string;
   lastName: string;
   email: string;
+}
+
+export interface CreateUser extends VerificationUser {
   password: string;
+  verificationCode: string;
 }
