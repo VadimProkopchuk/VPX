@@ -44,6 +44,15 @@ namespace JML.Presentation.WebClient.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [Route("restore")]
+        public async Task<ActionResult> Restore(RestoreAccessModel restoreAccessModel)
+        {
+            await accountService.RestoreAccess(restoreAccessModel);
+            return Ok();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
         [Route("register")]
         public async Task<ActionResult<UserModel>> Register(RegisterUserModel user)
         {

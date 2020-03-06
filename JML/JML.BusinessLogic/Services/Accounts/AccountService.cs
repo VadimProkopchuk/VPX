@@ -23,6 +23,7 @@ namespace JML.BusinessLogic.Services.Accounts
         private readonly IDataContext dataContext;
         private readonly IEmailService emailService;
         private readonly IBase64TextConverter base64TextConverter;
+        private readonly IPasswordGenerator passwordGenerator;
 
         public AccountService(IUsersService usersService, 
             IAuthenticationService authenticationService,
@@ -30,7 +31,8 @@ namespace JML.BusinessLogic.Services.Accounts
             IAppEntityRepository<User> usersRepository,
             IDataContext dataContext,
             IEmailService emailService,
-            IBase64TextConverter base64TextConverter)
+            IBase64TextConverter base64TextConverter,
+            IPasswordGenerator passwordGenerator)
         {
             this.usersService = usersService;
             this.authenticationService = authenticationService;
@@ -39,6 +41,7 @@ namespace JML.BusinessLogic.Services.Accounts
             this.dataContext = dataContext;
             this.emailService = emailService;
             this.base64TextConverter = base64TextConverter;
+            this.passwordGenerator = passwordGenerator;
         }
 
         public async Task<JwtModel> AuthAsync(string email, string password)
@@ -88,6 +91,26 @@ namespace JML.BusinessLogic.Services.Accounts
             await dataContext.SaveChangesAsync();
 
             return UserMap.Map(user);
+        }
+
+        public async Task RestoreAccess(RestoreAccessModel model)
+        {
+            var user = await usersService.GetByEmailAsync(model.Email);
+
+            if (user == null)
+            {
+                throw new ApplicationException("Пользователь не найден.");
+            }
+
+            var password = passwordGenerator.Generate(8);
+            var encryptedPassword = passwordEncrypter.Encrypt(password);
+
+            user.Password = encryptedPassword;
+            user.IsLocked = false;
+            user.CountOfInvalidAttempts = 0;
+
+            await dataContext.SaveChangesAsync();
+            await emailService.SendRestoreAccessMailAsync(UserMap.Map(user), password);
         }
 
         public async Task VerifyAsync(VerificationUserModel user)

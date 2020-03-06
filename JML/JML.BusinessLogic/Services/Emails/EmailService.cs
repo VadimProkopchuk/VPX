@@ -29,6 +29,18 @@ namespace JML.BusinessLogic.Services.Emails
             await smtpDeliveryService.SendAsync(command);
         }
 
+        public async Task SendRestoreAccessMailAsync(UserModel user, string password)
+        {
+            var messageBuilder = new StringBuilder($"Здравствуйте, {user.FirstName} {user.LastName}!");
+
+            messageBuilder.AppendLine();
+            messageBuilder.AppendLine("Для восстановления доступа был установлен новый пароль.");
+            messageBuilder.AppendLine($"Пароль: {password}");
+
+            var command = GetSendToCommand(messageBuilder.ToString(), user.Email, "Восстановление доступа");
+
+            await smtpDeliveryService.SendAsync(command);
+        }
 
         private SendEmailCommand GetSendToCommand(string message, string recipient, string subject)
         {

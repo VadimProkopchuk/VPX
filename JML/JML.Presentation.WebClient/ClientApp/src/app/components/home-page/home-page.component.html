@@ -7,7 +7,6 @@
       <div class="form-group" *ngIf="message">
         <p class="text-danger text-center">{{message}}</p>
       </div>
-
       <mat-card>
         <mat-tab-group mat-align-tabs="center">
           <mat-tab label="Вход">
@@ -17,9 +16,7 @@
             <app-register class="full-width"></app-register>
           </mat-tab>
           <mat-tab label="Восстановить доступ">
-            <div class="p-3">
-              <h1>todo </h1>
-            </div>
+            <app-restore-access class="full-width"></app-restore-access>
           </mat-tab>
         </mat-tab-group>
       </mat-card>

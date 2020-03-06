@@ -36,10 +36,10 @@ namespace JML.Presentation.WebClient.Configurations
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<ILectureTagBinder, LectureTagBinder>();
             services.AddScoped<IAccountService, AccountService>();
-
             services.AddScoped<ISmtpDeliveryService, SmtpDeliveryService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IBase64TextConverter, Base64TextConverter>();
+            services.AddScoped<IPasswordGenerator, PasswordGenerator>();
         }
     }
 }
