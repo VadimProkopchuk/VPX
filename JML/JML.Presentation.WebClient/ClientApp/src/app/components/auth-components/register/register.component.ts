@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {UsersService} from '../../../shared/services/users.service';
 import {map} from 'rxjs/operators';
-import {CreateUser} from '../../../shared/services/interfaces';
+import {CreateUser, VerificationUser} from '../../../shared/services/interfaces';
 import {AlertService} from '../../../shared/services/alert.service';
 
 @Component({
@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   isEditable = true;
   personalDataForm: FormGroup;
   accessDataForm: FormGroup;
+  verificationDataForm: FormGroup;
 
   constructor(private usersService: UsersService,
               private alertService: AlertService) {}
@@ -34,6 +35,10 @@ export class RegisterComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       confirm: new FormControl('', [Validators.required, this.getMatchValuesValidator('password')])
     });
+
+    this.verificationDataForm = new FormGroup({
+      verificationCode: new FormControl('', [Validators.required])
+    });
   }
 
   hasPersonalError (controlName: string, errorName: string) {
@@ -49,14 +54,31 @@ export class RegisterComponent implements OnInit {
     return `${personalData.firstName} ${personalData.lastName}`;
   }
 
+  verify() {
+    const personalData = this.personalDataForm.value;
+    const user: VerificationUser = {
+      firstName: personalData.firstName,
+      lastName: personalData.lastName,
+      email: personalData.email,
+    };
+
+    this.usersService.verify(user)
+      .subscribe(() => {
+        this.alertService.success('Вам на почту выслан код для подтверждения регистрации.');
+      });
+  }
+
   register() {
     const personalData = this.personalDataForm.value;
     const accessData = this.accessDataForm.value;
+    const verificationData = this.verificationDataForm.value;
+
     const user: CreateUser = {
       firstName: personalData.firstName,
       lastName: personalData.lastName,
       email: personalData.email,
-      password: accessData.password
+      password: accessData.password,
+      verificationCode: verificationData.verificationCode
     };
 
     this.submitted = true;
