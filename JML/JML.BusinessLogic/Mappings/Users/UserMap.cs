@@ -21,6 +21,7 @@ namespace JML.BusinessLogic.Mappings.Users
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 GroupName = user.Group?.Name,
+                Email = user.Email,
                 Roles = userRoles.Select(UserRoleMap.Map).ToList()
             };
         }

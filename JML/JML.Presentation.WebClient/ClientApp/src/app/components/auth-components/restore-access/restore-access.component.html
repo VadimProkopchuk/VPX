@@ -1,0 +1,22 @@
+<form (ngSubmit)="submit()" [formGroup]="formGroup">
+  <div class="form-group" *ngIf="message; else restoreForm">
+    <h2>
+      <mat-icon class="h1 mr-3" color="primary">check_circle</mat-icon>
+      {{message}}
+    </h2>
+    <div class="form-group text-center">
+      <button mat-raised-button color="primary" (click)="close()">Закрыть</button>
+    </div>
+  </div>
+  <ng-template #restoreForm>
+    <div class="form-group">
+      <mat-form-field class="full-width">
+        <input type="email" matInput placeholder="Email" formControlName="email">
+        <mat-error *ngIf="hasError('email', 'required')">Введите поле email</mat-error>
+        <mat-error *ngIf="hasError('email', 'email')">Поле email должен быть email</mat-error>
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid || submitted">Восстановить доступ</button>
+  </ng-template>
+</form>

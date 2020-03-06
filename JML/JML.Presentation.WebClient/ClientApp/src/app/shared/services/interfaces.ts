@@ -49,3 +49,7 @@ export interface CreateUser extends VerificationUser {
   password: string;
   verificationCode: string;
 }
+
+export interface RestoreUserAccess {
+  email: string;
+}
