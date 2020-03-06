@@ -9,6 +9,7 @@ namespace JML.ApiModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string GroupName { get; set; }
+        public string Email { get; set; }
         public List<RoleModel> Roles { get; set; }
     }
 }
