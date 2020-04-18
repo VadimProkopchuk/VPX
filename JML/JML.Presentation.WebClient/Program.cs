@@ -4,6 +4,8 @@ using JML.Presentation.WebClient.Infrastructure.Managers.Migrations.Seed;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 
 namespace JML.Presentation.WebClient
 {
@@ -13,9 +15,10 @@ namespace JML.Presentation.WebClient
         {
             CreateHostBuilder(args)
                 .Build()
-                .MigrateDatabase<AppDbContext>((context, serviceProvider) =>
-                {
-                    new DefaultAdminSeed().Seed(context);
+                .MigrateDatabase<AppDbContext>(new List<Action<AppDbContext, IServiceProvider>>() {
+                    (context, serviceProvider) => new DefaultAdminSeed().Seed(context),
+                    (context, serviceProvider) => new DefaultGroupSeed().Seed(context),
+                    (context, serviceProvider) => new DefaultTeacherSeed().Seed(context)
                 })
                 .Run();
         }

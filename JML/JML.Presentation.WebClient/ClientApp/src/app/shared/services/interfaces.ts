@@ -53,3 +53,11 @@ export interface CreateUser extends VerificationUser {
 export interface RestoreUserAccess {
   email: string;
 }
+
+export interface Group {
+  id: string;
+  name: string;
+  createdAt: Date;
+  modifiedAt: Date;
+  users: Array<User>;
+}

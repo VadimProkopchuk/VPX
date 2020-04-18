@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {EndpointMapService} from './endpoint-map.service';
-import {CreateUser, RestoreUserAccess, VerificationUser} from './interfaces';
+import {CreateUser, RestoreUserAccess, User, VerificationUser} from './interfaces';
 
 @Injectable({providedIn: 'root'})
 export class UsersService {
@@ -24,5 +24,9 @@ export class UsersService {
 
   restoreAccess(restoreUserAccess: RestoreUserAccess): Observable<void> {
     return this.http.post<void>(this.endpointMapService.RestoreAccess, restoreUserAccess);
+  }
+
+  getTeachers(): Observable<Array<User>> {
+    return this.http.get<Array<User>>(this.endpointMapService.Users + '/teachers');
   }
 }

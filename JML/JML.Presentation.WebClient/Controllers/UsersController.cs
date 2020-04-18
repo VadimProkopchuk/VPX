@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using JML.ApiModels;
 using JML.BusinessLogic.Core.Contracts.Accounts;
 using JML.BusinessLogic.Core.Contracts.Users;
@@ -37,6 +38,14 @@ namespace JML.Presentation.WebClient.Controllers
         {
             var user = await currentUser.GetCurrentUserAsync();
             return Ok(user);
+        }
+
+        [HttpGet]
+        [Route("teachers")]
+        public async Task<ActionResult<List<UserModel>>> GetTeachers()
+        {
+            var users = await usersService.GetTeachers();
+            return Ok(users);
         }
     }
 }

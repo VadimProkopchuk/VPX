@@ -15,4 +15,6 @@ export class EndpointMapService {
   public Lectures = environment.apiEndpoint + 'lecture';
 
   public Tags = environment.apiEndpoint + 'tag';
+
+  public Groups = environment.apiEndpoint + 'groups';
 }

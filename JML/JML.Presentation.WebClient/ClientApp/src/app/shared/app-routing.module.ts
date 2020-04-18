@@ -10,6 +10,9 @@ import {EditLectureComponent} from '../components/lecture-components/edit-lectur
 import {AuthGuard} from './guards/auth.guard';
 import {Role} from './models/role';
 import {AccessDeniedPageComponent} from '../components/access-denied-page/access-denied-page.component';
+import {GroupsPageComponent} from '../components/group-components/groups-page/groups-page.component';
+import {GroupsListComponent} from '../components/group-components/groups-list/groups-list.component';
+import {CreateGroupComponent} from '../components/group-components/create-group/create-group.component';
 
 const routes: Routes = [
   {
@@ -26,6 +29,15 @@ const routes: Routes = [
           { path: 'create', component: CreateLectureComponent, canActivate: [AuthGuard], data: { roles: [Role.Teacher, Role.Admin] } },
           { path: 'edit/:url', component: EditLectureComponent, canActivate: [AuthGuard], data: { roles: [Role.Teacher, Role.Admin] } }
         ]
+      },
+      {
+        path: 'groups',
+        component: GroupsPageComponent,
+        canActivate: [AuthGuard],
+        children: [
+          { path: 'all', component: GroupsListComponent, canActivate: [AuthGuard] },
+          { path: 'create', component: CreateGroupComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } } ,
+        ],
       },
       { path: 'access-denied', component: AccessDeniedPageComponent }
     ]

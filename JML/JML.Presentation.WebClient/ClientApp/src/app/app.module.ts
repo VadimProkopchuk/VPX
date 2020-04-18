@@ -29,6 +29,9 @@ import {DeleteLectureDialogComponent} from './components/dialogs/delete-lecture-
 import {AuthGuard} from './shared/guards/auth.guard';
 import {AccessDeniedPageComponent} from './components/access-denied-page/access-denied-page.component';
 import {RestoreAccessComponent} from './components/auth-components/restore-access/restore-access.component';
+import {GroupsPageComponent} from './components/group-components/groups-page/groups-page.component';
+import {GroupsListComponent} from './components/group-components/groups-list/groups-list.component';
+import {CreateGroupComponent} from './components/group-components/create-group/create-group.component';
 
 const AUTH_INTERCEPTOR = {
   provide: HTTP_INTERCEPTORS,
@@ -54,6 +57,9 @@ const AUTH_INTERCEPTOR = {
     DeleteLectureDialogComponent,
     AccessDeniedPageComponent,
     RestoreAccessComponent,
+    GroupsPageComponent,
+    GroupsListComponent,
+    CreateGroupComponent,
   ],
   imports: [
     TagInputModule,

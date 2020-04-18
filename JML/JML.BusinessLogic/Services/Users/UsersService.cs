@@ -1,7 +1,11 @@
-﻿using JML.BusinessLogic.Core.Contracts.Users;
+﻿using JML.ApiModels;
+using JML.BusinessLogic.Core.Contracts.Users;
+using JML.BusinessLogic.Mappings.Users;
 using JML.DataAccess.Core.Contracts;
 using JML.Domain;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace JML.BusinessLogic.Services.Users
@@ -18,6 +22,16 @@ namespace JML.BusinessLogic.Services.Users
         public async Task<User> GetByEmailAsync(string email)
         {
             return await usersRepository.GetQuery().FirstOrDefaultAsync(x => x.Email == email);
+        }
+
+        public async Task<List<UserModel>> GetTeachers()
+        {
+            var teachers = await usersRepository
+                .GetQuery()
+                .Where(x => x.UserRoles.Any(x => x.Role == Domain.Enums.Role.Teacher))
+                .ToListAsync();
+
+            return teachers.Select(UserMap.Map).ToList();
         }
 
         public async Task<bool> HasUserByEmailAsync(string email)

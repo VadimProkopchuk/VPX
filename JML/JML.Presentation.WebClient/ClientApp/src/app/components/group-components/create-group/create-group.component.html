@@ -1,0 +1,14 @@
+<mat-card>
+  <h2 class="app-color">Новый класс</h2>
+
+  <div class="form-container">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <mat-form-field class="full-width">
+        <input type="text" matInput placeholder="Название" formControlName="name">
+        <mat-error *ngIf="this.form.controls['name'].hasError('required')">Введите название</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || submitted">Добавить класс</button>
+    </form>
+  </div>
+</mat-card>

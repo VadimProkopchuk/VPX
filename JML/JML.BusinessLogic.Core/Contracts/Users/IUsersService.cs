@@ -1,4 +1,6 @@
-﻿using JML.Domain;
+﻿using JML.ApiModels;
+using JML.Domain;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace JML.BusinessLogic.Core.Contracts.Users
@@ -7,5 +9,6 @@ namespace JML.BusinessLogic.Core.Contracts.Users
     {
         Task<User> GetByEmailAsync(string email);
         Task<bool> HasUserByEmailAsync(string email);
+        Task<List<UserModel>> GetTeachers();
     }
 }

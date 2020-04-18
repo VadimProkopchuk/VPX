@@ -1,11 +1,13 @@
 ﻿using JML.BusinessLogic.Core.Contracts.Accounts;
 using JML.BusinessLogic.Core.Contracts.Emails;
+using JML.BusinessLogic.Core.Contracts.Groups;
 using JML.BusinessLogic.Core.Contracts.Lectures;
 using JML.BusinessLogic.Core.Contracts.Systems;
 using JML.BusinessLogic.Core.Contracts.Tags;
 using JML.BusinessLogic.Core.Contracts.Users;
 using JML.BusinessLogic.Services.Accounts;
 using JML.BusinessLogic.Services.Emails;
+using JML.BusinessLogic.Services.Groups;
 using JML.BusinessLogic.Services.Lectures;
 using JML.BusinessLogic.Services.Systems;
 using JML.BusinessLogic.Services.Tags;
@@ -40,6 +42,7 @@ namespace JML.Presentation.WebClient.Configurations
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IBase64TextConverter, Base64TextConverter>();
             services.AddScoped<IPasswordGenerator, PasswordGenerator>();
+            services.AddScoped<IGroupService, GroupService>();
         }
     }
 }

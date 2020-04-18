@@ -1,0 +1,8 @@
+<div class="form-group" *ngIf="currentUserService.isAdmin()">
+  <button mat-raised-button color="primary"
+          type="submit"
+          [routerLink]="['/groups', 'create']">
+    Добавить класс
+  </button>
+</div>
+<router-outlet></router-outlet>

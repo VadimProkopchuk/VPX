@@ -11,15 +11,14 @@ namespace JML.Presentation.WebClient.Infrastructure.Managers.Migrations.Seed
         public void Seed(AppDbContext context)
         {
             var users = context.Set<User>();
-
             if (!users.Any())
             {
-                users.AddRange(GetUsers());
+                users.AddRange(GetAdmins());
                 context.SaveChanges();
             }
         }
 
-        private IEnumerable<User> GetUsers()
+        private IEnumerable<User> GetAdmins()
         {
             yield return new User()
             {
