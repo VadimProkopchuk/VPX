@@ -61,3 +61,76 @@ export interface Group {
   modifiedAt: Date;
   users: Array<User>;
 }
+
+export interface AnswerTemplate {
+  id?: string;
+  answer: string;
+  isCorrect: boolean;
+}
+
+export interface QuestionTemplate {
+  id?: string;
+  name: string;
+  controlType: 'Text' | 'Single' | 'Multiple';
+  answers: Array<AnswerTemplate>;
+}
+
+export interface TestTemplate {
+  id?: string;
+  name: string;
+  description: string;
+  countOfQuestions: number;
+  createdAt?: Date;
+  questions: Array<QuestionTemplate>;
+}
+
+export interface CardTestTemplate {
+  id?: string;
+  name: string;
+  description: string;
+  countOfQuestions: number;
+  createdAt?: Date;
+  lastResult: number;
+  attempts: number;
+}
+
+export interface UserProfile {
+  activeAt?: Date;
+  createdAt: Date;
+  fullName: string;
+  groupName: string;
+  isLocked: boolean;
+  roles: Array<string>;
+  hasStudentRole: boolean;
+  hasTeacherRole: boolean;
+  tests: Array<string>;
+}
+
+export interface KnowledgeAnswer {
+  id: string;
+  answer: string;
+  isSelected: boolean;
+}
+
+export interface KnowledgeQuestion {
+  id: string;
+  name: string;
+  controlType: 'Text' | 'Single' | 'Multiple';
+  answers: Array<KnowledgeAnswer>;
+  answerId: string;
+}
+
+export interface KnowledgeTest {
+  id: string;
+  name: string;
+  questions: Array<KnowledgeQuestion>;
+}
+
+export interface KnowledgeTestResult {
+  name: string;
+  submittedAt: Date;
+  correctAnswers: number;
+  incorrectAnswers: number;
+  result: number;
+  mark: number;
+}

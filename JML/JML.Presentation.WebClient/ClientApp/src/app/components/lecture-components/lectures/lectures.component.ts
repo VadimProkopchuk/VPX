@@ -4,6 +4,7 @@ import {PageService} from '../../../shared/services/page.service';
 import {Lecture} from '../../../shared/services/interfaces';
 import {AlertService} from '../../../shared/services/alert.service';
 import {LecturesService} from '../../../shared/services/lectures.service';
+import {CurrentUserService} from '../../../shared/services/current-user.service';
 
 @Component({
   selector: 'app-lectures',
@@ -17,6 +18,7 @@ export class LecturesComponent implements OnInit, OnDestroy {
 
   constructor(private alertService: AlertService,
               private lecturesService: LecturesService,
+              public currentUserService: CurrentUserService,
               pageService: PageService) {
     pageService.changeHeader('Материалы');
   }

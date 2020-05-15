@@ -14,6 +14,10 @@ namespace JML.DataAccess.Context.Configurations
                 .WithMany()
                 .HasForeignKey(x => x.TestTemplateId)
                 .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(x => x.User)
+                .WithMany(x => x.Tests)
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
             builder.Property(x => x.ExpiredAt).IsRequired();
             
             builder.ToTable("KnowledgeTests");

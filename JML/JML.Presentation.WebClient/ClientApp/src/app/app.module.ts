@@ -32,6 +32,14 @@ import {RestoreAccessComponent} from './components/auth-components/restore-acces
 import {GroupsPageComponent} from './components/group-components/groups-page/groups-page.component';
 import {GroupsListComponent} from './components/group-components/groups-list/groups-list.component';
 import {CreateGroupComponent} from './components/group-components/create-group/create-group.component';
+import {TestsPageComponent} from './components/knowledge-test/tests-page/tests-page.component';
+import {CreateTestComponent} from './components/knowledge-test/create-test/create-test.component';
+import {SettingsPageComponent} from './components/settings-page/settings-page.component';
+import {TestRunnerComponent} from './components/knowledge-test/test-runner/test-runner.component';
+import {TestsComponent} from './components/knowledge-test/tests/tests.component';
+import {TestResultsComponent} from './components/knowledge-test/test-results/test-results.component';
+import {UserProfileComponent} from './components/user-profile/user-profile.component';
+import {ProfilePageComponent} from './components/profile-page/profile-page.component';
 
 const AUTH_INTERCEPTOR = {
   provide: HTTP_INTERCEPTORS,
@@ -60,6 +68,14 @@ const AUTH_INTERCEPTOR = {
     GroupsPageComponent,
     GroupsListComponent,
     CreateGroupComponent,
+    TestsPageComponent,
+    CreateTestComponent,
+    SettingsPageComponent,
+    TestRunnerComponent,
+    TestsComponent,
+    TestResultsComponent,
+    UserProfileComponent,
+    ProfilePageComponent,
   ],
   imports: [
     TagInputModule,

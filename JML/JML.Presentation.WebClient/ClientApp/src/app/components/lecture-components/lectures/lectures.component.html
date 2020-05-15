@@ -1,3 +1,11 @@
+<div class="form-group" *ngIf="currentUserService.isTeacher() || currentUserService.isAdmin()">
+  <button mat-raised-button color="primary"
+          type="submit"
+          [routerLink]="['/lectures', 'create']">
+    Добавить материал
+  </button>
+</div>
+
 <div *ngIf="lectures; else loading" class="row">
   <div class="col-4" *ngFor="let lecture of lectures">
     <mat-card class="m-3">

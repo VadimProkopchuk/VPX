@@ -10,7 +10,7 @@ import {
   MatTabsModule,
   MatListModule,
   MatTreeModule,
-  MatExpansionModule,
+  MatExpansionModule, MatRadioModule, MatCheckboxModule,
 } from '@angular/material';
 
 @NgModule({
@@ -27,6 +27,8 @@ import {
     MatProgressSpinnerModule,
     MatDialogModule,
     MatExpansionModule,
+    MatRadioModule,
+    MatCheckboxModule,
   ],
   exports: [
     MatTabsModule,
@@ -43,6 +45,8 @@ import {
     MatListModule,
     MatTreeModule,
     MatExpansionModule,
+    MatRadioModule,
+    MatCheckboxModule,
   ]
 })
 export class MaterialModule { }

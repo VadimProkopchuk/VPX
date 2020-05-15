@@ -17,4 +17,6 @@ export class EndpointMapService {
   public Tags = environment.apiEndpoint + 'tag';
 
   public Groups = environment.apiEndpoint + 'groups';
+
+  public TestTemplates = environment.apiEndpoint + 'TestTemplates';
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Text.Json.Serialization;
 
 namespace JML.Presentation.WebClient
 {
@@ -22,7 +23,10 @@ namespace JML.Presentation.WebClient
         {
             var appSettings = services.ConfigureAppSettings(Configuration);
 
-            services.AddControllers(options => options.Filters.Add(new HttpResponseExceptionFilter()));
+            services
+                .AddControllers(options => options.Filters.Add(new HttpResponseExceptionFilter()))
+                .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
             services.AddHttpContextAccessor();
             services.ConfigureBearerAuth(appSettings);
             services.ConfigureDataContext(Configuration);

@@ -1,5 +1,5 @@
 <div class="" *ngIf="authService.isAuthenticated(); else authForm">
-  Привет, пользователь!
+  <app-user-profile [id]="currentUserService.user.id"></app-user-profile>
 </div>
 <ng-template #authForm>
   <div class="row">

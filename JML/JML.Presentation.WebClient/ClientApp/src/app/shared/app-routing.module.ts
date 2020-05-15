@@ -13,6 +13,12 @@ import {AccessDeniedPageComponent} from '../components/access-denied-page/access
 import {GroupsPageComponent} from '../components/group-components/groups-page/groups-page.component';
 import {GroupsListComponent} from '../components/group-components/groups-list/groups-list.component';
 import {CreateGroupComponent} from '../components/group-components/create-group/create-group.component';
+import {TestsPageComponent} from '../components/knowledge-test/tests-page/tests-page.component';
+import {CreateTestComponent} from '../components/knowledge-test/create-test/create-test.component';
+import {SettingsPageComponent} from '../components/settings-page/settings-page.component';
+import {TestRunnerComponent} from '../components/knowledge-test/test-runner/test-runner.component';
+import {TestsComponent} from '../components/knowledge-test/tests/tests.component';
+import {ProfilePageComponent} from '../components/profile-page/profile-page.component';
 
 const routes: Routes = [
   {
@@ -20,11 +26,13 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomePageComponent },
       { path: 'lecture/:url', component: LectureComponent, canActivate: [AuthGuard] },
+      { path: 'profile/:id', component: ProfilePageComponent, canActivate: [AuthGuard] },
       {
         path: 'lectures',
         component: LecturesPageComponent,
         canActivate: [AuthGuard],
         children: [
+          { path: '', redirectTo: 'all', pathMatch: 'full' },
           { path: 'all', component: LecturesComponent, canActivate: [AuthGuard] },
           { path: 'create', component: CreateLectureComponent, canActivate: [AuthGuard], data: { roles: [Role.Teacher, Role.Admin] } },
           { path: 'edit/:url', component: EditLectureComponent, canActivate: [AuthGuard], data: { roles: [Role.Teacher, Role.Admin] } }
@@ -35,10 +43,23 @@ const routes: Routes = [
         component: GroupsPageComponent,
         canActivate: [AuthGuard],
         children: [
+          { path: '', redirectTo: 'all', pathMatch: 'full' },
           { path: 'all', component: GroupsListComponent, canActivate: [AuthGuard] },
-          { path: 'create', component: CreateGroupComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } } ,
+          { path: 'create', component: CreateGroupComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
         ],
       },
+      {
+        path: 'tests',
+        component: TestsPageComponent,
+        canActivate: [AuthGuard],
+        children: [
+          { path: '', redirectTo: 'all', pathMatch: 'full' },
+          { path: 'all', component: TestsComponent, canActivate: [AuthGuard] },
+          { path: 'create', component: CreateTestComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin, Role.Teacher] } },
+          { path: 'runner/:id', component: TestRunnerComponent, canActivate: [AuthGuard] }
+        ]
+      },
+      { path: 'settings', component: SettingsPageComponent },
       { path: 'access-denied', component: AccessDeniedPageComponent }
     ]
   },

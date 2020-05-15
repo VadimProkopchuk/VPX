@@ -1,0 +1,72 @@
+<mat-card>
+  <h2 class="app-color">Создание теста</h2>
+  <div class="form-container">
+    <mat-form-field class="full-width">
+      <input type="text" matInput placeholder="Название" [(ngModel)]="name" required>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input type="text" matInput placeholder="Описание" [(ngModel)]="description" required>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input type="number" matInput placeholder="Количество генерируемых вопросов" [(ngModel)]="countOfQuestions" required>
+    </mat-form-field>
+
+    <mat-card class="mb-3" *ngIf="name">
+      <h4 class="app-color">Вопросы для теста "{{name}}"</h4>
+
+      <mat-card class="mt-3 mb-3" *ngFor="let question of questions; let i = index">
+        <h5>Вопрос №{{i+1}}</h5>
+        <mat-form-field class="full-width">
+          <input type="text" matInput placeholder="Вопрос" [(ngModel)]="question.name">
+        </mat-form-field>
+        <mat-radio-group>
+          <mat-radio-button value="Text" class="mr-5"
+                            (click)="changeQuestionType(question, 'Text')">
+            Текст
+          </mat-radio-button>
+          <mat-radio-button value="Single" class="mr-5"
+                            (click)="changeQuestionType(question, 'Single')">
+            Один вариант
+          </mat-radio-button>
+          <mat-radio-button value="Multiple" class="mr-5"
+                            (click)="changeQuestionType(question, 'Multiple')">
+            Несколько вариантов
+          </mat-radio-button>
+        </mat-radio-group>
+
+        <div class="col-8" [ngSwitch]="question.controlType">
+          <section *ngSwitchCase="'Text'">
+            <mat-checkbox *ngFor="let answer of question.answers"
+                          [checked]="true"
+                          [disabled]="true">
+              <mat-form-field class="full-width">
+                <input type="text" matInput placeholder="Ответ" [(ngModel)]="answer.answer" required>
+              </mat-form-field>
+            </mat-checkbox>
+          </section>
+          <section *ngSwitchCase="'Single'">
+            <mat-radio-group>
+              <mat-radio-button *ngFor="let answer of question.answers; let i = index;" [value]="i"
+                                (change)="changeCorrectSingleAnswer($event, question)">
+                <mat-form-field class="full-width">
+                  <input type="text" matInput placeholder="Ответ" [(ngModel)]="answer.answer" required>
+                </mat-form-field>
+              </mat-radio-button>
+            </mat-radio-group>
+          </section>
+          <section *ngSwitchCase="'Multiple'">
+            <mat-checkbox *ngFor="let answer of question.answers" [(ngModel)]="answer.isCorrect">
+              <mat-form-field class="full-width">
+                <input type="text" matInput placeholder="Ответ" [(ngModel)]="answer.answer" required>
+              </mat-form-field>
+            </mat-checkbox>
+          </section>
+        </div>
+        <button mat-raised-button color="warn" (click)="removeQuestion(i);">Удалить</button>
+      </mat-card>
+      <button mat-raised-button color="accent" (click)="addQuestion();" >Добавить вопрос</button>
+    </mat-card>
+    <button mat-raised-button color="primary" type="submit" [disabled]="submitted"
+            (click)="submit()">Добавить тест</button>
+  </div>
+</mat-card>
