@@ -1,0 +1,9 @@
+<div *ngIf="results; else loading">
+  <div class="p-1" *ngFor="let result of results">
+    <app-test-results [result]="result"></app-test-results>
+  </div>
+</div>
+
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

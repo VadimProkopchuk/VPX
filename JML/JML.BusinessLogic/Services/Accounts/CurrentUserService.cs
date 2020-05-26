@@ -28,6 +28,18 @@ namespace JML.BusinessLogic.Services.Accounts
 
         public async Task<UserModel> GetCurrentUserAsync()
         {
+            await LoadUser();
+            return UserMap.Map(currentUser);
+        }
+
+        public async Task<User> GetUser()
+        {
+            await LoadUser();
+            return currentUser;
+        }
+
+        private async Task LoadUser()
+        {
             if (currentUser == null)
             {
                 var userId = contextService.GetCurrentUserId();
@@ -43,8 +55,6 @@ namespace JML.BusinessLogic.Services.Accounts
                     await dataContext.SaveChangesAsync();
                 }
             }
-
-            return UserMap.Map(currentUser);
         }
     }
 }

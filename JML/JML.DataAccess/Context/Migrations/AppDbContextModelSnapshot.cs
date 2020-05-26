@@ -102,6 +102,9 @@ namespace JML.DataAccess.Context.Migrations
                     b.Property<string>("Preview")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Section")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<TimeSpan>("TimeToRead")
                         .HasColumnType("time");
 
@@ -142,6 +145,26 @@ namespace JML.DataAccess.Context.Migrations
                     b.HasIndex("TagId");
 
                     b.ToTable("LectureTags");
+                });
+
+            modelBuilder.Entity("JML.Domain.Literature", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Literature");
                 });
 
             modelBuilder.Entity("JML.Domain.StudyGroup", b =>
@@ -316,6 +339,9 @@ namespace JML.DataAccess.Context.Migrations
 
                     b.Property<DateTime?>("ActiveAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("AvatarBase64")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CountOfInvalidAttempts")
                         .HasColumnType("int");

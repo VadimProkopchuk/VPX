@@ -15,6 +15,7 @@ namespace JML.Domain
         public int CountOfInvalidAttempts { get; set; }
         public bool IsLocked { get; set; }
         public string Email { get; set; }
+        public string AvatarBase64 { get; set; }
         
         public DateTime? ActiveAt { get; set; }
         public DateTime CreatedAt { get; set; }

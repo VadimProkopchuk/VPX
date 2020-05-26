@@ -5,6 +5,7 @@ import {AlertService} from '../../../shared/services/alert.service';
 import {GroupsService} from '../../../shared/services/groups.service';
 import {PageService} from '../../../shared/services/page.service';
 import {UsersService} from '../../../shared/services/users.service';
+import {CurrentUserService} from '../../../shared/services/current-user.service';
 
 @Component({
   selector: 'app-groups-list',
@@ -21,6 +22,7 @@ export class GroupsListComponent implements OnInit, OnDestroy {
   constructor(private alertService: AlertService,
               private groupsService: GroupsService,
               private usersService: UsersService,
+              private currentUserService: CurrentUserService,
               pageService: PageService) {
     pageService.changeHeader('Классы');
   }

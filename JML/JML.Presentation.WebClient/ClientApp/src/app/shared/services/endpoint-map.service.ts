@@ -19,4 +19,6 @@ export class EndpointMapService {
   public Groups = environment.apiEndpoint + 'groups';
 
   public TestTemplates = environment.apiEndpoint + 'TestTemplates';
+
+  public Literature = environment.apiEndpoint + 'Literature';
 }

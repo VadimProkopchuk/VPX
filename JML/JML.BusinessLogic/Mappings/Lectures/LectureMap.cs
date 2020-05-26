@@ -22,6 +22,7 @@ namespace JML.BusinessLogic.Mappings.Lectures
                 CreatedAt = lecture.CreatedAt,
                 ModifiedAt = lecture.ModifiedAt,
                 Preview = lecture.Preview,
+                Section = lecture.Section,
                 Tags = lecture?.LectureTags.Select(x => TagMap.Map(x.Tag)).ToList()
             };
         }

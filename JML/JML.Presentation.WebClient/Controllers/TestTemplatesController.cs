@@ -253,6 +253,20 @@ namespace JML.Presentation.WebClient.Controllers
 
             return result;
         }
+
+        [HttpGet]
+        [Route("results/{id}/for-user/{userId}")]
+        public async Task<ActionResult> Results(Guid id, Guid userId)
+        {
+            var results = await knowledgeTestRepository
+                .GetQuery()
+                .Where(x => x.TestTemplateId == id && x.UserId == userId)
+                .OrderByDescending(x => x.CreatedAt)
+                .ToListAsync();
+
+            return Ok(results.Select(GetTestResult).ToList());
+
+        }
     }
 }
  

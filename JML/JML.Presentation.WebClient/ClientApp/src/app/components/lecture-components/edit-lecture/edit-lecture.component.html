@@ -22,6 +22,11 @@
         </mat-form-field>
 
         <mat-form-field class="full-width">
+          <input type="text" matInput placeholder="Раздел" formControlName="section">
+          <mat-error *ngIf="hasError('section', 'required')">Введите название раздела</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
           <input type="text" matInput placeholder="URL" formControlName="url">
           <mat-error *ngIf="hasError('url', 'required')">Введите URL</mat-error>
         </mat-form-field>

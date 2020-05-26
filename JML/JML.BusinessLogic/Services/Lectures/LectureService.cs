@@ -33,7 +33,8 @@ namespace JML.BusinessLogic.Services.Lectures
                 Name = model.Name,
                 Url = model.Url,
                 Content = model.Content,
-                Preview = model.Preview
+                Preview = model.Preview,
+                Section = model.Section,
             };
 
             lectureRepository.Add(lecture);
@@ -70,6 +71,7 @@ namespace JML.BusinessLogic.Services.Lectures
             lecture.Preview = model.Preview;
             lecture.Url = model.Url;
             lecture.Content = model.Content;
+            lecture.Section = model.Section;
 
             await dataContext.SaveChangesAsync();
 

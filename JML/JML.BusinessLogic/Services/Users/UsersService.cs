@@ -29,6 +29,7 @@ namespace JML.BusinessLogic.Services.Users
             var teachers = await usersRepository
                 .GetQuery()
                 .Where(x => x.UserRoles.Any(x => x.Role == Domain.Enums.Role.Teacher))
+                .Distinct()
                 .ToListAsync();
 
             return teachers.Select(UserMap.Map).ToList();

@@ -11,5 +11,6 @@ namespace JML.ApiModels
         public string GroupName { get; set; }
         public string Email { get; set; }
         public List<RoleModel> Roles { get; set; }
+        public string Image { get; set; }
     }
 }

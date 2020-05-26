@@ -5,10 +5,14 @@
           <mat-panel-title class="flex-grow-1">{{group.name}}</mat-panel-title>
           <mat-panel-description class="flex-grow-0">Учеников: {{ group.users.length }}</mat-panel-description>
         </mat-expansion-panel-header>
-        <button mat-raised-button color="primary" type="submit">Редактировать</button>
+        <button *ngIf="currentUserService.isTeacher() || currentUserService.isAdmin()"
+                mat-raised-button color="primary" type="submit"
+                [routerLink]="['/groups', 'edit', group.id]">
+          Редактировать
+        </button>
         <mat-list role="list">
           <mat-list-item role="listitem" *ngFor="let user of group.users">
-            <a class="app-color" [routerLink]="['/profile', user.id]">{{user.firstName}} {{user.lastName}}</a>
+            <a class="app-color" [routerLink]="['/profile', user.id]">{{user.lastName}} {{user.firstName}}</a>
           </mat-list-item>
         </mat-list>
       </mat-expansion-panel>

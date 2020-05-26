@@ -16,6 +16,7 @@ export interface User {
   lastName: string;
   groupName: string;
   roles: Array<UserRole>;
+  image: string;
 }
 
 export interface UserRole {
@@ -29,6 +30,7 @@ export interface Lecture {
   url: string;
   content: string;
   preview?: string;
+  section: string;
   tags: Array<Tag>;
   createdAt?: Date;
   modifiedAt?: Date;
@@ -60,6 +62,12 @@ export interface Group {
   createdAt: Date;
   modifiedAt: Date;
   users: Array<User>;
+}
+
+export interface UpdateGroup {
+  id: string;
+  name: string;
+  users: Array<String>;
 }
 
 export interface AnswerTemplate {
@@ -94,6 +102,11 @@ export interface CardTestTemplate {
   attempts: number;
 }
 
+export interface TestName {
+  id: string;
+  name: string;
+}
+
 export interface UserProfile {
   activeAt?: Date;
   createdAt: Date;
@@ -103,7 +116,8 @@ export interface UserProfile {
   roles: Array<string>;
   hasStudentRole: boolean;
   hasTeacherRole: boolean;
-  tests: Array<string>;
+  tests: Array<TestName>;
+  image: string;
 }
 
 export interface KnowledgeAnswer {
@@ -133,4 +147,26 @@ export interface KnowledgeTestResult {
   incorrectAnswers: number;
   result: number;
   mark: number;
+}
+
+export interface UserUpdates {
+  firstName: string;
+  lastName: string;
+  password: string;
+  newPassword: string;
+  image: string;
+}
+
+export interface UserAutocomplete {
+  display: String;
+  value: String;
+}
+
+export interface SectionGroupModel {
+  section: string;
+  lections: Array<Lecture>;
+}
+
+export interface Literature {
+  content: string;
 }

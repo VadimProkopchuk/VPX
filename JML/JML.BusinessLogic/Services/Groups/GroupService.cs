@@ -4,6 +4,7 @@ using JML.BusinessLogic.Mappings.Users;
 using JML.DataAccess.Core.Contracts;
 using JML.Domain;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,9 +51,26 @@ namespace JML.BusinessLogic.Services.Groups
                     Name = x.Name,
                     CreatedAt = x.CreatedAt,
                     ModifiedAt = x.ModifiedAt,
-                    Users = x.Users.Select(UserMap.Map).ToList()
+                    Users = x.Users.Select(UserMap.Map)
+                        .OrderBy(x => x.LastName)
+                        .ThenBy(x => x.FirstName)
+                        .ToList()
                 })
                 .ToList();
+        }
+
+        public async Task<GroupModel> GetSimple(Guid id)
+        {
+            var group = await groupsRepository.GetQuery().FirstOrDefaultAsync(x => x.Id == id);
+
+            return new GroupModel
+                {
+                    Id = group.Id,
+                    Name = group.Name,
+                    CreatedAt = group.CreatedAt,
+                    ModifiedAt = group.ModifiedAt,
+                    Users = group.Users.Select(UserMap.Map).ToList()
+                };
         }
     }
 }

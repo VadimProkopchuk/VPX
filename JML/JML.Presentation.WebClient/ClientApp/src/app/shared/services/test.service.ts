@@ -29,4 +29,9 @@ export class TestService {
   create(template: TestTemplate): Observable<TestTemplate> {
     return this.http.post<TestTemplate>(this.endpointMapService.TestTemplates, template);
   }
+
+  results(id: string, userId: string): Observable<Array<KnowledgeTestResult>> {
+    const url = `${this.endpointMapService.TestTemplates}/results/${id}/for-user/${userId}`;
+    return this.http.get<Array<KnowledgeTestResult>>(url);
+  }
 }
