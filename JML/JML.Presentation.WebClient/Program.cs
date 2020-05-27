@@ -17,8 +17,6 @@ namespace JML.Presentation.WebClient
                 .Build()
                 .MigrateDatabase<AppDbContext>(new List<Action<AppDbContext, IServiceProvider>>() {
                     (context, serviceProvider) => new DefaultAdminSeed().Seed(context),
-                    (context, serviceProvider) => new DefaultGroupSeed().Seed(context),
-                    (context, serviceProvider) => new DefaultTeacherSeed().Seed(context)
                 })
                 .Run();
         }

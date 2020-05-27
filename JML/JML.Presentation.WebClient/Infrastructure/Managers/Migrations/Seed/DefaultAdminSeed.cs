@@ -22,10 +22,10 @@ namespace JML.Presentation.WebClient.Infrastructure.Managers.Migrations.Seed
         {
             yield return new User()
             {
-                Email = "vadim@admin.local",
-                FirstName = "Vadim",
-                LastName = "Prokopchuk",
-                Password = "123",
+                Email = "julia.bogomolowa@gmail.com",
+                FirstName = "Юля",
+                LastName = "Боголомова",
+                Password = "!QAZ2wsx12",
                 UserRoles = new List<UserRole> { new UserRole { Role = Role.Admin } }
             };
         }

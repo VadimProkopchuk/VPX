@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiEndpoint: 'https://localhost:44306/api/'
+  apiEndpoint: 'https://juliabogomolowa-001-site1.ctempurl.com/api/'
 };
