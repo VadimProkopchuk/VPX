@@ -54,7 +54,7 @@
           <mat-card-content>
             <div *ngFor="let group of lectures">
               <h4 class="pl-4">{{group.section}}</h4>
-              <ol>
+              <ol style="list-style-type: none;">
                 <li *ngFor="let lecture of group.lections">
                   <a [routerLink]="['/lecture', lecture.url]">{{lecture.name}}</a>
                 </li>
