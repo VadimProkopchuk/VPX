@@ -1,8 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading.Tasks;
+using JML.Presentation.WebClient.Infrastructure.Managers.Uploader;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,13 +14,7 @@ namespace JML.Presentation.WebClient.Controllers
         {
             if (file.Length > 0)
             {
-                using var stream = new MemoryStream();
-
-                await file.CopyToAsync(stream);
-                var base64 = Convert.ToBase64String(stream.ToArray());
-                var mime = file.ContentType;
-                var image = $"data:{mime};base64,{base64}";
-
+                var image = await FileUploader.UploadToBase64(file);
                 return Ok(new { image });
             }
 

@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using JML.BusinessLogic.Constants;
-using System.Linq;
 
 namespace JML.Presentation.WebClient.Controllers
 {
@@ -25,16 +24,7 @@ namespace JML.Presentation.WebClient.Controllers
         [HttpGet]
         public async Task<ActionResult<List<SectionGroupModel>>> GetAll()
         {
-            var lectures = await lectureService.GetAsync();
-            var groups = lectures.GroupBy(x => x.Section)
-                .Select(x => new SectionGroupModel
-                {
-                    Section = x.Key,
-                    Lections = x.ToList()
-                })
-                .OrderBy(x => x.Section)
-                .ToList();
-
+            var groups = await lectureService.GetAll();
             return Ok(groups);
         }
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace JML.ApiModels
+﻿namespace JML.ApiModels
 {
     public class UserUpdatesModel
     {

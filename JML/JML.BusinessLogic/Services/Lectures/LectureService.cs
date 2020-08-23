@@ -96,5 +96,21 @@ namespace JML.BusinessLogic.Services.Lectures
 
             return LectureMap.Map(lecture);
         }
+
+        public async Task<List<SectionGroupModel>> GetAll()
+        {
+            var lectures = await GetAsync();
+            var groups = lectures
+                .GroupBy(x => x.Section)
+                .Select(x => new SectionGroupModel
+                {
+                    Section = x.Key,
+                    Lections = x.ToList()
+                })
+                .OrderBy(x => x.Section)
+                .ToList();
+
+            return groups;
+        }
     }
 }

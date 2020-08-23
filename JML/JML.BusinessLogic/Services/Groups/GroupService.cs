@@ -14,12 +14,15 @@ namespace JML.BusinessLogic.Services.Groups
     public class GroupService : IGroupService
     {
         private readonly IAppEntityRepository<StudyGroup> groupsRepository;
+        private readonly IAppEntityRepository<User> usersRepository;
         private readonly IDataContext dataContext;
 
         public GroupService(IAppEntityRepository<StudyGroup> groupsRepository,
+            IAppEntityRepository<User> usersRepository,
             IDataContext dataContext)
         {
             this.groupsRepository = groupsRepository;
+            this.usersRepository = usersRepository;
             this.dataContext = dataContext;
         }
 
@@ -71,6 +74,27 @@ namespace JML.BusinessLogic.Services.Groups
                     ModifiedAt = group.ModifiedAt,
                     Users = group.Users.Select(UserMap.Map).ToList()
                 };
+        }
+
+        public async Task Update(UpdateGroupModel model)
+        {
+            var group = await groupsRepository.GetQuery().FirstAsync(x => x.Id == model.Id);
+
+            if (group != null)
+            {
+                group.Name = model.Name;
+
+                foreach (var user in await usersRepository.GetQuery().ToListAsync())
+                {
+                    user.GroupId = null;
+                    if (model.Users != null && model.Users.Contains(user.Id))
+                    {
+                        user.GroupId = group.Id;
+                    }
+                }
+
+                await dataContext.SaveChangesAsync();
+            }
         }
     }
 }
