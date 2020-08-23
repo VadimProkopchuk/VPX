@@ -1,0 +1,34 @@
+<mat-card>
+  <mat-form-field class="full-width">
+    <input type="text" matInput placeholder="Имя" [(ngModel)]="firstName">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input type="text" matInput placeholder="Фамилия" [(ngModel)]="lastName">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input type="text" matInput placeholder="Новый пароль" [(ngModel)]="newPassword">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input type="text" matInput placeholder="Текущий пароль для подтверждения" [(ngModel)]="password">
+  </mat-form-field>
+
+  <h5>Изображение пользователя</h5>
+  <section class="mt-1" *ngIf="image; else currentAvatar">
+    <img class="col-4" [src]="image | appSafeUrl"/>
+  </section>
+  <ng-template #currentAvatar>
+    <section class="mt-1" *ngIf="currentUserService.user.image">
+      <img class="col-4" [src]="currentUserService.user.image | appSafeUrl"/>
+    </section>
+  </ng-template>
+  <section class="mt-1">
+    <app-file-upload (uploaded)="onProfileUpdated($event)"></app-file-upload>
+  </section>
+  <section class="mt-1" >
+    <button mat-raised-button color="primary" class="mt-2"
+            [disabled]="loading" (click)="submit()">
+      Сохранить
+    </button>
+  </section>
+</mat-card>

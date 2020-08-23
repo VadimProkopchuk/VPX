@@ -3,6 +3,7 @@ import {PageService} from '../../shared/services/page.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {AlertService} from '../../shared/services/alert.service';
+import {CurrentUserService} from '../../shared/services/current-user.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ export class HomePageComponent implements OnInit {
   constructor(private pageService: PageService,
               private authService: AuthService,
               private activatedRoute: ActivatedRoute,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private currentUserService: CurrentUserService) {
     pageService.changeHeader('Главная');
   }
 

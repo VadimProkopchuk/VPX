@@ -1,0 +1,60 @@
+<div class="form-group" *ngIf="currentUserService.isTeacher() || currentUserService.isAdmin()">
+  <button mat-raised-button color="primary"
+          type="submit"
+          [routerLink]="['/tests', 'create']">
+    Добавить тест
+  </button>
+</div>
+
+<div *ngIf="templates; else loading" class="row">
+  <div class="col-4 p-2" *ngFor="let template of templates">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{template.name}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{template.description}}</p>
+        <div class="row">
+          <div class="col-9">
+            <i class="fa fa-question"></i> Вопросы
+          </div>
+          <div class="col-3">{{template.countOfQuestions}}</div>
+        </div>
+        <div class="row">
+          <div class="col-9">
+            <i class="fa fa-calendar"></i> Дата добавления
+          </div>
+          <div class="col-3">{{template.createdAt | date:"dd.MM.yyyy"}}</div>
+        </div>
+        <div class="row">
+          <div class="col-9">
+            <i class="fa fa-magic"></i> Попытки
+          </div>
+          <div class="col-3">{{template.attempts || 0}}</div>
+        </div>
+        <div class="row" *ngIf="template.lastResult >=0">
+          <div class="col-9">
+            <i class="fa fa-window-restore"></i> Последний результат
+          </div>
+          <div class="col-3">{{template.lastResult}}/{{template.countOfQuestions}}</div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" [disabled]="processing"
+                [routerLink]="['/tests', 'runner', template.id]">
+          Выполнить
+        </button>
+        <button mat-raised-button color="warn" [disabled]="processing"
+                (click)="delete(template.id)"
+                *ngIf="currentUserService.isAdmin() || currentUserService.isTeacher()">
+          Удалить
+        </button>
+
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

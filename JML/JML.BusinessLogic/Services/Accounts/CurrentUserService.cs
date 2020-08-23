@@ -6,24 +6,39 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using JML.ApiModels;
 using JML.BusinessLogic.Mappings.Users;
+using System;
 
 namespace JML.BusinessLogic.Services.Accounts
 {
     public class CurrentUserService : ICurrentUser
     {
         private readonly IContextService contextService;
+        private readonly IDataContext dataContext;
         private readonly IAppEntityRepository<User> usersRepository;
-
         private User currentUser;
 
         public CurrentUserService(IContextService contextService,
+            IDataContext dataContext,
             IAppEntityRepository<User> usersRepository)
         {
             this.contextService = contextService;
+            this.dataContext = dataContext;
             this.usersRepository = usersRepository;
         }
 
         public async Task<UserModel> GetCurrentUserAsync()
+        {
+            await LoadUser();
+            return UserMap.Map(currentUser);
+        }
+
+        public async Task<User> GetUser()
+        {
+            await LoadUser();
+            return currentUser;
+        }
+
+        private async Task LoadUser()
         {
             if (currentUser == null)
             {
@@ -35,10 +50,11 @@ namespace JML.BusinessLogic.Services.Accounts
                         .Include(x => x.UserRoles)
                         .Include(x => x.Group)
                         .FirstOrDefaultAsync(x => x.Id == userId.Value);
+                    currentUser.ActiveAt = DateTime.Now;
+
+                    await dataContext.SaveChangesAsync();
                 }
             }
-
-            return UserMap.Map(currentUser);
         }
     }
 }

@@ -1,0 +1,6 @@
+<input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+<button type="button" mat-flat-button color="warn"
+        (click)="uploader.uploadAll()"
+        [disabled]="!uploader.getNotUploadedItems().length" >
+  Загрузить новое изображение пользователя
+</button>

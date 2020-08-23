@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,7 +9,7 @@ namespace JML.Presentation.WebClient.Infrastructure.Managers.Migrations
 {
     public static class MigrationManager
     {
-        public static IHost MigrateDatabase<TContext>(this IHost host, Action<TContext, IServiceProvider> seeder)
+        public static IHost MigrateDatabase<TContext>(this IHost host, List<Action<TContext, IServiceProvider>> seeders)
             where TContext : DbContext
         {
             using var scope = host.Services.CreateScope();
@@ -24,7 +25,7 @@ namespace JML.Presentation.WebClient.Infrastructure.Managers.Migrations
                 logger.LogInformation($"Migrating database associated with context {contextName}.");
 
                 context.Database.Migrate();
-                seeder(context, host.Services);
+                seeders.ForEach(x => x(context, host.Services));
 
                 logger.LogInformation($"Database associated with context {contextName} has been migrated.");
             }

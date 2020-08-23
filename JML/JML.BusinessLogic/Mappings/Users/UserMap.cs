@@ -22,7 +22,8 @@ namespace JML.BusinessLogic.Mappings.Users
                 LastName = user.LastName,
                 GroupName = user.Group?.Name,
                 Email = user.Email,
-                Roles = userRoles.Select(UserRoleMap.Map).ToList()
+                Roles = userRoles.Select(UserRoleMap.Map).ToList(),
+                Image = user.AvatarBase64
             };
         }
     }

@@ -1,0 +1,87 @@
+<div class="row" *ngIf="profile; else loading">
+  <div class="col-3">
+    <mat-card>
+      <img mat-card-image [src]="profile.image | appSafeUrl" *ngIf="profile.image; else defaultUserImage" />
+      <ng-template #defaultUserImage>
+        <img mat-card-image src="../../../assets/unnamed.png" />
+      </ng-template>
+    </mat-card>
+
+    <button mat-raised-button color="primary" class="mt-1"
+            *ngIf="profile.isLocked; else lockBtn"
+            (click)="unlock()" [disabled]="httpLoad">
+      Разблокировать
+    </button>
+    <ng-template #lockBtn>
+      <button mat-raised-button color="warn" class="mt-1"
+              (click)="lock()" [disabled]="httpLoad">
+        Заблокировать
+      </button>
+    </ng-template>
+
+    <button mat-raised-button color="primary" class="mt-1"
+            *ngIf="!profile.hasStudentRole; else studentRoleBtn"
+            (click)="addStudentRole()" [disabled]="httpLoad">
+      Добавить роль ученика
+    </button>
+    <ng-template #studentRoleBtn>
+      <button mat-raised-button color="warn" class="mt-1"
+              (click)="removeStudentRole()" [disabled]="httpLoad">
+        Удалить роль ученика
+      </button>
+    </ng-template>
+
+    <button mat-raised-button color="primary" class="mt-1"
+            *ngIf="!profile.hasTeacherRole; else teacherRoleBtn"
+            (click)="addTeacherRole()" [disabled]="httpLoad">
+      Добавить роль учителя
+    </button>
+    <ng-template #teacherRoleBtn>
+      <button mat-raised-button color="warn" class="mt-1"
+              (click)="removeTeacherRole()" [disabled]="httpLoad">
+        Удалить роль учителя
+      </button>
+    </ng-template>
+  </div>
+  <div class="col-5">
+    <h3>{{profile.fullName}}</h3>
+    <h6 *ngIf="profile.groupName">Состоит в классе: {{profile.groupName}}</h6>
+    <h5>Роли:</h5>
+    <ul>
+      <li *ngFor="let role of profile.roles">{{role}}</li>
+    </ul>
+    <mat-accordion *ngIf="profile.tests && profile.tests.length > 0">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="flex-grow-1">Завершенные тесты:</mat-panel-title>
+          <mat-panel-description class="flex-grow-0">Кол-во: {{profile.tests.length}}</mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+          <mat-list-item role="listitem" *ngFor="let test of profile.tests">
+            <a class="app-color" [routerLink]="['/tests', test.id, 'results', id]">{{test.name}}</a>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div class="col-4">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Дополнительная информация</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list role="list">
+          <mat-list-item role="listitem">Дата регистрации: {{profile.createdAt | date:'dd.MM.yyyy'}}</mat-list-item>
+          <mat-list-item role="listitem" *ngIf="profile.activeAt">
+            Последняя активность:  {{profile.activeAt | date:'dd.MM.yyyy'}}
+          </mat-list-item>
+          <mat-list-item role="listitem">Пользователь {{profile.isLocked ? '' : 'не'}} заблокирован</mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

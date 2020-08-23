@@ -1,14 +1,20 @@
 ﻿using JML.BusinessLogic.Core.Contracts.Accounts;
 using JML.BusinessLogic.Core.Contracts.Emails;
+using JML.BusinessLogic.Core.Contracts.Groups;
+using JML.BusinessLogic.Core.Contracts.KnowledgeTests;
 using JML.BusinessLogic.Core.Contracts.Lectures;
 using JML.BusinessLogic.Core.Contracts.Systems;
 using JML.BusinessLogic.Core.Contracts.Tags;
+using JML.BusinessLogic.Core.Contracts.TestTemplates;
 using JML.BusinessLogic.Core.Contracts.Users;
 using JML.BusinessLogic.Services.Accounts;
 using JML.BusinessLogic.Services.Emails;
+using JML.BusinessLogic.Services.Groups;
+using JML.BusinessLogic.Services.KnowledgeTests;
 using JML.BusinessLogic.Services.Lectures;
 using JML.BusinessLogic.Services.Systems;
 using JML.BusinessLogic.Services.Tags;
+using JML.BusinessLogic.Services.TestTemplates;
 using JML.BusinessLogic.Services.Users;
 using JML.DataAccess.Context;
 using JML.DataAccess.Core.Contracts;
@@ -40,6 +46,12 @@ namespace JML.Presentation.WebClient.Configurations
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IBase64TextConverter, Base64TextConverter>();
             services.AddScoped<IPasswordGenerator, PasswordGenerator>();
+            services.AddScoped<IGroupService, GroupService>();
+            services.AddScoped<ILiteratureService, LiteratureService>();
+            services.AddScoped<IUserRolesService, UserRolesService>();
+            services.AddScoped<ITestTemplatesService, TestTemplatesService>();
+            services.AddScoped<IKnowledgeTestResultService, KnowledgeTestResultService>();
+            services.AddScoped<IKnowledgeTestService, KnowledgeTestService>();
         }
     }
 }

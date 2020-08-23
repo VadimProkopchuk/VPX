@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Результаты прохождения теста</mat-card-title>
+    <mat-card-subtitle>{{result.name}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list role="list">
+      <mat-list-item role="listitem">
+        <div class="col-3">Дата прохождения:</div>
+        <div class="col-4">{{result.submittedAt | date:'short'}}</div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div class="col-3">Правильные ответы:</div>
+        <div class="col-4">{{result.correctAnswers}}</div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div class="col-3">Не правильные ответы:</div>
+        <div class="col-4">{{result.incorrectAnswers}}</div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div class="col-3"><strong>Результат:</strong></div>
+        <div class="col-4"><strong>{{result.result}}%</strong></div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div class="col-3"><strong>Отметка:</strong></div>
+        <div class="col-4"><strong>{{result.mark}}</strong></div>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

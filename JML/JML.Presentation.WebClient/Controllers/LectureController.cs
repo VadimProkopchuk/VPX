@@ -22,10 +22,10 @@ namespace JML.Presentation.WebClient.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<LectureModel>>> GetAll()
+        public async Task<ActionResult<List<SectionGroupModel>>> GetAll()
         {
-            var lectures = await lectureService.GetAsync();
-            return Ok(lectures);
+            var groups = await lectureService.GetAll();
+            return Ok(groups);
         }
 
         [HttpGet]

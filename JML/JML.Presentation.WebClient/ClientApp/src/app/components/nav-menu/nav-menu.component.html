@@ -18,7 +18,21 @@
             <strong>Материалы</strong>
           </a>
         </li>
-
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link" [routerLink]="['/groups', 'all']">
+            <strong>Классы</strong>
+          </a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link" [routerLink]="['/tests']">
+            <strong>Тесты</strong>
+          </a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link" [routerLink]="['/settings']">
+            <strong>Настройки</strong>
+          </a>
+        </li>
         <li class="nav-item user-profile-wrapper" *ngIf="currentUserService.user != null">
           <a class="nav-link app-color" (click)="openUserInfoDialog()">
             <i class="fas fa-user"></i>

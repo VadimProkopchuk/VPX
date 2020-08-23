@@ -11,6 +11,7 @@ namespace JML.Domain.Templates
         public string Name { get; set; }
         public string Description { get; set; }
         public int CountOfQuestions { get; set; }
+        public bool IsActive { get; set; }
         public TimeSpan ExecuteTime { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }

@@ -33,6 +33,7 @@ export class CreateLectureComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       title: new FormControl(null, Validators.required),
       url: new FormControl(null, Validators.required),
+      section: new FormControl(null, Validators.required),
       text: new FormControl(null, Validators.required),
       preview: new FormControl(null),
     });
@@ -64,7 +65,8 @@ export class CreateLectureComponent implements OnInit, OnDestroy {
       url: this.form.value.url,
       content: this.form.value.text,
       tags: this.tags,
-      preview: this.form.value.preview
+      preview: this.form.value.preview,
+      section: this.form.value.section,
     };
 
     this.submitted = true;

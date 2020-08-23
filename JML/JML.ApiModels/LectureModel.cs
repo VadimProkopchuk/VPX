@@ -10,6 +10,7 @@ namespace JML.ApiModels
         public string Url { get; set; }
         public string Content { get; set; }
         public string Preview { get; set; }
+        public string Section { get; set; }
         public List<TagModel> Tags { get; set; }
 
         public DateTime CreatedAt { get; set; }

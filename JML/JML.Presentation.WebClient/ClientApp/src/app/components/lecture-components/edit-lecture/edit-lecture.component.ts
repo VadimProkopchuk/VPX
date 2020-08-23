@@ -43,6 +43,7 @@ export class EditLectureComponent implements OnInit, OnDestroy {
           title: new FormControl(lecture.name, Validators.required),
           url: new FormControl(lecture.url, Validators.required),
           text: new FormControl(lecture.content, Validators.required),
+          section: new FormControl(lecture.section, Validators.required),
           preview: new FormControl(lecture.preview),
         });
         this.tags = lecture.tags;
@@ -73,7 +74,8 @@ export class EditLectureComponent implements OnInit, OnDestroy {
       url: this.form.value.url,
       content: this.form.value.text,
       tags: this.tags,
-      preview: this.form.value.preview
+      preview: this.form.value.preview,
+      section: this.form.value.section,
     };
 
     this.submitted = true;

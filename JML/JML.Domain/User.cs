@@ -15,12 +15,14 @@ namespace JML.Domain
         public int CountOfInvalidAttempts { get; set; }
         public bool IsLocked { get; set; }
         public string Email { get; set; }
+        public string AvatarBase64 { get; set; }
         
-        public DateTime? LoginAt { get; set; }
+        public DateTime? ActiveAt { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
 
         public virtual StudyGroup Group { get; set; }
+        public virtual ICollection<KnowledgeTest> Tests { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

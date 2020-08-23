@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {EndpointMapService} from './endpoint-map.service';
-import {Lecture} from './interfaces';
+import {Lecture, SectionGroupModel} from './interfaces';
 import {Observable} from 'rxjs';
 
 @Injectable({providedIn: 'root'})
@@ -14,8 +14,8 @@ export class LecturesService {
     return this.http.get<Lecture>(this.endpointMapService.Lectures + '/' + url);
   }
 
-  getAll(): Observable<Lecture[]> {
-    return this.http.get<Lecture[]>(this.endpointMapService.Lectures);
+  getAllBySection(): Observable<Array<SectionGroupModel>> {
+    return this.http.get<Array<SectionGroupModel>>(this.endpointMapService.Lectures);
   }
 
   create(lectureModel: Lecture): Observable<Lecture> {

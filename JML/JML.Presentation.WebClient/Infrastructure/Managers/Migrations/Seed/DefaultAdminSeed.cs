@@ -11,22 +11,21 @@ namespace JML.Presentation.WebClient.Infrastructure.Managers.Migrations.Seed
         public void Seed(AppDbContext context)
         {
             var users = context.Set<User>();
-
             if (!users.Any())
             {
-                users.AddRange(GetUsers());
+                users.AddRange(GetAdmins());
                 context.SaveChanges();
             }
         }
 
-        private IEnumerable<User> GetUsers()
+        private IEnumerable<User> GetAdmins()
         {
             yield return new User()
             {
-                Email = "vadim@admin.local",
-                FirstName = "Vadim",
-                LastName = "Prokopchuk",
-                Password = "123",
+                Email = "julia.bogomolowa@gmail.com",
+                FirstName = "Юля",
+                LastName = "Боголомова",
+                Password = "!QAZ2wsx12",
                 UserRoles = new List<UserRole> { new UserRole { Role = Role.Admin } }
             };
         }

@@ -15,4 +15,10 @@ export class EndpointMapService {
   public Lectures = environment.apiEndpoint + 'lecture';
 
   public Tags = environment.apiEndpoint + 'tag';
+
+  public Groups = environment.apiEndpoint + 'groups';
+
+  public TestTemplates = environment.apiEndpoint + 'TestTemplates';
+
+  public Literature = environment.apiEndpoint + 'Literature';
 }

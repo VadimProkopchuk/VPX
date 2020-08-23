@@ -1,0 +1,23 @@
+<mat-card *ngIf="group; else groupLoading">
+  <mat-form-field class="full-width">
+    <input type="text" matInput placeholder="Название" [(ngModel)]="group.name">
+  </mat-form-field>
+
+  <div class="form-group">
+    <label>Обучающиеся:</label>
+    <tag-input [(ngModel)]="groupUsers"
+               [clearOnBlur]="true"
+               [trimTags]="true"
+               [placeholder]="'Введите имя ...'"
+               [secondaryPlaceholder]="'Введите имя ...'">
+      <tag-input-dropdown [autocompleteItems]="autocompleteUsers"></tag-input-dropdown>
+    </tag-input>
+  </div>
+
+  <button mat-raised-button color="primary" (click)="submit()">Сохранить</button>
+</mat-card>
+
+<ng-template #groupLoading>
+  <app-loader></app-loader>
+</ng-template>
+

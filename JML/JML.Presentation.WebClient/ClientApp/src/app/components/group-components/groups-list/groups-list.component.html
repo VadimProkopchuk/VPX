@@ -1,0 +1,34 @@
+<div class="row">
+    <mat-accordion *ngIf="groups; else loading" class="col-8">
+      <mat-expansion-panel *ngFor="let group of groups">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="flex-grow-1">{{group.name}}</mat-panel-title>
+          <mat-panel-description class="flex-grow-0">Учеников: {{ group.users.length }}</mat-panel-description>
+        </mat-expansion-panel-header>
+        <button *ngIf="currentUserService.isTeacher() || currentUserService.isAdmin()"
+                mat-raised-button color="primary" type="submit"
+                [routerLink]="['/groups', 'edit', group.id]">
+          Редактировать
+        </button>
+        <mat-list role="list">
+          <mat-list-item role="listitem" *ngFor="let user of group.users">
+            <a class="app-color" [routerLink]="['/profile', user.id]">{{user.lastName}} {{user.firstName}}</a>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  <mat-card class="col-4" *ngIf="teachers">
+    <mat-card-header>
+      <mat-card-title>Учителя</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let teacher of teachers">{{teacher.firstName}} {{teacher.lastName}}</mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

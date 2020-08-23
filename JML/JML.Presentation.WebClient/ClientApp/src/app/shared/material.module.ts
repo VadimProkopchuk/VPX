@@ -7,10 +7,11 @@ import {
   MatIconModule,
   MatInputModule, MatProgressSpinnerModule,
   MatStepperModule,
-  MatTabsModule
+  MatTabsModule,
+  MatListModule,
+  MatTreeModule,
+  MatExpansionModule, MatRadioModule, MatCheckboxModule,
 } from '@angular/material';
-
-
 
 @NgModule({
   imports: [
@@ -25,6 +26,9 @@ import {
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatExpansionModule,
+    MatRadioModule,
+    MatCheckboxModule,
   ],
   exports: [
     MatTabsModule,
@@ -38,6 +42,11 @@ import {
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatListModule,
+    MatTreeModule,
+    MatExpansionModule,
+    MatRadioModule,
+    MatCheckboxModule,
   ]
 })
 export class MaterialModule { }

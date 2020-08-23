@@ -5,7 +5,7 @@ using JML.Domain.Enums;
 
 namespace JML.BusinessLogic.Mappings.Users
 {
-    internal class UserRoleMap
+    public class UserRoleMap
     {
         public static RoleModel Map(UserRole userRole)
         {
