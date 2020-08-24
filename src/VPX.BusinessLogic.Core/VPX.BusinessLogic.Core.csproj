@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VPX.ApiModels\VPX.ApiModels.csproj" />
+    <ProjectReference Include="..\VPX.Domain\VPX.Domain.csproj" />
+    <ProjectReference Include="..\VPX.Models\VPX.Models.csproj" />
+  </ItemGroup>
+
+</Project>

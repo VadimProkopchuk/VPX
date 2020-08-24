@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <LangVersion>8</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.7" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.7.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.7.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VPX.BusinessLogic.Core\VPX.BusinessLogic.Core.csproj" />
+    <ProjectReference Include="..\VPX.DataAccess.Core\VPX.DataAccess.Core.csproj" />
+    <ProjectReference Include="..\VPX.Domain\VPX.Domain.csproj" />
+    <ProjectReference Include="..\VPX.Utility\VPX.Utility.csproj" />
+  </ItemGroup>
+
+</Project>
