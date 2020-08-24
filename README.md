@@ -1,6 +1,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/VadimProkopchuk/JML/badge.svg?branch=master)](https://coveralls.io/github/VadimProkopchuk/JML?branch=master)
 
-# JML
+# VPX
 Simple project for reading information and pass tests using:
  - ASP.NET Core WebAPI 3.x
  - EntityFramework Core 3.x
@@ -12,11 +12,11 @@ Simple project for reading information and pass tests using:
 - Restore NuGet packages 
 - Create database using EntityFramework migration:
   - Change connection string:
-    - `JML.DataAccess.Context` > `AppDbFactory`
-    - `JML.Presentation.WebClient` > `appsettings.json`
-  - Set `JML.Presentation.WebClient` as default startup projcet
+    - `VPX.DataAccess.Context` > `AppDbFactory`
+    - `VPX.Presentation.WebClient` > `appsettings.json`
+  - Set `VPX.Presentation.WebClient` as default startup projcet
   - Open `Package Manager Console`
-  - Set `JML.DataAccess.Context` as default project
+  - Set `VPX.DataAccess` as default project
   - run `Update-Database`
  
  ## Contributing
