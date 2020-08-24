@@ -9,13 +9,13 @@ namespace JML.Presentation.WebClient.Infrastructure.Managers.Migrations
 {
     public static class MigrationManager
     {
-        public static IHost MigrateDatabase<TContext>(this IHost host, List<Action<TContext, IServiceProvider>> seeders)
+        public static IHost MigrateDatabase<TContext>(this IHost host, List<Action<TContext, IServiceProvider, ILogger<TContext>>> seeders)
             where TContext : DbContext
         {
             using var scope = host.Services.CreateScope();
             
             var services = scope.ServiceProvider;
-            using var context = services.GetRequiredService<TContext>();
+            var context = services.GetRequiredService<TContext>();
             
             var logger = services.GetRequiredService<ILogger<TContext>>();
             var contextName = typeof(TContext).Name;
@@ -25,7 +25,11 @@ namespace JML.Presentation.WebClient.Infrastructure.Managers.Migrations
                 logger.LogInformation($"Migrating database associated with context {contextName}.");
 
                 context.Database.Migrate();
-                seeders.ForEach(x => x(context, host.Services));
+
+                foreach (var seeder in seeders)
+                {
+                    seeder(context, services, logger);
+                }
 
                 logger.LogInformation($"Database associated with context {contextName} has been migrated.");
             }
@@ -33,6 +37,10 @@ namespace JML.Presentation.WebClient.Infrastructure.Managers.Migrations
             {
                 logger.LogError(ex, $"An error occured while migrating the database used on context {contextName}.");
                 Console.WriteLine(ex);
+            }
+            finally
+            {
+                context.Dispose();
             }
 
             return host;

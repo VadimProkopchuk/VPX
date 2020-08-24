@@ -15,13 +15,13 @@ namespace JML.Presentation.WebClient
         {
             CreateHostBuilder(args)
                 .Build()
-                .MigrateDatabase<AppDbContext>(new List<Action<AppDbContext, IServiceProvider>>() {
-                    (context, serviceProvider) => new DefaultAdminSeed().Seed(context),
+                .MigrateDatabase(new List<Action<AppDbContext, IServiceProvider, ILogger<AppDbContext>>>() {
+                    (context, serviceProvider, logger) => new DefaultAdminSeed().Seed(context, serviceProvider, logger),
                 })
                 .Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
