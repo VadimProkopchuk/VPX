@@ -1,0 +1,45 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/home']">
+        <strong class="app-color">VPX | </strong>
+        <i class="app-color">{{pageService.header}}</i>
+      </a>
+      <ul class="navbar-nav flex-grow" *ngIf="authService.isAuthenticated()">
+        <li class="nav-item"
+          [routerLinkActive]="['link-active']"
+          [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" [routerLink]="['/home']">
+            <strong>Главная</strong>
+          </a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link" [routerLink]="['/lectures', 'all']">
+            <strong>Материалы</strong>
+          </a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link" [routerLink]="['/groups', 'all']">
+            <strong>Классы</strong>
+          </a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link" [routerLink]="['/tests']">
+            <strong>Тесты</strong>
+          </a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link" [routerLink]="['/settings']">
+            <strong>Настройки</strong>
+          </a>
+        </li>
+        <li class="nav-item user-profile-wrapper" *ngIf="currentUserService.user != null">
+          <a class="nav-link app-color" (click)="openUserInfoDialog()">
+            <i class="fas fa-user"></i>
+            {{currentUserService.user.firstName}} {{currentUserService.user.lastName}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
