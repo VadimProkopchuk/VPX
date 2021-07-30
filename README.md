@@ -1,5 +1,3 @@
-[![Coverage Status](https://coveralls.io/repos/github/VadimProkopchuk/JML/badge.svg?branch=master)](https://coveralls.io/github/VadimProkopchuk/JML?branch=master)
-
 # VPX
 Simple project for reading information and pass tests using:
  - ASP.NET Core WebAPI 3.x
